@@ -3,16 +3,30 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\DepartmentRequest;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+
 class DepartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return Inertia::render('Admin/Departments/Show');
+    public function index(Request $request)
+    {  
+        $limit = $request->input('limit', 10);
+        $search = $request->input('search', '');
+        $page = $request->input('page', 1);
+
+        $departments = Department::search($search)->latestPaginate($limit);
+
+        return Inertia::render('Admin/Departments/Show', [
+            'departments' => $departments,
+            'limit' => $limit,
+            'search' => $search,
+            'currentPage'=> $page
+        ]);
     }
 
     /**
@@ -26,33 +40,31 @@ class DepartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DepartmentRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        $validated = $request->validated();
+        Department::create($validated);
+        return redirect()->route('admin.departments.show')->with('success', 'Thêm sản phẩm thành công!');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Department $department)
     {
-        //
+        return Inertia::render('Admin/Departments/Edit', [
+            'department' => $department
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(DepartmentRequest $request, Department $department)
     {
-        //
+        $validated = $request->validated();
+        $department->update($validated);
+        return redirect()->route('admin.departments.show')->with('success', 'Cập nhật phòng ban thành công!');
     }
 
     /**
@@ -60,6 +72,16 @@ class DepartmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $department = Department::find($id);
+        if (!$department) {
+            return response()->json(['message' => 'Department not found'], 404);
+        }
+
+        try {
+            $department->delete();
+            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Xóa không thành công. Vui lòng thử lại!'], 500);
+        }
     }
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from '../Components/Admin/Header/Header';
 import Sidebar from '../Components/Admin/Sidebar/Sidebar';
 
-const Primary = ({ children }) => {
+const Primary = ({ children, breadcrumbItems }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -18,6 +18,7 @@ const Primary = ({ children }) => {
           </main>
         </div>
       </div>
+      <div id="toast-container" className="toast-custom-position"></div>
     </div>
   );
 };

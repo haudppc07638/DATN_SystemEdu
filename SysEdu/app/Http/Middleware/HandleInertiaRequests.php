@@ -33,10 +33,13 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-    public function share(Request $request): array
+    public function share(Request $request)
     {
         return array_merge(parent::share($request), [
-            //
+            'flash' => [
+                'success' => fn() => $request->session()->get('success'), // Chia sẻ thông báo thành công
+                'error' => fn() => $request->session()->get('error'), // Chia sẻ thông báo lỗi
+            ],
         ]);
     }
 }

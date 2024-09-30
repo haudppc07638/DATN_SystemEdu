@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
 
 const Header = ({ sidebarOpen, setSidebarOpen }) => {
@@ -81,12 +80,6 @@ const Header = ({ sidebarOpen, setSidebarOpen }) => {
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-          <ul className="flex items-center gap-2 2xsm:gap-4">
-
-            {/* Notification Menu Area */}
-            <DropdownNotification />
-            {/* Notification Menu Area */}
-          </ul>
 
           {/* User Area */}
           <DropdownUser />

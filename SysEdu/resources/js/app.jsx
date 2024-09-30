@@ -1,5 +1,4 @@
 import React from 'react'
-import '../css/app.css';
 import Primary from './Layouts/primary'
 import { createInertiaApp } from '@inertiajs/react'
 import { createRoot } from 'react-dom/client'
