@@ -73,15 +73,8 @@ class DepartmentController extends Controller
     public function destroy(string $id)
     {
         $department = Department::find($id);
-        if (!$department) {
-            return response()->json(['message' => 'Department not found'], 404);
-        }
-
-        try {
-            $department->delete();
-            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
-        } catch (\Exception $e) {
-            return response()->json(['message' => 'Xóa không thành công. Vui lòng thử lại!'], 500);
-        }
+        $department->delete();
+        return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
+        
     }
 }

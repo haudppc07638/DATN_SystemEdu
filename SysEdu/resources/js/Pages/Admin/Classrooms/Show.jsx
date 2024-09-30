@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link, useForm, router, usePage } from '@inertiajs/react';
-// import { CSSTransition } from 'react-transition-group';
 import Pagination from '../../../Components/Paginations/Base';
 import LimitSelector from '../../../Components/LimitSelectors/Base';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
-const Show = ({ departments, limit }) => {
+const Show = ({ classrooms, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
-    const [departmentIdToDelete, setDepartmentIdToDelete] = useState(null);
+    const [idToDelete, setDepartmentIdToDelete] = useState(null);
     const { flash } = usePage().props;
 
     const { data, setData, get } = useForm({
         limit: limit || 10,
         search: '',
-        page: departments.current_page || 1,
+        page: classrooms.current_page || 1,
     });
 
     const performSearch = useCallback(() => {
@@ -67,7 +66,7 @@ const Show = ({ departments, limit }) => {
     };
 
     const confirmDelete = () => {
-        router.delete(`phong-ban/${idToDelete}`);
+        router.delete(`phong-hoc/${idToDelete}`);
         handleClosePopup();
     };
 
@@ -101,8 +100,8 @@ const Show = ({ departments, limit }) => {
 
                 {/* Breadcrumb */}
                 <Breadcrumb items={[
-                    { label: 'Quản lý phòng ban', link: '/admin/phong-ban' },
-                    { label: 'Danh sách phòng ban' }
+                    { label: 'Quản lý phòng ban', link: '/admin/phong-hoc' },
+                    { label: 'Danh sách phòng học' }
                 ]} />
 
                 {/* action */}
@@ -127,7 +126,7 @@ const Show = ({ departments, limit }) => {
                         </div>
 
                         {/* Add */}
-                        <Link href="/admin/phong-ban/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                        <Link href="/admin/phong-hoc/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
                             Thêm
                         </Link>
                     </form>
@@ -140,30 +139,26 @@ const Show = ({ departments, limit }) => {
                         <thead>
                             <tr className="bg-gray-2 text-left dark:bg-meta-4">
                                 <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">#</th>
-                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Tên</th>
-                                <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Địa điểm</th>
+                                <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Mã phòng</th>
                                 <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {departments.data && departments.data.length > 0 ? (
-                                departments.data.map((department, index) => (
-                                    <tr key={department.id}>
+                            {classrooms.data && classrooms.data.length > 0 ? (
+                                classrooms.data.map((classroom, index) => (
+                                    <tr key={classroom.id}>
                                         <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                             <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
                                         </td>
                                         <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">{department.name}</p>
-                                        </td>
-                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                            <p className="text-black dark:text-white">{department.location}</p>
+                                            <p className="text-black dark:text-white">{classroom.code}</p>
                                         </td>
                                         <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                             <div className="flex items-center space-x-3.5">
-                                                <Link href={`/admin/phong-ban/${department.id}/sua`} className="hover:text-primary">
+                                                <Link href={`/admin/phong-hoc/${classroom.id}/sua`} className="hover:text-primary">
                                                     <i className="fa-regular fa-pen-to-square text-xl"></i>
                                                 </Link>
-                                                <button className="hover:text-primary" onClick={() => handleDeleteClick(department.id)}>
+                                                <button className="hover:text-primary" onClick={() => handleDeleteClick(classroom.id)}>
                                                     <i className="fa-regular fa-trash-can text-xl"></i>
                                                 </button>
                                             </div>
@@ -181,7 +176,7 @@ const Show = ({ departments, limit }) => {
 
                 {/* Pagination */}
                 <div className='my-6'>
-                    <Pagination link={departments.links} onPageChange={handlePageChange} />
+                    <Pagination link={classrooms.links} onPageChange={handlePageChange} />
                 </div>
 
                 {/* Popup */}

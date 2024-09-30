@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
@@ -9,7 +9,7 @@ const Create = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.post('/admin/phong-ban/them', form);
+    router.post('/admin/phong-hoc/them', form);
   };
 
   const handleChangeValue = (e) => {
@@ -17,7 +17,7 @@ const Create = () => {
   };
 
   const handleCancel = () => {
-    setForm({ name: '', location: '' });
+    setForm({ code: '' });
   };
 
 
@@ -29,8 +29,8 @@ const Create = () => {
         {/* Breadcrumb */}
         <div className="mx-6.5 mt-6.5">
           <Breadcrumb items={[
-            { label: 'Quản lý phòng ban', link: '/admin/phong-ban' },
-            { label: 'Thêm phòng ban' }
+            { label: 'Quản lý phòng học', link: '/admin/phong-hoc' },
+            { label: 'Thêm phòng học' }
           ]} />
         </div>
         
@@ -39,30 +39,16 @@ const Create = () => {
           <div className="flex flex-col gap-5.5 p-6.5">
             <div>
               <label className="mb-3 block text-black dark:text-white">
-                Tên Phòng Ban
+                Mã phòng
               </label>
               <input
                 type="text"
-                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                name="name"
-                value={form.name}
+                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter"
+                name="code"
+                value={form.code}
                 onChange={handleChangeValue}
               />
-              {errors?.name && <div className="text-red-500 mt-1">{errors.name}</div>}
-
-            </div>
-            <div>
-              <label className="mb-3 block text-black dark:text-white">
-                Địa điểm
-              </label>
-              <input
-                type="text"
-                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                name="location"
-                value={form.location}
-                onChange={handleChangeValue}
-              />
-              {errors?.location && <div className="text-red-500 mt-1">{errors.location}</div>}
+              {errors?.code && <div className="text-red-500 mt-1">{errors.code}</div>}
 
             </div>
             <div className='flex gap-2'>

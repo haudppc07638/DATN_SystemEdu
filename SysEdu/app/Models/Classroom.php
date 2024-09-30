@@ -13,4 +13,17 @@ class Classroom extends Model
     protected $fillable = [
         'code',
     ];
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        if($searchTerm){
+            return $query->where('code', 'like', '%' . $searchTerm . '%');
+        }
+        return $query;
+    }
+
+    public function scopeLatestPaginate($query, $limit = 10)
+    {
+        return $query->latest()->paginate($limit);
+    }
 }
