@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('code');
             $table->string('dean')->nullable();
             $table->string('assistant_dean')->nullable();
+            $table->text('description');
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

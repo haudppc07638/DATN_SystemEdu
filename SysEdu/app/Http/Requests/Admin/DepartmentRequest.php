@@ -22,7 +22,7 @@ class DepartmentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:100',
             'location' => 'required|string|max:255',
         ];
     }
@@ -32,7 +32,7 @@ class DepartmentRequest extends FormRequest
         return [
             'name.required' => 'Tên phòng ban không được để trống !',
             'name.string' => 'Tên phòng ban phải là chuỗi !',
-            'name.max' => 'Tên phòng ban không được quá 255 ký tự !',
+            'name.max' => 'Tên phòng ban không được quá 100 ký tự !',
             'location.required' => 'Địa điểm không được để trống !',
             'location.string' => 'Địa điểm phải là chuỗi !',
             'location.max' => 'Địa điểm không được quá 255 ký tự !',

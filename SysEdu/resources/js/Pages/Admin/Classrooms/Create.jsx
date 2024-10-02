@@ -24,7 +24,7 @@ const Create = () => {
   return (
     <div className="flex flex-col gap-9">
       {/* <!-- Input Fields --> */}
-      <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-sm border border-stroke bg-white shadow-default">
 
         {/* Breadcrumb */}
         <div className="mx-6.5 mt-6.5">
@@ -38,7 +38,7 @@ const Create = () => {
         <form action="" method="POST" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-5.5 p-6.5">
             <div>
-              <label className="mb-3 block text-black dark:text-white">
+              <label className="mb-3 block text-black">
                 Mã phòng
               </label>
               <input
