@@ -12,7 +12,10 @@ const Create = ({ classroom }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post(`/admin/phong-hoc/${classroom.id}/sua`, form);
+        router.post(`/admin/phong-hoc/${classroom.id}/sua`, {
+            ...form,
+            _method: 'PATCH'
+        });
     };
 
     const handleChangeValue = (e) => {

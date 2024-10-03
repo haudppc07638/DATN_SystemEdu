@@ -13,7 +13,10 @@ const Create = ({ department }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post(`/admin/phong-ban/${department.id}/sua`, form);
+        router.post(`/admin/phong-ban/${department.id}/sua`, {
+            ...form,
+            _method: 'PATCH'
+        });
     };
 
     const handleChangeValue = (e) => {

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('is_active')->default(true);
             $table->foreignId('faculty_id')->constrained('faculties');
-            $table->timestamps();
+            $table->timestamps();   
         });
     }
 

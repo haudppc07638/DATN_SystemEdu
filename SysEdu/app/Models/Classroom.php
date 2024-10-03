@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\ReusableModelTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
-    use HasFactory;
+    use HasFactory, ReusableModelTraits;
 
     protected $table = 'classrooms';
     protected $fillable = [
@@ -20,10 +21,5 @@ class Classroom extends Model
             return $query->where('code', 'like', '%' . $searchTerm . '%');
         }
         return $query;
-    }
-
-    public function scopeLatestPaginate($query, $limit = 10)
-    {
-        return $query->latest()->paginate($limit);
     }
 }

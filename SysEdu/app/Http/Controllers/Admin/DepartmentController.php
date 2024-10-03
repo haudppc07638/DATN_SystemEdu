@@ -70,9 +70,8 @@ class DepartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Department $department)
     {
-        $department = Department::find($id);
         $department->delete();
         return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
         

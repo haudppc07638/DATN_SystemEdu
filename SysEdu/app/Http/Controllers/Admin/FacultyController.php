@@ -19,7 +19,9 @@ class FacultyController extends Controller
         $search = $request->input('search', '');
         $page = $request->input('page', 1);
 
-        $faculties = Faculty::search($search)->latestPaginate($limit);
+        $faculties = Faculty::search($search)
+            ->active()
+            ->latestPaginate($limit);
 
         return Inertia::render('Admin/Faculties/Show', [
             'faculties' => $faculties,
@@ -70,12 +72,9 @@ class FacultyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Faculty $faculty)
     {    
-        $faculty = Faculty::find($id);
-
         $faculty->softDelete();
-
         return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
     }
 }

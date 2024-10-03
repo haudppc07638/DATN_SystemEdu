@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\ReusableModelTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    use HasFactory;
+    use HasFactory, ReusableModelTraits;
 
     protected $table = 'departments';
 
@@ -23,10 +24,5 @@ class Department extends Model
             ->orWhere('location', 'like', '%' . $searchTerm . '%');
         }
         return $query;
-    }
-
-    public function scopeLatestPaginate($query, $limit = 10)
-    {
-        return $query->latest()->paginate($limit);
     }
 }
