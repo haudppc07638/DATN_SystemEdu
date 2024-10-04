@@ -28,6 +28,9 @@ const Create = ({ faculty }) => {
         setForm({ name: '', code: '', description: '' });
     };
 
+    const renderError = (field) => {
+        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+    };
 
     return (
         <div className="flex flex-col gap-9">
@@ -56,7 +59,7 @@ const Create = ({ faculty }) => {
                                 value={form.name}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.name && <div className="text-red-500 mt-1">{errors.name}</div>}
+                            {renderError('name')}
                         </div>
 
                         <div>
@@ -70,7 +73,7 @@ const Create = ({ faculty }) => {
                                 value={form.code}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.code && <div className="text-red-500 mt-1">{errors.code}</div>}
+                            {renderError('code')}
                         </div>
 
                         <div>
@@ -85,7 +88,7 @@ const Create = ({ faculty }) => {
                                 value={form.description}
                                 onChange={handleChangeValue}
                             ></textarea>
-                            {errors?.description && <div className="text-red-500 mt-1">{errors.description}</div>}
+                            {renderError('description')}
                         </div>
 
                         <div className='flex gap-2'>

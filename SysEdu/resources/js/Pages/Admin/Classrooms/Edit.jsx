@@ -26,12 +26,15 @@ const Create = ({ classroom }) => {
         setForm({ code: '' });
     };
 
+    const renderError = (field) => {
+        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+    };
 
     return (
         <div className="flex flex-col gap-9">
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm border border-stroke bg-white shadow-default">
-                
+
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
                     <Breadcrumb items={[
@@ -54,7 +57,7 @@ const Create = ({ classroom }) => {
                                 value={form.code}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.code && <div className="text-red-500 mt-1">{errors.code}</div>}
+                            {renderError('code')}
 
                         </div>
                         <div className='flex gap-2'>

@@ -36,7 +36,7 @@ class Faculty extends Model
         return $query;
     }
 
-    static public function getFacultiesActive()
+    public static function getFacultiesActive()
     {
         return Faculty::active()->get();
     }

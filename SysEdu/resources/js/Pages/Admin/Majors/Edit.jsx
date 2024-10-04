@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
@@ -26,10 +26,17 @@ const Edit = ({ major, faculties }) => {
         setForm({ name: '', faculty_id: '' });
     };
 
+    const renderError = (field) => {
+        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+    };
+
     return (
         <div className="flex flex-col gap-9">
+
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm border border-stroke bg-white shadow-default">
+
+
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
                     <Breadcrumb items={[
@@ -39,12 +46,10 @@ const Edit = ({ major, faculties }) => {
                 </div>
 
                 {/* Form sửa */}
-                <form action="" method="POST" onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-5.5 p-6.5">
                         <div>
-                            <label className="mb-3 block text-black">
-                                Tên chuyên ngành
-                            </label>
+                            <label className="mb-3 block text-black">Tên chuyên ngành</label>
                             <input
                                 type="text"
                                 className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
@@ -52,30 +57,30 @@ const Edit = ({ major, faculties }) => {
                                 value={form.name}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.name && <div className="text-red-500 mt-1">{errors.name}</div>}
+                            {renderError('name')}
                         </div>
 
                         <div>
-                            <label className="mb-3 block text-black">
-                                Chọn khoa
-                            </label>
+                            <label className="mb-3 block text-black">Chọn khoa</label>
                             <div className="relative z-20 bg-transparent dark:bg-form-input">
                                 <select
                                     name="faculty_id"
-                                    value={form.faculty_id || ''}
+                                    value={form.faculty_id}
                                     onChange={handleChangeValue}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary ${form.faculty_id ? 'text-black' : ''}`}
                                 >
-                                    <option value="" disabled className="text-body">
-                                        Chọn khoa
-                                    </option>
+                                    {!faculties.find(f => f.id === form.faculty_id) && (
+                                        <option value={form.faculty_id} className="text-red-500">
+                                            Khoa này đã ngưng hoạt động
+                                        </option>
+                                    )}
                                     {faculties.map((faculty) => (
                                         <option key={faculty.id} value={faculty.id} className="text-body">
                                             {faculty.name}
                                         </option>
                                     ))}
                                 </select>
-                                {errors?.faculty_id && <div className="text-red-500 mt-1">{errors.faculty_id}</div>}
+                                {renderError('faculty_id')}
                             </div>
                         </div>
 

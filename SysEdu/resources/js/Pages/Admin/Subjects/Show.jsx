@@ -4,7 +4,7 @@ import Pagination from '../../../Components/Paginations/Base';
 import LimitSelector from '../../../Components/LimitSelectors/Base';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
-const Show = ({ faculties, limit }) => {
+const Show = ({ subjects, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [idToDelete, setDepartmentIdToDelete] = useState(null);
     const { flash } = usePage().props;
@@ -12,7 +12,7 @@ const Show = ({ faculties, limit }) => {
     const { data, setData, get } = useForm({
         limit: limit || 10,
         search: '',
-        page: faculties.current_page || 1,
+        page: subjects.current_page || 1,
     });
 
     const performSearch = useCallback(() => {
@@ -66,7 +66,7 @@ const Show = ({ faculties, limit }) => {
     };
 
     const confirmDelete = () => {
-        router.delete(`khoa/${idToDelete}`);
+        router.delete(`mon-hoc/${idToDelete}`);
         handleClosePopup();
     };
 
@@ -100,8 +100,8 @@ const Show = ({ faculties, limit }) => {
 
             {/* Breadcrumb */}
             <Breadcrumb items={[
-                { label: 'Quản lý khoa', link: '/admin/khoa' },
-                { label: 'Danh sách khoa' }
+                { label: 'Quản lý môn học', link: '/admin/mon-hoc' },
+                { label: 'Danh sách môn học' }
             ]} />
 
             {/* action */}
@@ -126,7 +126,7 @@ const Show = ({ faculties, limit }) => {
                     </div>
 
                     {/* Add */}
-                    <Link href="/admin/khoa/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                    <Link href="/admin/mon-hoc/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
                         Thêm
                     </Link>
                 </form>
@@ -139,42 +139,53 @@ const Show = ({ faculties, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">#</th>
-                            <th className="max-w-[150px] wrap py-4 px-4 font-medium text-black">Tên khoa</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black">Mã khoa</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">Trưởng khoa</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">Phó khoa</th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">Tên môn</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black">Mã môn</th>
+                            <th className="min-w-[50px] py-4 px-4 font-medium text-black">Tín chỉ</th>
+                            <th className="min-w-[130px] py-4 px-4 font-medium text-black">Giá</th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black">Mô tả</th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">Chuyên ngành</th>
                             <th className="py-4 px-4 font-medium text-black">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {faculties.data && faculties.data.length > 0 ? (
-                            faculties.data.map((faculty, index) => (
-                                <tr key={faculty.id}>
+                        {subjects.data && subjects.data.length > 0 ? (
+                            subjects.data.map((subject, index) => (
+                                <tr key={subject.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black">{index + 1}</h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{faculty.name}</p>
+                                        <p className="text-black">{subject.name}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{faculty.code}</p>
+                                        <p className="text-black">{subject.code}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{faculty.dean ? faculty.dean : 'Chưa có'}</p>
+                                        <p className="text-black">{subject.credit}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{faculty.assistant_dean ? faculty.assistant_dean : 'Chưa có'}</p>
+                                        <p className="text-black">{Number(subject.price).toLocaleString('vi-VN')} đ</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black max-w-[150px] truncate">{faculty.description}</p>
+                                        <p className="text-black max-w-[150px] truncate">{subject.description}</p>
                                     </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p
+                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
+                                            ${subject.major.is_active
+                                                    ? 'bg-success text-success'
+                                                    : 'bg-danger text-danger'
+                                            }`}
+                                        >{subject.major.name}</p>
+                                    </td>
+
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/khoa/${faculty.id}/sua`} className="hover:text-primary">
+                                            <Link href={`/admin/mon-hoc/${subject.id}/sua`} className="hover:text-primary">
                                                 <i className="fa-regular fa-pen-to-square text-xl"></i>
                                             </Link>
-                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(faculty.id)}>
+                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(subject.id)}>
                                                 <i className="fa-regular fa-trash-can text-xl"></i>
                                             </button>
                                         </div>
@@ -183,7 +194,7 @@ const Show = ({ faculties, limit }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
+                                <td colSpan="8" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
                             </tr>
                         )}
                     </tbody>
@@ -192,7 +203,7 @@ const Show = ({ faculties, limit }) => {
 
             {/* Pagination */}
             <div className='my-6'>
-                <Pagination link={faculties.links} onPageChange={handlePageChange} />
+                <Pagination link={subjects.links} onPageChange={handlePageChange} />
             </div>
 
             {/* Popup */}

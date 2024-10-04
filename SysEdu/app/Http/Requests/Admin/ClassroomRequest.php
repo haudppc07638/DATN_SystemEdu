@@ -27,7 +27,7 @@ class ClassroomRequest extends FormRequest
         $classroomId = $classroom ? $classroom->id : null;
        
         return [
-            'code' => ['required', 'string', 'max:10', Rule::unique('classrooms')->ignore($classroomId)],
+            'code' => ['required', 'string', 'max:20', Rule::unique('classrooms')->ignore($classroomId)],
         ];
     }
 
@@ -36,7 +36,7 @@ class ClassroomRequest extends FormRequest
         return [
             'code.required' => 'Mã phòng học không được để trống',
             'code.string' => 'Mã phòng học phải là một chuỗi ký tự',
-            'code.max' => 'Mã phòng học không được vượt quá 10 ký tự',
+            'code.max' => 'Mã phòng học không được vượt quá 20 ký tự',
             'code.unique' => 'Mã phòng học đã tồn tại',
         ];
     }

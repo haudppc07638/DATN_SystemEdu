@@ -3,7 +3,7 @@ import Header from '../Components/Admin/Header/Header';
 import Sidebar from '../Components/Admin/Sidebar/Sidebar';
 import '../../css/style.css';
 
-const Primary = ({ children, breadcrumbItems }) => {
+const Primary = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (

@@ -139,9 +139,8 @@ const Show = ({ majors, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">#</th>
-                            <th className="max-w-[150px] wrap py-4 px-4 font-medium text-black">Tên chuyên ngành</th>
+                            <th className="max-w-[150px] py-4 px-4 font-medium text-black">Tên chuyên ngành</th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black">Thuộc khoa</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">Trạng thái</th>
                             <th className="py-4 px-4 font-medium text-black">Tác vụ</th>
                         </tr>
                     </thead>
@@ -156,24 +155,13 @@ const Show = ({ majors, limit }) => {
                                         <p className="text-black">{major.name}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{major.faculty.name}</p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
                                         <p
                                             className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
-                                                ${major.is_active
+                                            ${major.faculty.is_active
                                                     ? 'bg-success text-success'
                                                     : 'bg-danger text-danger'
-                                                }`}
-                                            >
-                                            <span>
-                                                {   
-                                                    major.is_active === 1
-                                                    ? 'Hoạt động'
-                                                    : ' Ngưng' 
-                                                }
-                                            </span>
-                                        </p>
+                                            }`}
+                                        >{major.faculty.name}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">

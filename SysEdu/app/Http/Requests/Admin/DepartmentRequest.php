@@ -33,6 +33,7 @@ class DepartmentRequest extends FormRequest
             'name.required' => 'Tên phòng ban không được để trống !',
             'name.string' => 'Tên phòng ban phải là chuỗi !',
             'name.max' => 'Tên phòng ban không được quá 100 ký tự !',
+            
             'location.required' => 'Địa điểm không được để trống !',
             'location.string' => 'Địa điểm phải là chuỗi !',
             'location.max' => 'Địa điểm không được quá 255 ký tự !',

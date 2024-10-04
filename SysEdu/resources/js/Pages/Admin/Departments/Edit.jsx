@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
@@ -27,6 +27,9 @@ const Create = ({ department }) => {
         setForm({ name: '', location: '' });
     };
 
+    const renderError = (field) => {
+        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+    };
 
     return (
         <div className="flex flex-col gap-9">
@@ -55,7 +58,7 @@ const Create = ({ department }) => {
                                 value={form.name}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.name && <div className="text-red-500 mt-1">{errors.name}</div>}
+                            {renderError('name')}
 
                         </div>
                         <div>
@@ -69,7 +72,7 @@ const Create = ({ department }) => {
                                 value={form.location}
                                 onChange={handleChangeValue}
                             />
-                            {errors?.location && <div className="text-red-500 mt-1">{errors.location}</div>}
+                            {renderError('location')}
 
                         </div>
                         <div className='flex gap-2'>

@@ -20,6 +20,9 @@ const Create = () => {
     setForm({ code: '' });
   };
 
+  const renderError = (field) => {
+    return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+  };
 
   return (
     <div className="flex flex-col gap-9">
@@ -33,7 +36,7 @@ const Create = () => {
             { label: 'Thêm phòng học' }
           ]} />
         </div>
-        
+
         {/* Form thêm*/}
         <form action="" method="POST" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-5.5 p-6.5">
@@ -48,7 +51,7 @@ const Create = () => {
                 value={form.code}
                 onChange={handleChangeValue}
               />
-              {errors?.code && <div className="text-red-500 mt-1">{errors.code}</div>}
+              {renderError('code')}
 
             </div>
             <div className='flex gap-2'>

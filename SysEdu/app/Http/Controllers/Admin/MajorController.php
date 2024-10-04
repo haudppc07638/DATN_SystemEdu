@@ -84,4 +84,14 @@ class MajorController extends Controller
         $major->softDelete();
         return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
     }
+
+
+    public function getMajorsByFaculty(Request $request)
+    {
+        $facultyId = $request->query('faculty_id');
+        $majors = Major::where('faculty_id', $facultyId)
+        ->active()
+        ->get();
+        return response()->json($majors);
+    }
 }

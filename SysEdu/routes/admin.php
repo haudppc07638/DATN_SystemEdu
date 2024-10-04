@@ -5,10 +5,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\MajorController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\SubjectController;
 use Illuminate\Support\Facades\Route;
 
-// Middleware xác thực và phân quyền admin
 // Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -54,7 +53,12 @@ use Illuminate\Support\Facades\Route;
 
     //Subject
     Route::name('admin.subjects.')->group(function () {
-        
+        Route::get('mon-hoc', [SubjectController::class,'index'])->name('show');
+        Route::get('mon-hoc/them', [SubjectController::class,'create'])->name('create');
+        Route::post('mon-hoc/them', [SubjectController::class,'store'])->name('store');
+        Route::get('mon-hoc/{subject}/sua', [SubjectController::class,'edit'])->name('edit');
+        Route::patch('mon-hoc/{subject}/sua', [SubjectController::class,'update'])->name('update');
+        Route::delete('mon-hoc/{subject}', [SubjectController::class,'destroy'])->name('destroy');
     });
         
 // });
