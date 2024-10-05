@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
 import logo from '../../Assets/Images/logo.png';
+import Carousel from '../../Components/Auth/Carousel';
 import banner from '../../Assets/Images/banner.jpg';
 import banner1 from '../../Assets/Images/banner1.jpg';
 import banner2 from '../../Assets/Images/banner2.jpg';
-import { Link, router } from '@inertiajs/react';
+import { Link, router, usePage } from '@inertiajs/react';
 import Auth from '../../Layouts/Auth';
 import '../../Assets/Css/Custom.css';
 
 function LoginPortal() {
+    const { flash } = usePage().props;
+
     const handleLogin = (role) => {
-        router.get(`/login/${role}`);
+        router.get(`auth/login/${role}`);
     };
 
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -24,12 +27,23 @@ function LoginPortal() {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        if (flash.error) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: flash.error,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    }, [flash]);
+
     return (
         <div className="flex flex-col min-h-screen">
             <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
                 <div className="container mx-auto px-4 py-3">
                     <div className="flex items-center justify-between">
-                        <Link href='/' className="flex items-center">
+                        <Link href='auth' className="flex items-center">
                             <img src={logo} alt="Sysedu Logo" className="h-16 w-auto mr-3" />
                             <h4 className="text-primary text-xl font-semibold">Sysedu University</h4>
                         </Link>
@@ -64,38 +78,8 @@ function LoginPortal() {
             </header>
 
             <main className="flex-grow mt-24">
-                <div className="carousel">
-                    <div className="carousel-inner">
-                        {slides.map((slide, index) => (
-                            <div
-                                key={index}
-                                className={`carousel-item ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-                            >
-                                <img
-                                    src={slide}
-                                    alt={`Slide ${index + 1}`}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                <Carousel slides={slides} currentSlide={currentSlide} />
             </main>
-
-            <footer className="bg-primary text-white">
-                <div className="container mx-auto px-4 py-8">
-                    <div className="flex flex-col md:flex-row items-center justify-center mb-6">
-                        <img src={logo} alt="Sysedu Logo" className="w-24 h-auto mb-4 md:mb-0 md:mr-6" />
-                        <h3 className="text-lg text-center md:text-left">
-                            Trụ sở chính tại Tòa nhà F University Sysedu <br />
-                            Phường Trường Thạnh, Quận Ninh Kiều, TP. Cần Thơ
-                        </h3>
-                    </div>
-                    <div className="text-center text-sm">
-                        <p>University Sysedu © {new Date().getFullYear()}, All Rights Reserved</p>
-                    </div>
-                </div>
-            </footer>
         </div>
     )
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+const index = ({ sidebarOpen, setSidebarOpen }) => {
   const { url } = usePage();
   const trigger = useRef(null);
   const sidebar = useRef(null);
@@ -312,4 +312,4 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   );
 };
 
-export default Sidebar;
+export default index;

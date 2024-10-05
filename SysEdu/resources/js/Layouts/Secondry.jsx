@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Header from '../Components/Admin/Header/index';
-import Sidebar from '../Components/Admin/Sidebar/index';
+import Header from '../Components/Teacher/Header/index';
+import Sidebar from '../Components/Teacher/Sidebar/index';
 
-const Primary = ({ children }) => {
+const Secondry = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -23,4 +23,4 @@ const Primary = ({ children }) => {
   );
 };
 
-export default Primary;
+export default Secondry;

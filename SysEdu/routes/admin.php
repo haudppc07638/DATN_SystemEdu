@@ -8,7 +8,8 @@ use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Admin\SubjectController;
 use Illuminate\Support\Facades\Route;
 
-// Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
+   
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // Department
@@ -60,5 +61,5 @@ use Illuminate\Support\Facades\Route;
         Route::patch('mon-hoc/{subject}/sua', [SubjectController::class,'update'])->name('update');
         Route::delete('mon-hoc/{subject}', [SubjectController::class,'destroy'])->name('destroy');
     });
-        
-// });
+
+});
