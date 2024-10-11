@@ -6,7 +6,6 @@ const Create = ({ subject, faculties }) => {
 
     const { errors } = usePage().props;
 
-    // Khởi tạo majors dựa trên faculty đã chọn (nếu có)
     const [majors, setMajors] = useState([]);
 
     const [form, setForm] = useState({
@@ -18,7 +17,6 @@ const Create = ({ subject, faculties }) => {
         faculty_id: subject.major?.faculty_id || ''
     });
 
-    // Khi trang load, tự động tải majors theo faculty
     useEffect(() => {
         if (form.faculty_id) {
             fetch(`/api/majors?faculty_id=${form.faculty_id}`)
@@ -66,6 +64,8 @@ const Create = ({ subject, faculties }) => {
         return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
     };
 
+    const isFacultySoftDeleted = !faculties.find(f => f.id === form.faculty_id);
+
     return (
         <div className="flex flex-col gap-9">
             {/* Form Input Fields */}
@@ -91,8 +91,14 @@ const Create = ({ subject, faculties }) => {
                                         className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
                                         ${form.faculty_id ? 'text-black' : ''}`}
                                     >
+                                        {isFacultySoftDeleted && (
+                                            <option className="text-red-500" disabled>
+                                                Khoa hiện tại đã ngưng hoạt động
+                                            </option>
+                                        )}
+                                        <option value="">-- Chọn khoa mới --</option>
                                         {faculties.map((faculty) => (
-                                            <option key={faculty.id} value={faculty.id}>
+                                            <option key={faculty.id} value={faculty.id} className="text-body">
                                                 {faculty.name}
                                             </option>
                                         ))}

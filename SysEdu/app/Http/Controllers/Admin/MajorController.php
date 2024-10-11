@@ -21,7 +21,6 @@ class MajorController extends Controller
         $page = $request->input('page', 1);
 
         $majors = Major::search($search)
-            ->active()
             ->withFaculty()
             ->latestPaginate($limit);
 
@@ -38,7 +37,7 @@ class MajorController extends Controller
      */
     public function create()
     {
-        $faculties = Faculty::getFacultiesActive();
+        $faculties = Faculty::getFaculties();
         return Inertia::render('Admin/Majors/Create', [
             'faculties' => $faculties
         ]);
@@ -59,7 +58,7 @@ class MajorController extends Controller
      */
     public function edit(Major $major)
     {
-        $faculties = Faculty::getFacultiesActive();
+        $faculties = Faculty::getFaculties();
         return Inertia::render('Admin/Majors/Edit', [
             'major' => $major,
             'faculties' => $faculties
@@ -81,16 +80,20 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        $major->softDelete();
-        return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
+        if ($major->hasRelations()){
+            $major->delete();
+            return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
+        }
+        else {
+            $major->forceDelete();
+            return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
+        }   
     }
-
 
     public function getMajorsByFaculty(Request $request)
     {
         $facultyId = $request->query('faculty_id');
         $majors = Major::where('faculty_id', $facultyId)
-        ->active()
         ->get();
         return response()->json($majors);
     }

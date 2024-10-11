@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer( 'credit')->unsigned();
             $table->float('price')->unsigned();
             $table->text('description');
-            $table->boolean('is_active')->default(true);
             $table->foreignId('major_id')->constrained('majors');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

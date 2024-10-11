@@ -14,7 +14,7 @@ class DepartmentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {  
+    {
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
         $page = $request->input('page', 1);
@@ -25,7 +25,7 @@ class DepartmentController extends Controller
             'departments' => $departments,
             'limit' => $limit,
             'search' => $search,
-            'currentPage'=> $page
+            'currentPage' => $page  
         ]);
     }
 
@@ -72,8 +72,13 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        $department->delete();
-        return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
-        
+        if ($department->hasRelations()) {
+            $department->delete();
+            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
+        }
+        else {
+            $department->forceDelete();
+            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
+        }
     }
 }

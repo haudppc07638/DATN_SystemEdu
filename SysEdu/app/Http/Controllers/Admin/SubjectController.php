@@ -21,7 +21,6 @@ class SubjectController extends Controller
         $page = $request->input('page', 1);
 
         $subjects = Subject::search($search)
-            ->active()
             ->withMajor()
             ->latestPaginate($limit);
 
@@ -38,7 +37,7 @@ class SubjectController extends Controller
      */
     public function create()
     {
-        $faculties = Faculty::getFacultiesActive();
+        $faculties = Faculty::getFaculties();
         return Inertia::render('Admin/Subjects/Create', [
             'faculties'=> $faculties
         ]);
@@ -61,7 +60,7 @@ class SubjectController extends Controller
      */
     public function edit(Subject $subject)
     {
-        $faculties = Faculty::getFacultiesActive();
+        $faculties = Faculty::getFaculties();
         return Inertia::render('Admin/Subjects/Edit', [
             'subject' => $subject->load('major.faculty'),
             'faculties'=> $faculties
@@ -83,8 +82,15 @@ class SubjectController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Subject $subject)
     {
-        //
+        if($subject->hasRelations()){
+            $subject->delete();
+            return redirect()->route('admin.subjects.show')->with('success', 'Xóa môn học thành công !');
+        }
+        else{
+            $subject->forceDelete();
+            return redirect()->route('admin.subjects.show')->with('success', 'Xóa môn học thành công !');
+        }
     }
 }

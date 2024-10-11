@@ -72,7 +72,13 @@ class ClassroomController extends Controller
      */
     public function destroy(Classroom $classroom)
     {
-        $classroom->delete();
-        return redirect()->route('admin.classrooms.show')->with('success','Xóa phòng thành công !');
+        if ($classroom->hasRelations()) {
+            $classroom->delete(); // xóa mềm
+            return redirect()->route('admin.classrooms.show')->with('success','Xóa phòng thành công !');
+        }
+        else{
+            $classroom->forceDelete(); // xóa lun
+            return redirect()->route('admin.classrooms.show')->with('success','Xóa phòng thành công !');
+        }
     }
 }

@@ -6,10 +6,11 @@ use App\Traits\ReusableModelTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Faculty extends Model
 {
-    use HasFactory, ReusableModelTraits;
+    use HasFactory, ReusableModelTraits, SoftDeletes;
 
     protected $table = 'faculties';
 
@@ -19,12 +20,28 @@ class Faculty extends Model
         'dean',
         'assistant_dean',
         'description',
-        'is_active',
+        'deleted_at'
     ];
 
     public function majors(): HasMany
     {
         return $this->hasMany(Major::class);
+    }
+
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
+    public function hasRelations()
+    {
+        $relations = ['majors', 'employees'];
+        foreach ($relations as $relation) {
+            if ($this->{$relation}()->exists()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function scopeSearch($query, $searchTerm)
@@ -36,8 +53,8 @@ class Faculty extends Model
         return $query;
     }
 
-    public static function getFacultiesActive()
+    public static function getFaculties()
     {
-        return Faculty::active()->get();
+        return self::all();
     }
 }

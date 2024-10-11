@@ -30,6 +30,8 @@ const Edit = ({ major, faculties }) => {
         return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
     };
 
+    const isFacultySoftDeleted = !faculties.find(f => f.id === form.faculty_id);
+
     return (
         <div className="flex flex-col gap-9">
 
@@ -45,7 +47,7 @@ const Edit = ({ major, faculties }) => {
                     ]} />
                 </div>
 
-                {/* Form sửa */}
+                {/* Form */}
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-5.5 p-6.5">
                         <div>
@@ -69,11 +71,12 @@ const Edit = ({ major, faculties }) => {
                                     onChange={handleChangeValue}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary ${form.faculty_id ? 'text-black' : ''}`}
                                 >
-                                    {!faculties.find(f => f.id === form.faculty_id) && (
-                                        <option value={form.faculty_id} className="text-red-500">
-                                            Khoa này đã ngưng hoạt động
+                                   {isFacultySoftDeleted && (
+                                        <option className="text-red-500" disabled>
+                                            Khoa hiện tại đã ngưng hoạt động
                                         </option>
                                     )}
+                                    <option value="">-- Chọn khoa mới--</option>
                                     {faculties.map((faculty) => (
                                         <option key={faculty.id} value={faculty.id} className="text-body">
                                             {faculty.name}

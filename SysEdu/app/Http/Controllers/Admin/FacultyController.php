@@ -20,7 +20,6 @@ class FacultyController extends Controller
         $page = $request->input('page', 1);
 
         $faculties = Faculty::search($search)
-            ->active()
             ->latestPaginate($limit);
 
         return Inertia::render('Admin/Faculties/Show', [
@@ -74,7 +73,13 @@ class FacultyController extends Controller
      */
     public function destroy(Faculty $faculty)
     {    
-        $faculty->softDelete();
-        return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
+        if ($faculty->hasRelations()){
+            $faculty->delete();
+            return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
+        }
+        else {
+            $faculty->forceDelete();
+            return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
+        }
     }
 }

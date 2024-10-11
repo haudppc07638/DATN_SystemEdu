@@ -12,12 +12,13 @@ class EmployeeSeeder extends Seeder
     {
         DB::table('employees')->insert([
             [
-                'full_name' => 'Admin User',
-                'email' => 'admin@example.com',
+                'full_name' => 'Admin LocTV',
+                'email' => 'loctvpc06110@fpt.edu.vn',
                 'password' => Hash::make('password'),
                 'phone' => '0123456789',
                 'image' => 'default.jpg',
                 'position' => 'admin',
+                'faculty_id'=> 1,
                 'department_id' => 1,
             ],
             [
@@ -27,6 +28,7 @@ class EmployeeSeeder extends Seeder
                 'phone' => '0987654321',
                 'image' => 'default.jpg',
                 'position' => 'teacher',
+                'faculty_id'=> 2,
                 'department_id' => 2,
             ],
             [
@@ -36,6 +38,7 @@ class EmployeeSeeder extends Seeder
                 'phone' => '0123987456',
                 'image' => 'default.jpg',
                 'position' => 'teacher',
+                'faculty_id'=> 3,
                 'department_id' => 3,
             ],
         ]);

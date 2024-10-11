@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('classroom_id')->constrained('classrooms');
             $table->foreignId('time_slot_id')->constrained('time_slots');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

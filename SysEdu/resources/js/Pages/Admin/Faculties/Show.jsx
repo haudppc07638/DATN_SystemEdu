@@ -172,10 +172,16 @@ const Show = ({ faculties, limit }) => {
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
                                             <Link href={`/admin/khoa/${faculty.id}/sua`} className="hover:text-primary">
-                                                <i className="fa-regular fa-pen-to-square text-xl"></i>
+                                                <i
+                                                    className="fa-regular fa-pen-to-square text-xl"
+                                                    title="Chỉnh sửa"
+                                                ></i>
                                             </Link>
                                             <button className="hover:text-primary" onClick={() => handleDeleteClick(faculty.id)}>
-                                                <i className="fa-regular fa-trash-can text-xl"></i>
+                                                <i
+                                                    className="fa-regular fa-trash-can text-xl"
+                                                    title="Xóa"
+                                                ></i>
                                             </button>
                                         </div>
                                     </td>

@@ -18,16 +18,16 @@ return new class extends Migration
             $table->string('dean')->nullable();
             $table->string('assistant_dean')->nullable();
             $table->text('description');
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('majors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->boolean('is_active')->default(true);
             $table->foreignId('faculty_id')->constrained('faculties');
             $table->timestamps();   
+            $table->softDeletes();
         });
     }
 

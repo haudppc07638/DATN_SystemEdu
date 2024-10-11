@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('employee_id')->constrained('employees');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,9 +19,10 @@ return new class extends Migration
             $table->string('phone');
             $table->string('image');
             $table->enum('position', ['admin', 'teacher']);
-            $table->boolean('is_active')->default(true);
+            $table->foreignId('faculty_id')->constrained('faculties');
             $table->foreignId('department_id')->constrained('departments');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

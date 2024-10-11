@@ -172,21 +172,26 @@ const Show = ({ subjects, limit }) => {
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
-                                            className={`inline-flex rounded-full bg-opacity-10 py-1 px-3 text-sm font-medium 
-                                            ${subject.major.is_active
-                                                    ? 'bg-success text-success'
-                                                    : 'bg-danger text-danger'
-                                            }`}
-                                        >{subject.major.name}</p>
+                                            className={subject.major.deleted_at ? "text-red-500" : "text-black"}
+                                            title={subject.major.deleted_at ? "Phòng ban này đã ngừng hoạt động" : ""}
+                                        >
+                                            {subject.major.name}
+                                        </p>
                                     </td>
 
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
                                             <Link href={`/admin/mon-hoc/${subject.id}/sua`} className="hover:text-primary">
-                                                <i className="fa-regular fa-pen-to-square text-xl"></i>
+                                                <i
+                                                    className="fa-regular fa-pen-to-square text-xl"
+                                                    title="Chỉnh sửa"
+                                                ></i>
                                             </Link>
                                             <button className="hover:text-primary" onClick={() => handleDeleteClick(subject.id)}>
-                                                <i className="fa-regular fa-trash-can text-xl"></i>
+                                                <i
+                                                    className="fa-regular fa-trash-can text-xl"
+                                                    title="Xóa"
+                                                ></i>
                                             </button>
                                         </div>
                                     </td>

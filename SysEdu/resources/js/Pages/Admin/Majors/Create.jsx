@@ -16,9 +16,8 @@ const Create = ({ faculties }) => {
     };
 
     const handleCancel = () => {
-        if (window.confirm("Bạn có chắc chắn muốn hủy không?")) {
-            setForm({ name: '', faculty_id: '' });
-        }
+        setForm({ name: '', faculty_id: '' });
+
     };
 
     const renderError = (field) => {

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\MajorController;
 use App\Http\Controllers\Admin\SubjectController;
+use App\Http\Controllers\Admin\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(function () {
@@ -54,12 +55,22 @@ Route::middleware(['admin'])->group(function () {
 
     //Subject
     Route::name('admin.subjects.')->group(function () {
-        Route::get('mon-hoc', [SubjectController::class,'index'])->name('show');
-        Route::get('mon-hoc/them', [SubjectController::class,'create'])->name('create');
-        Route::post('mon-hoc/them', [SubjectController::class,'store'])->name('store');
-        Route::get('mon-hoc/{subject}/sua', [SubjectController::class,'edit'])->name('edit');
-        Route::patch('mon-hoc/{subject}/sua', [SubjectController::class,'update'])->name('update');
-        Route::delete('mon-hoc/{subject}', [SubjectController::class,'destroy'])->name('destroy');
+        Route::get('mon-hoc', [SubjectController::class, 'index'])->name('show');
+        Route::get('mon-hoc/them', [SubjectController::class, 'create'])->name('create');
+        Route::post('mon-hoc/them', [SubjectController::class, 'store'])->name('store');
+        Route::get('mon-hoc/{subject}/sua', [SubjectController::class, 'edit'])->name('edit');
+        Route::patch('mon-hoc/{subject}/sua', [SubjectController::class, 'update'])->name('update');
+        Route::delete('mon-hoc/{subject}', [SubjectController::class, 'destroy'])->name('destroy');
+    });
+
+    //Employee
+    Route::name('admin.employees.')->group(function () {
+       Route::get('nhan-su', [EmployeeController::class, 'index'])->name('show');
+       Route::get('nhan-su/them', [EmployeeController::class, 'create'])->name('create');
+       Route::post('nhan-su/them', [EmployeeController::class, 'store'])->name('store');
+       Route::get('nhan-su/{employee}/sua', [EmployeeController::class, 'edit'])->name('edit');
+       Route::patch('nhan-su/{employee}/sua', [EmployeeController::class, 'update'])->name('update');
+       Route::delete('nhan-su/{employee}', [EmployeeController::class, 'destroy'])->name('destroy');
     });
 
 });

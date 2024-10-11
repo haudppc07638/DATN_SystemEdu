@@ -4,7 +4,7 @@ import Pagination from '../../../Components/Paginations/Base';
 import LimitSelector from '../../../Components/LimitSelectors/Base';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
-const Show = ({ majors, limit }) => {
+const Show = ({ employees, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [idToDelete, setDepartmentIdToDelete] = useState(null);
     const { flash } = usePage().props;
@@ -12,7 +12,7 @@ const Show = ({ majors, limit }) => {
     const { data, setData, get } = useForm({
         limit: limit || 10,
         search: '',
-        page: majors.current_page || 1,
+        page: employees.current_page || 1,
     });
 
     const performSearch = useCallback(() => {
@@ -66,7 +66,7 @@ const Show = ({ majors, limit }) => {
     };
 
     const confirmDelete = () => {
-        router.delete(`chuyen-nganh/${idToDelete}`);
+        router.delete(`nhan-su/${idToDelete}`);
         handleClosePopup();
     };
 
@@ -100,8 +100,8 @@ const Show = ({ majors, limit }) => {
 
             {/* Breadcrumb */}
             <Breadcrumb items={[
-                { label: 'Quản lý chuyên ngành', link: '/admin/chuyen-nganh' },
-                { label: 'Danh sách chuyên ngành' }
+                { label: 'Quản lý nhân sự', link: '/admin/nhan-su' },
+                { label: 'Danh sách nhân sự' }
             ]} />
 
             {/* action */}
@@ -126,7 +126,7 @@ const Show = ({ majors, limit }) => {
                     </div>
 
                     {/* Add */}
-                    <Link href="/admin/chuyen-nganh/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                    <Link href="/admin/nhan-su/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
                         Thêm
                     </Link>
                 </form>
@@ -138,39 +138,69 @@ const Show = ({ majors, limit }) => {
                 <table className="w-full table-auto">
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                            <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">#</th>
-                            <th className="max-w-[150px] py-4 px-4 font-medium text-black">Tên chuyên ngành</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black">Thuộc khoa</th>
-                            <th className="py-4 px-4 font-medium text-black">Tác vụ</th>
+                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">#</th>
+                            <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">Họ và Tên</th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Email</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">SĐT</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Chức vụ</th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Thuộc khoa</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Phòng ban</th>
+                            <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {majors.data && majors.data.length > 0 ? (
-                            majors.data.map((major, index) => (
-                                <tr key={major.id}>
+                        {employees.data && employees.data.length > 0 ? (
+                            employees.data.map((employee, index) => (
+                                <tr key={employee.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black">{index + 1}</h5>
+                                        <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">{major.name}</p>
+                                        <div className="flex items-center gap-3">
+                                            <div className="flex-shrink-0">
+                                                <img src={`/storage/avatars/${employee.image}`} alt="avatar"
+                                                    className="w-12 h-12 rounded-full object-cover"
+                                                />
+                                            </div>
+                                            <p className="hidden text-black sm:block text-sm">
+                                                {employee.full_name}
+                                            </p>
+                                        </div>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black text-sm">{employee.email}</p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black text-sm">{employee.phone}</p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black text-sm">{employee.position}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
-                                            className={major.faculty.deleted_at ? "text-red-500" : "text-black"}
-                                            title={major.faculty.deleted_at ? "Khoa này đã ngừng hoạt động" : ""}
+                                            className={employee.faculty.deleted_at ? "text-red-500" : "text-black"}
+                                            title={employee.faculty.deleted_at ? "Khoa này đã ngừng hoạt động" : ""}
                                         >
-                                            {major.faculty.name}
+                                            {employee.faculty.name}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p
+                                            className={employee.department.deleted_at ? "text-red-500" : "text-black"}
+                                            title={employee.department.deleted_at ? "Phòng ban này đã ngừng hoạt động" : ""}
+                                        >
+                                            {employee.department.name}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/chuyen-nganh/${major.id}/sua`} className="hover:text-primary">
+                                            <Link href={`/admin/nhan-su/${employee.id}/sua`} className="hover:text-primary">
                                                 <i
                                                     className="fa-regular fa-pen-to-square text-xl"
                                                     title="Chỉnh sửa"
                                                 ></i>
                                             </Link>
-                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(major.id)}>
+                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(employee.id)}>
                                                 <i
                                                     className="fa-regular fa-trash-can text-xl"
                                                     title="Xóa"
@@ -191,7 +221,7 @@ const Show = ({ majors, limit }) => {
 
             {/* Pagination */}
             <div className='my-6'>
-                <Pagination link={majors.links} onPageChange={handlePageChange} />
+                <Pagination link={employees.links} onPageChange={handlePageChange} />
             </div>
 
             {/* Popup */}
