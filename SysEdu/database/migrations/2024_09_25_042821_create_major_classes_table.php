@@ -15,7 +15,8 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('training_system');
             $table->string('name');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
+            $table->boolean('status')->default(0);
             $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('employee_id')->constrained('employees');
             $table->timestamps();

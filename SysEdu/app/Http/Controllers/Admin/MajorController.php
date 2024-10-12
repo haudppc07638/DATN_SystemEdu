@@ -93,8 +93,7 @@ class MajorController extends Controller
     public function getMajorsByFaculty(Request $request)
     {
         $facultyId = $request->query('faculty_id');
-        $majors = Major::where('faculty_id', $facultyId)
-        ->get();
+        $majors = Major::where('faculty_id', $facultyId)->get();
         return response()->json($majors);
     }
 }

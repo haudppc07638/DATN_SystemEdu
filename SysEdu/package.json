@@ -16,8 +16,10 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/react": "^1.2.0",
         "@vitejs/plugin-react": "^4.3.1",
+        "dayjs": "^1.11.13",
         "lodash": "^4.17.21",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",

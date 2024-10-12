@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\ClassroomController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FacultyController;
+use App\Http\Controllers\Admin\MajorClassController;
 use App\Http\Controllers\Admin\MajorController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\EmployeeController;
 use Illuminate\Support\Facades\Route;
@@ -73,4 +75,23 @@ Route::middleware(['admin'])->group(function () {
        Route::delete('nhan-su/{employee}', [EmployeeController::class, 'destroy'])->name('destroy');
     });
 
+    //Major Class
+    Route::name('admin.majorClasses.')->group(function () {
+        Route::get('lop-chuyen-nganh', [MajorClassController::class,'index'])->name('show');
+        Route::get('lop-chuyen-nganh/{major}/them', [MajorClassController::class, 'create'])->name('create');
+        Route::post('lop-chuyen-nganh/them', [MajorClassController::class,'store'])->name('store');
+        Route::get('lop-chuyen-nganh/{major}/{majorClass}/sua', [MajorClassController::class,'edit'])->name('edit');
+        Route::patch('lop-chuyen-nganh/{majorClass}/sua', [MajorClassController::class, 'update'])->name('update');
+        Route::delete('lop-chuyen-nganh/{majorClass}', [MajorClassController::class, 'destroy'])->name('destroy');
+    });
+
+    //Student
+    Route::name('admin.students.')->group(function () {
+        Route::get('sinh-vien', [StudentController::class, 'index'])->name('show');
+        Route::get('sinh-vien/them', [StudentController::class, 'create'])->name('create');
+        Route::post('sinh-vien/them', [StudentController::class, 'store'])->name('store');
+        Route::get('sinh-vien/{student}/sua', [StudentController::class, 'edit'])->name('edit');
+        Route::patch('sinh-vien/{student}/sua', [StudentController::class,'update'])->name('update');
+        Route::delete('sinh-vien/{student}', [StudentController::class, 'destroy'])->name('destroy');
+    });
 });

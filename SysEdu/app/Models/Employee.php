@@ -52,6 +52,8 @@ class Employee extends Authenticatable
         return $this->hasMany(SubjectClass::class);
     }
 
+    
+
     public function hasRelations(){
         $relations = ['faculty', 'department', 'classes', 'notifications', 'subjectClasses'];
         foreach ($relations as $relation) {
@@ -83,4 +85,13 @@ class Employee extends Authenticatable
             },
         ]);
     }
+
+    public static function getAvailableTeachers($faculty_id){
+        return self::where('position', 'teacher')
+        ->where('faculty_id', $faculty_id)
+        ->whereDoesntHave('classes', function ($query){
+            $query->where('status', 0);
+        })
+        ->get();
+    } 
 }

@@ -44,7 +44,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     {
       title: 'Lớp Chuyên Ngành',
       icon: 'fa-solid fa-folder-open',
-      url: '#',
+      url: '/admin/lop-chuyen-nganh',
       key: 'lop-chuyen-nganh'
     },
     {

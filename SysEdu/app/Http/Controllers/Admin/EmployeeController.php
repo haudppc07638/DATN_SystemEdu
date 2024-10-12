@@ -85,12 +85,17 @@ class EmployeeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(EmployeeRequest $request, Employee $employee)
-    {
-        $validated = $request->validated();
+{
+    $validated = $request->validated();
+    
+    if ($request->hasFile('image')) {
         $validated['image'] = $this->imageService->handleImageUpdate($request, $employee);
-        Employee::updated($validated);
-        return redirect()->route('admin.employees.show')->with('success', 'Cập nhập thông tin nhân sự thành công !');
     }
+
+    $employee->update($validated);
+
+    return redirect()->route('admin.employees.show')->with('success', 'Cập nhật thông tin nhân sự thành công!');
+}
 
     /**
      * Remove the specified resource from storage.
