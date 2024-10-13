@@ -18,6 +18,17 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::create('faculties', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('code');
+            $table->string('dean')->nullable();
+            $table->string('assistant_dean')->nullable();
+            $table->text('description');
+            $table->timestamps();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -26,5 +37,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('departments');
+        Schema::dropIfExists('faculties');
     }
 };

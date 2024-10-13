@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FacultyController;
 use App\Http\Controllers\Admin\MajorClassController;
 use App\Http\Controllers\Admin\MajorController;
+use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\EmployeeController;
@@ -93,5 +94,15 @@ Route::middleware(['admin'])->group(function () {
         Route::get('sinh-vien/{student}/sua', [StudentController::class, 'edit'])->name('edit');
         Route::patch('sinh-vien/{student}/sua', [StudentController::class,'update'])->name('update');
         Route::delete('sinh-vien/{student}', [StudentController::class, 'destroy'])->name('destroy');
+    });
+
+    //Semesters
+    Route::name('admin.semesters.')->group(function () {
+        Route::get('hoc-ky', [SemesterController::class, 'index'])->name('show');
+        Route::get('hoc-ky/them', [SemesterController::class, 'create'])->name('create');
+        Route::post('hoc-ky/them', [SemesterController::class, 'store'])->name('store');
+        Route::get('hoc-ky/{semester}/sua', [SemesterController::class, 'edit'])->name('edit');
+        Route::patch('hoc-ky/{semester}/sua', [SemesterController::class, 'update'])->name('update');
+        Route::delete('hoc-ky/{semester}', [SemesterController::class,'destroy'])->name('destroy');
     });
 });

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('semesters', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('block');
-            $table->year('year');
+            $table->unsignedInteger('year');
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

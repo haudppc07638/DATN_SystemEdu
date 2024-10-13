@@ -35,7 +35,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       title: 'Thời Gian & Lịch Học',
       icon: 'fa-solid fa-calendar-days',
       subMenu: [
-        { title: 'Học Kỳ', url: '#' },
+        { title: 'Học Kỳ', url: '/admin/hoc-ky' },
         { title: 'Ca Học', url: '#' },
         { title: 'Lịch Học', url: '#' }
       ],
