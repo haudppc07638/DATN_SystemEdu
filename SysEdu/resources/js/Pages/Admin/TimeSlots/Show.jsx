@@ -4,7 +4,7 @@ import Pagination from '../../../Components/Paginations/Base';
 import LimitSelector from '../../../Components/LimitSelectors/Base';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
-const Show = ({ departments, limit }) => {
+const Show = ({ timeSlots, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
     const [idToDelete, setIdToDelete] = useState(null);
     const { flash } = usePage().props;
@@ -12,7 +12,7 @@ const Show = ({ departments, limit }) => {
     const { data, setData, get } = useForm({
         limit: limit || 10,
         search: '',
-        page: departments.current_page || 1,
+        page: timeSlots.current_page || 1,
     });
 
     const performSearch = useCallback(() => {
@@ -66,7 +66,7 @@ const Show = ({ departments, limit }) => {
     };
 
     const confirmDelete = () => {
-        router.delete(`phong-ban/${idToDelete}`);
+        router.delete(`ca-hoc/${idToDelete}`);
         handleClosePopup();
     };
 
@@ -100,8 +100,8 @@ const Show = ({ departments, limit }) => {
 
             {/* Breadcrumb */}
             <Breadcrumb items={[
-                { label: 'Quản lý phòng ban', link: '/admin/phong-ban' },
-                { label: 'Danh sách phòng ban' }
+                { label: 'Quản lý ca học', link: '/admin/ca-hoc' },
+                { label: 'Danh sách ca học' }
             ]} />
 
             {/* action */}
@@ -126,7 +126,7 @@ const Show = ({ departments, limit }) => {
                     </div>
 
                     {/* Add */}
-                    <Link href="/admin/phong-ban/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                    <Link href="/admin/ca-hoc/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
                         Thêm
                     </Link>
                 </form>
@@ -139,33 +139,37 @@ const Show = ({ departments, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">#</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Tên</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Địa điểm</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Ca học</th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Băt đầu</th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Kết thúc</th>
                             <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {departments.data && departments.data.length > 0 ? (
-                            departments.data.map((department, index) => (
-                                <tr key={department.id}>
+                        {timeSlots.data && timeSlots.data.length > 0 ? (
+                            timeSlots.data.map((timeSlot, index) => (
+                                <tr key={timeSlot.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{department.name}</p>
+                                        <p className="text-black dark:text-white">{timeSlot.slot}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{department.location}</p>
+                                        <p className="text-black dark:text-white">{timeSlot.start_time}</p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black dark:text-white">{timeSlot.end_time}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/phong-ban/${department.id}/sua`} className="hover:text-primary">
+                                            <Link href={`/admin/ca-hoc/${timeSlot.id}/sua`} className="hover:text-primary">
                                                 <i
                                                     className="fa-regular fa-pen-to-square text-xl"
                                                     title="Chỉnh sửa"
                                                 ></i>
                                             </Link>
-                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(department.id)}>
+                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(timeSlot.id)}>
                                                 <i
                                                     className="fa-regular fa-trash-can text-xl"
                                                     title="Xóa"
@@ -186,7 +190,7 @@ const Show = ({ departments, limit }) => {
 
             {/* Pagination */}
             <div className='my-6'>
-                <Pagination link={departments.links} onPageChange={handlePageChange} />
+                <Pagination link={timeSlots.links} onPageChange={handlePageChange} />
             </div>
 
             {/* Popup */}

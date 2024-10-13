@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['admin'])->group(function () {
@@ -104,5 +105,15 @@ Route::middleware(['admin'])->group(function () {
         Route::get('hoc-ky/{semester}/sua', [SemesterController::class, 'edit'])->name('edit');
         Route::patch('hoc-ky/{semester}/sua', [SemesterController::class, 'update'])->name('update');
         Route::delete('hoc-ky/{semester}', [SemesterController::class,'destroy'])->name('destroy');
+    });
+
+    //Timeslot
+    Route::name('admin.timeSlots.')->group(function () {
+        Route::get('ca-hoc', [TimeSlotController::class, 'index'])->name('show');
+        Route::get('ca-hoc/them', [TimeSlotController::class, 'create'])->name('create');
+        Route::post('ca-hoc/them', [TimeSlotController::class, 'store'])->name('store');
+        Route::get('ca-hoc/{timeSlot}/sua', [TimeSlotController::class,'edit'])->name('edit');
+        Route::patch('ca-hoc/{timeSlot}/sua', [TimeSlotController::class,'update'])->name('update');
+        Route::delete('ca-hoc/{timeSlot}', [TimeSlotController::class, 'destroy'])->name('destroy');
     });
 });
