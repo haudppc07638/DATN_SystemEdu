@@ -6,7 +6,7 @@ import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
 const Show = ({ subjects, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
-    const [idToDelete, setDepartmentIdToDelete] = useState(null);
+    const [idToDelete, setToDelete] = useState(null);
     const { flash } = usePage().props;
 
     const { data, setData, get } = useForm({
@@ -56,13 +56,13 @@ const Show = ({ subjects, limit }) => {
     };
 
     const handleDeleteClick = (id) => {
-        setDepartmentIdToDelete(id);
+        setToDelete(id);
         setShowPopup(true);
     };
 
     const handleClosePopup = () => {
         setShowPopup(false);
-        setDepartmentIdToDelete(null);
+        setToDelete(null);
     };
 
     const confirmDelete = () => {

@@ -51,4 +51,14 @@ class MajorClass extends Model
     public static function getByMajorId($major_id){
         return self::where('major_id', $major_id)->with('major', 'employee')->get();
     }
+
+    public static function updateQuantity(){
+        $majorClasses = self::all();
+        foreach ($majorClasses as $majorClass) {
+            $count = Student::where("major_class_id", $majorClass->id)->count();
+            $majorClass->quantity = $count;
+            $majorClass->save();
+        }
+        
+    }
 }

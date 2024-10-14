@@ -4,14 +4,7 @@ import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
 const Create = ({ faculties, departments }) => {
     const [form, setForm] = useState({
-        full_name: '',
-        phone: '',
-        email: '',
-        password: '',
-        image: null,
-        position: 'teacher',
-        faculty_id: '',
-        department_id: ''
+        position: 'teacher'
     });
     const { errors } = usePage().props;
 

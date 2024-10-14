@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Faculty;
 use App\Models\Major;
 use App\Models\MajorClass;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,6 +20,7 @@ class MajorClassController extends Controller
     public function index()
     {
         $faculties = Faculty::getFaculties();
+        MajorClass::updateQuantity();
         return Inertia::render('Admin/MajorClasses/Show', [
             'faculties'=> $faculties
         ]);

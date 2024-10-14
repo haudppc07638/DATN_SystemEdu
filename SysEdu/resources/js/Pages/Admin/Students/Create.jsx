@@ -1,50 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
-const Edit = ({ faculties, student }) => {
-
+const Create = ({ faculties }) => {
+    const [form, setForm] = useState({});
     const [majors, setMajors] = useState([]);
     const [majorClasses, setMajorClasses] = useState([]);
     const { errors } = usePage().props;
-    const [form, setForm] = useState({
-        full_name: student.full_name,
-        code: student.code,
-        email: student.email,
-        phone: student.phone,
-        faculty_id: student.major?.faculty_id,
-        major_id: student.major_id,
-        major_class_id: student.major_class_id,
-    });
-
-    useEffect(() => {
-        if (form.faculty_id) {
-            fetch(`/api/majors?faculty_id=${form.faculty_id}`)
-                .then(response => response.json())
-                .then(data => {
-                    setMajors(data);
-                });
-        }
-    }, [form.faculty_id]);
-
-    useEffect(() => {
-        if (form.major_id) {
-            fetch(`/api/majorClasses?major_id=${form.major_id}`)
-                .then(response => response.json())
-                .then(data => {
-                    setMajorClasses(data);
-                });
-        }
-    }, [form.major_id]);
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post(router.post(`/admin/sinh-vien/${student.id}/sua`, {
-            ...form,
-            _method: 'PATCH',
-        })
-        );
+        router.post('/admin/sinh-vien/them', form);
+        console.log(form);
     };
 
     const handleChangeValue = (e) => {
@@ -64,9 +31,25 @@ const Edit = ({ faculties, student }) => {
             phone: '',
             image: null,
             faculty_id: '',
-            major_id: '',
+            major: '',
             major_class_id: ''
         });
+    };
+
+    const handleFacultyChange = (e) => {
+        const facultyId = e.target.value;
+        setForm(prevForm => ({ ...prevForm, faculty_id: facultyId }));
+
+        if (facultyId) {
+            fetch(`/api/majors?faculty_id=${facultyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    setMajors(data);
+                    setForm(prevForm => ({ ...prevForm, major_id: '' }));
+                });
+        } else {
+            setMajors([]);
+        }
     };
 
     const handleMajorChange = (e) => {
@@ -89,9 +72,6 @@ const Edit = ({ faculties, student }) => {
         return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
     };
 
-    const isFacultySoftDeleted = !faculties.find(f => f.id === form.faculty_id);
-    const isMajorSoftDeleted = !majors.find(m => m.id === form.major_id);
-
     return (
         <div className="flex flex-col gap-9">
 
@@ -101,8 +81,8 @@ const Edit = ({ faculties, student }) => {
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
                     <Breadcrumb items={[
-                        { label: 'Quản lý sinh viên', link: '/admin/sinh-vien' },
-                        { label: 'Sửa sinh viên' }
+                        { label: 'Quản lý sinh viên', link: '/admin/sinh-viên' },
+                        { label: 'Thêm sinh viên' }
                     ]} />
                 </div>
 
@@ -149,54 +129,54 @@ const Edit = ({ faculties, student }) => {
                                 {renderError('email')}
                             </div>
                             <div className="xl:w-1/2">
+                                <label className="mb-3 block text-black">Mật khẩu</label>
+                                <input
+                                    type="password"
+                                    className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
+                                    name="password"
+                                    value={form.password}
+                                    onChange={handleChangeValue}
+                                />
+                                {renderError('password')}
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-6 xl:flex-row">
+                            <div className="xl:w-1/2">
                                 <label className="mb-3 block text-black">Mã sinh viên</label>
                                 <input
                                     type="text"
                                     name="code"
-                                    value={form.code}
                                     onChange={handleChangeValue}
                                     className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm focus:border-primary file:focus:border-primary active:border-primary"
                                 />
                                 {renderError('code')}
                             </div>
-                        </div>
-
-                        <div className="flex flex-col gap-6 xl:flex-row">
-                            <div className="xl:w-1/4 flex xl:justify-center">
-                                <img src={`/storage/avatars/${student.image}`} alt="avatar"
-                                    className="w-22 h-22 border border-gray-300"
-                                />
-                            </div>
-                            <div className="xl:w-3/4">
+                            <div className="xl:w-1/2">
                                 <label className="mb-3 block text-black">Ảnh</label>
                                 <input
                                     type="file"
                                     name="image"
-                                    onChange={handleChangeValue}    
+                                    onChange={handleChangeValue}
                                     className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm focus:border-primary file:focus:border-primary active:border-primary"
                                 />
                                 {renderError('image')}
                             </div>
                         </div>
 
-
                         {/* Other fields (Faculties and major) */}
                         <div className="flex flex-col gap-6 xl:flex-row">
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Khoa</label>
+                                <label className="mb-3 block text-black">Chọn khoa</label>
                                 <select
                                     name="faculty_id"
-                                    value={form.faculty_id} 
-                                    onChange={handleChangeValue}
+                                    value={form.faculty_id || ''}
+                                    onChange={handleFacultyChange}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-                                        ${form.faculty_id ? 'text-black' : ''}`}
+                                            ${form.faculty_id ? 'text-black' : ''}`}
                                 >
-                                    {isFacultySoftDeleted && (
-                                        <option className="text-red-500" disabled>
-                                            Khoa hiện tại đã ngưng hoạt động
-                                        </option>
-                                    )}
-                                    <option value="">-- Chọn khoa mới --</option>
+                                    <option value="" disabled className="text-body">
+                                        ... Chọn khoa ...
+                                    </option>
                                     {faculties.map((faculty) => (
                                         <option key={faculty.id} value={faculty.id} className="text-body">
                                             {faculty.name}
@@ -207,25 +187,22 @@ const Edit = ({ faculties, student }) => {
                             </div>
 
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Chuyên ngành</label>
+                                <label className="mb-3 block text-black">Chọn chuyên ngành</label>
                                 <select
                                     name="major_id"
-                                    value={form.major_id}
+                                    value={form.major_id || ''}
                                     onChange={handleMajorChange}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-                                        ${form.major_id ? 'text-black' : ''}`}
+                                    ${form.major_id ? 'text-black' : ''}`}
                                 >
-                                    {isMajorSoftDeleted && (
-                                        <option className="text-red-500" disabled>
-                                            Chuyên ngành hiện tại đã ngưng hoạt động
-                                        </option>
-                                    )}
-                                    <option value="">-- Chọn chuyên ngành mới --</option>
+                                    <option value="" disabled className="text-body">
+                                        ... Chọn chuyên ngành ...
+                                    </option>
                                     {majors.map((major) => (
                                         <option key={major.id} value={major.id} className="text-body">
                                             {major.name}
                                         </option>
-                                    ))}
+                                    ))} 
                                 </select>
                                 {renderError('major_id')}
                             </div>
@@ -238,14 +215,14 @@ const Edit = ({ faculties, student }) => {
                                 value={form.major_class_id || ''}
                                 onChange={handleChangeValue}
                                 className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-                                ${form.major_class_id ? 'text-black' : ''}`}
+            ${form.major_class_id ? 'text-black' : ''}`}
                             >
                                 <option value="" disabled className="text-body">
                                     ... Chọn lớp chuyên ngành ...
                                 </option>
                                 {majorClasses.map((majorClass) => (
                                     <option key={majorClass.id} value={majorClass.id} className="text-body">
-                                        {majorClass.name}
+                                        {majorClass.name} / {majorClass.quantity} Sinh viên
                                     </option>
                                 ))}
                             </select>
@@ -275,4 +252,4 @@ const Edit = ({ faculties, student }) => {
     );
 }
 
-export default Edit;
+export default Create;

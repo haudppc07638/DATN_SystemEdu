@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Traits\ReusableModelTraits;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, ReusableModelTraits, SoftDeletes;
 
     protected $table = 'students';
 
@@ -30,7 +32,7 @@ class Student extends Authenticatable
         return $this->belongsTo(Major::class);
     }
 
-    public function MmjorClass(): BelongsTo
+    public function majorClass(): BelongsTo
     {
         return $this->belongsTo(MajorClass::class);
     }
@@ -39,4 +41,33 @@ class Student extends Authenticatable
     {
         return $this->belongsTo(SubjectClass::class);
     }
+
+    public function scopeSearch($query, $searchTerm)
+    {
+        if ($searchTerm) {
+            return $query->where('full_name', 'like', '%' . $searchTerm . '%')
+            ->orWhere('code', 'like', '%' . $searchTerm . '%')
+            ->orWhere('email', 'like', '%' . $searchTerm . '%')
+            ->orWhereHas('major', function ($subQuery) use ($searchTerm) {
+                $subQuery->where('name', 'like', '%' . $searchTerm . '%');
+            })
+            ->orWhereHas('majorClass', function ($subQuery) use ($searchTerm) {
+                $subQuery->where('name', 'like', '%' . $searchTerm . '%');
+            });
+        }
+        return $query;
+    }
+
+    public function scopeWithMajorAndMajorClass($query)
+    {
+        return $query->with([
+            'major' => function ($query) {
+                $query->withTrashed();
+            },
+            'majorClass' => function ($query) {
+                $query->withTrashed();
+            },
+        ]);
+    }
+    
 }

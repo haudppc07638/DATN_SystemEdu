@@ -62,7 +62,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     {
       title: 'Sinh Viên',
       icon: 'fa-solid fa-user-graduate',
-      url: '#',
+      url: '/admin/sinh-vien',
       key: 'sinh-vien'
     },
     {
