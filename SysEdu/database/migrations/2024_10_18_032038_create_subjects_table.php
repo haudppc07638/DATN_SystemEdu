@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('code', 15)->unique();
             $table->unsignedSmallInteger( 'credit');
             $table->text('description')->nullable();
-            $table->foreignId('major_id')->constrained('majors');
+            $table->foreignId('major_id')->nullable()->constrained('majors');
             $table->foreignId('prerequisite_subject_id')->nullable()->constrained('subjects'); 
             $table->timestamps();
             $table->softDeletes();

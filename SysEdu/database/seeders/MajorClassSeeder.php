@@ -10,9 +10,50 @@ class MajorClassSeeder extends Seeder
     public function run(): void
     {
         DB::table('major_classes')->insert([
-            ['training_system' => 'Regular', 'name' => 'CNTT2023', 'quantity' => 50, 'major_id' => 1, 'employee_id' => 1],
-            ['training_system' => 'Regular', 'name' => 'HTTT2023', 'quantity' => 45, 'major_id' => 2, 'employee_id' => 2],
-            ['training_system' => 'Regular', 'name' => 'KT2023', 'quantity' => 60, 'major_id' => 3, 'employee_id' => 3],
+            // Chuyên ngành 1: Phát triển phần mềm
+            [
+                'training_system' => 'Chính quy',
+                'name' => 'Ứng dụng phần mềm - SW001',
+                'quantity' => 30,
+                'status' => 0,
+                'major_id' => 1,
+                'employee_id' => 12, // Giáo viên phụ trách
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'training_system' => 'Chính quy',
+                'name' => 'Ứng dụng phần mềm - SW002',
+                'quantity' => 30,
+                'status' => 0,
+                'major_id' => 1,
+                'employee_id' => 15,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
+            
+            [
+                'training_system' => 'Chính quy',
+                'name' => 'Chế biến thực phẩm - TP001',
+                'quantity' => 30,
+                'status' => 0,
+                'major_id' => 3,
+                'employee_id' => 18,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'training_system' => 'Chính quy',
+                'name' => 'Chế biến thực phẩm - TP002',
+                'quantity' => 30,
+                'status' => 0,
+                'major_id' => 3,
+                'employee_id' => 13,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
+        
     }
 }

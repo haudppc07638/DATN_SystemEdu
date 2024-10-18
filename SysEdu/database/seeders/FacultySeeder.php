@@ -10,9 +10,27 @@ class FacultySeeder extends Seeder
     public function run(): void
     {
         DB::table('faculties')->insert([
-            ['name' => 'Khoa Công nghệ thông tin', 'code' => 'CNTT', 'dean' => 'Nguyễn Văn A', 'assistant_dean' => 'Trần Thị B', 'description' => 'Khoa này ngon'],
-            ['name' => 'Khoa Kinh tế', 'code' => 'KT', 'dean' => 'Lê Văn C', 'assistant_dean' => 'Phạm Thị D', 'description' => 'Khoa này ngon'],
-            ['name' => 'Khoa Ngoại ngữ', 'code' => 'NN', 'dean' => 'Hoàng Văn E', 'assistant_dean' => 'Vũ Thị F', 'description' => 'Khoa này ngon'],
+            [
+                'name' => 'Công nghệ Thông tin',
+                'code' => 'CNTT',
+                'dean' => null,
+                'assistant_dean' => null,
+                'description' => 'Khoa chuyên đào tạo về công nghệ thông tin.'
+            ],
+            [
+                'name' => 'Công nghệ thực phẩm',
+                'code' => 'CNTP',
+                'dean' => null,
+                'assistant_dean' => null,
+                'description' => 'Khoa chuyên đào tạo về công nghệ thực phẩm.'
+            ],
+            [
+                'name' => 'Khoa cơ khí ô tô',
+                'code' => 'CKOT',
+                'dean' => null,
+                'assistant_dean' => null,
+                'description' => 'Khoa chuyên đào tạo về cơ khí ô tô.'
+            ]
         ]);
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string( 'code', 15)->unique();
             $table->boolean('status')->default(0);
+            $table->unsignedInteger('capacity');
             $table->timestamps();
             $table->softDeletes();
         });

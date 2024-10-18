@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('total_tuitions', function (Blueprint $table) {
-            $table->bigIncrements('id');
             $table->decimal('total_amount', 10, 2);
             $table->unsignedSmallInteger('total_credit');
             $table->enum('payment_status', ['paid', 'unpaid', 'late']);
