@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('subject_id')->constrained('subjects');
             $table->foreignId('semester_id')->constrained('semesters');
             $table->foreignId('credit_id')->constrained('credits');
+            $table->foreignId('major_class_id')->constrained('major_classes');
             $table->timestamps();
             $table->softDeletes();
         });
