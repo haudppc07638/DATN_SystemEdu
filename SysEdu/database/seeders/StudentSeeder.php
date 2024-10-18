@@ -12,7 +12,7 @@ class StudentSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 1; $i <= 80; $i++) { // Giả định bạn muốn thêm 80 sinh viên (20 cho mỗi lớp)
+        for ($i = 91; $i <= 110; $i++) { // Giả định bạn muốn thêm 80 sinh viên (20 cho mỗi lớp)
             DB::table('students')->insert([
                 'full_name' => $faker->name,
                 'date_of_birth' => $faker->date,
@@ -31,8 +31,8 @@ class StudentSeeder extends Seeder
                 'house_number' => $faker->buildingNumber,
                 'sponsor_name' => $faker->name,
                 'sponsor_phone' => '0' . $faker->numberBetween(900000000, 999999999),
-                'major_id' => 1, // Hoặc ID chuyên ngành bạn muốn
-                'major_class_id' => 1, // Hoặc ID lớp chuyên ngành bạn muốn
+                'major_id' => 4, // Hoặc ID chuyên ngành bạn muốn
+                'major_class_id' => 12, // Hoặc ID lớp chuyên ngành bạn muốn
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
