@@ -22,7 +22,7 @@ function LoginPortal() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-        }, 3000);  // Change slide every 3 seconds
+        }, 3000); // Change slide every 3 seconds
 
         return () => clearInterval(interval);
     }, []);
@@ -67,10 +67,27 @@ function LoginPortal() {
                                     ></path>
                                 </svg>
                             </button>
-                            <nav className={`absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 ${menuOpen ? 'block' : 'hidden'} md:relative md:block md:bg-transparent md:shadow-none md:w-auto md:py-0`}>
-                                <button onClick={() => handleLogin('admin')} className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sn md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50">Cán bộ đào tạo</button>
-                                <button onClick={() => handleLogin('teacher')} className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sm md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50 md:ml-4">Giảng viên</button>
-                                <button onClick={() => handleLogin('student')} className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sm md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50 md:ml-4">Sinh viên</button>
+                            <nav
+                                className={`absolute right-0 mt-2 w-64 bg-white rounded-md shadow-lg py-2 ${menuOpen ? "block" : "hidden"} md:relative md:block md:bg-transparent md:shadow-none md:w-auto md:py-0`}
+                            >
+                                <button
+                                    onClick={() => handleLogin("admin")}
+                                    className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sm md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50"
+                                >
+                                    Cán bộ đào tạo
+                                </button>
+                                <button
+                                    onClick={() => handleLogin("teacher")}
+                                    className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sm md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50 md:ml-4"
+                                >
+                                    Giảng viên
+                                </button>
+                                <button
+                                    onClick={() => handleLogin("student")}
+                                    className="block w-full text-left px-6 py-3 text-base font-medium text-gray-700 hover:bg-primary hover:text-white transition-colors duration-300 md:inline-block md:w-auto md:px-6 md:py-3 md:text-sm md:font-semibold md:text-primary md:border-2 md:border-primary md:rounded-lg md:hover:bg-primary md:hover:text-white md:transition-colors md:duration-300 md:active:bg-indigo-600 md:focus:outline-none md:focus:ring-2 md:focus:ring-primary md:focus:ring-opacity-50 md:ml-4"
+                                >
+                                    Sinh viên
+                                </button>
                             </nav>
                         </div>
                     </div>
@@ -81,9 +98,9 @@ function LoginPortal() {
                 <Carousel slides={slides} currentSlide={currentSlide} />
             </main>
         </div>
-    )
+    );
 }
 
-LoginPortal.layout = page => <Auth>{page}</Auth>;
+LoginPortal.layout = (page) => <Auth>{page}</Auth>;
 
 export default LoginPortal;

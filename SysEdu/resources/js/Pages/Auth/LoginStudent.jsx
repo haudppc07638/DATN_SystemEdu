@@ -10,7 +10,7 @@ import banner2 from '../../Assets/Images/banner2.jpg';
 function LoginAdmin() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slides = [banner, banner1, banner2];
-
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);

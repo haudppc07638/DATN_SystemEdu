@@ -29,6 +29,6 @@ function LoginAdmin() {
     );
 }
 
-LoginAdmin.layout = page => <Auth>{page}</Auth>;
+LoginAdmin.layout = (page) => <Auth>{page}</Auth>;
 
 export default LoginAdmin;
