@@ -58,7 +58,6 @@ class MajorClass extends Model
             $count = Student::where("major_class_id", $majorClass->id)->count();
             $majorClass->quantity = $count;
             $majorClass->save();
-        }
-        
+        }   
     }
 }

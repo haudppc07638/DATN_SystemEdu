@@ -1,106 +1,83 @@
 import React, { useState, useEffect } from 'react';
-import { Link, router, usePage } from '@inertiajs/react';
+import { Link, useForm, router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 import dayjs from 'dayjs';
 
 const Show = ({ faculties }) => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const initialMajorId = searchParams.get('major_id') || '';
-
     const [showPopup, setShowPopup] = useState(false);
-    const [form, setForm] = useState({ faculty_id: '', major_id: initialMajorId });
     const [majors, setMajors] = useState([]);
     const [majorClasses, setMajorClasses] = useState([]);
-    const [idToDelete, setDepartmentIdToDelete] = useState(null);
-    const { flash } = usePage().props;
-    const [isLoading, setIsLoading] = useState(false);
+
+    const [idToDelete, setIdToDelete] = useState(null);
+    const [form, setForm] = useState({
+        faculty_id: '',
+        major_id: '',
+        subject_id: ''
+    });
 
     const handleDeleteClick = (id) => {
-        setDepartmentIdToDelete(id);
+        setIdToDelete(id);
         setShowPopup(true);
     };
 
     const handleClosePopup = () => {
         setShowPopup(false);
-        setDepartmentIdToDelete(null);
+        setIdToDelete(null);
     };
 
     const confirmDelete = () => {
-        setIsLoading(true);
-        router.delete(`lop-chuyen-nganh/${idToDelete}`, {
-            onSuccess: () => {
-                setMajorClasses((prevClasses) =>
-                    prevClasses.filter((cls) => cls.id !== idToDelete)
-                );
-                Swal.fire('Thành công!', 'Đã xóa lớp chuyên ngành.', 'success');
-                handleClosePopup();
-            },
-            onError: () => {
-                Swal.fire('Lỗi!', 'Không thể xóa lớp chuyên ngành. Vui lòng thử lại.', 'error');
-            },
-            onFinish: () => setIsLoading(false),
-        });
+        router.delete(`lop-chuyen-nganh/${idToDelete}`);
+        handleClosePopup();
     };
 
+    const { flash } = usePage().props;
+
     useEffect(() => {
-        if (flash.success || flash.error) {
+        if (flash.success) {
             Swal.fire({
-                title: flash.success ? 'Thành công!' : 'Lỗi!',
-                text: flash.success || flash.error,
-                icon: flash.success ? 'success' : 'error',
-                confirmButtonText: 'OK',
+                title: 'Thành công!',
+                text: flash.success,
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: flash.error,
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
         }
     }, [flash]);
 
-    useEffect(() => {
-        if (form.major_id) {
-            fetch(`/api/majorClasses?major_id=${form.major_id}`)
-                .then((response) => response.json())
-                .then((data) => setMajorClasses(data));
-        }
-    }, [form.major_id]);
-
     const handleFacultyChange = (e) => {
         const facultyId = e.target.value;
-        setForm((prevForm) => ({ ...prevForm, faculty_id: facultyId, major_id: '' }));
-        fetch(`/api/majors?faculty_id=${facultyId}`)
-            .then((response) => response.json())
-            .then((data) => setMajors(data));
-    };
+        setForm(prevForm => ({ ...prevForm, faculty_id: facultyId }));
+
+        if (facultyId) {
+            fetch(`/api/majors?faculty_id=${facultyId}`)
+                .then(response => response.json())
+                .then(data => {
+                    setMajors(data);
+                    setForm(prevForm => ({ ...prevForm, major_id: '' }));
+                });
+        } else {
+            setMajors([]);
+        }
+    }
 
     const handleMajorChange = (e) => {
         const majorId = e.target.value;
         setForm((prevForm) => ({ ...prevForm, major_id: majorId }));
-    };
 
-    const handleEndClass = (majorClass) => {
-        Swal.fire({
-            title: 'Bạn có chắc chắn?',
-            text: `Kết thúc lớp chuyên ngành: ${majorClass.name}?`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Có, kết thúc!',
-            cancelButtonText: 'Hủy',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch(`/api/majorClasses/${majorClass.id}/end`, { method: 'PATCH' })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        Swal.fire(data.success ? 'Thành công!' : 'Lỗi!', data.message, data.success ? 'success' : 'error');
-                        if (data.success) {
-                            setMajorClasses((prev) =>
-                                prev.map((cls) => (cls.id === majorClass.id ? { ...cls, status: 1 } : cls))
-                            );
-                        }
-                    })
-                    .catch(() => {
-                        Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại.', 'error');
-                    });
-            }
-        });
+        if (majorId) {
+            fetch(`/api/majorClasses?major_id=${majorId}`)
+                .then(response => response.json())
+                .then(data => {
+                    setMajorClasses(data);
+                })
+        }
     };
 
     const formatDate = (date) => {
@@ -183,7 +160,7 @@ const Show = ({ faculties }) => {
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Tên</th>
                             <th className="min-w-[60px] py-4 px-4 font-medium text-black dark:text-white">Số lượng</th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Chuyên ngành</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Cố vấn</th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Chủ nhiệm</th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Tình trạng</th>
                             <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Năm học</th>
                             <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
@@ -193,7 +170,7 @@ const Show = ({ faculties }) => {
 
                         {Array.isArray(majorClasses) && majorClasses.length > 0 ? (
                             majorClasses.map((majorClass, index) => (
-                                <tr key={majorClass.id}>
+                                <tr key={majorClasses.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
                                     </td>
@@ -227,15 +204,12 @@ const Show = ({ faculties }) => {
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/lop-chuyen-nganh/${majorClass.id}/chi-tiet`} className="hover:text-primary">
-                                                <i className="fa-regular fa-pen-to-square text-xl" title="Xem lớp"></i>
-                                            </Link>
                                             {majorClass.status === 0 && (
                                                 <Link href={`/admin/lop-chuyen-nganh/${majorClass.major_id}/${majorClass.id}/sua`} className="hover:text-primary">
                                                     <i
                                                         className="fa-regular fa-pen-to-square text-xl"
                                                         title="Chỉnh sửa"
-                                                    ></i>   
+                                                    ></i>
                                                 </Link>
                                             )}
                                             <button className="hover:text-primary" onClick={() => handleDeleteClick(majorClass.id)}>
@@ -263,9 +237,13 @@ const Show = ({ faculties }) => {
                 {/* <Pagination link={departments.links} onPageChange={handlePageChange} /> */}
             </div>
 
+            {/* Popup */}
             {showPopup && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded shadow-lg transition-transform transform scale-100">
+                <div
+                    className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+                    style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%' }}
+                >
+                    <div className="bg-white p-6 rounded shadow-lg z-60 relative">
                         <h2 className="text-xl font-semibold mb-4">Cảnh báo</h2>
                         <p>Bạn có chắc chắn muốn xóa mục này không?</p>
                         <div className="mt-4 flex justify-end">
@@ -283,11 +261,6 @@ const Show = ({ faculties }) => {
                             </button>
                         </div>
                     </div>
-                </div>
-            )}
-            {isLoading && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="loader">Đang xử lý...</div>
                 </div>
             )}
 

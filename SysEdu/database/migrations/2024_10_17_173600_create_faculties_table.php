@@ -11,21 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('location');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-
         Schema::create('faculties', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('code');
+            $table->string('name', 100);
+            $table->string('code', 15)->unique();
             $table->string('dean')->nullable();
             $table->string('assistant_dean')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -36,7 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
         Schema::dropIfExists('faculties');
     }
 };

@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-        Schema::create('majors', function (Blueprint $table) {
+        Schema::create('credits', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->foreignId('faculty_id')->constrained('faculties');
-            $table->timestamps();   
+            $table->decimal('price', 10, 2);
+            $table->decimal('vat', 5, 2);
+            $table->timestamps();
             $table->softDeletes();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('majors');
+        Schema::dropIfExists('credits');
     }
 };

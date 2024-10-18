@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('student_major_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('code')->unique();
-            $table->integer( 'credit')->unsigned();
-            $table->float('price')->unsigned();
-            $table->text('description');
-            $table->foreignId('major_id')->constrained('majors');
+            $table->foreignId('major_class_id')->constrained('major_classes');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('student_major_classes');
     }
 };

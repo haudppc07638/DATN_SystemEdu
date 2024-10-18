@@ -22,7 +22,7 @@ class MajorClassController extends Controller
         $faculties = Faculty::getFaculties();
         MajorClass::updateQuantity();
         return Inertia::render('Admin/MajorClasses/Show', [
-            'faculties'=> $faculties
+            'faculties' => $faculties
         ]);
     }
 
@@ -46,8 +46,9 @@ class MajorClassController extends Controller
     public function store(MajorClassRequest $request)
     {
         $validated = $request->validated();
-        MajorClass::create($validated);
-        return redirect()->route('admin.majorClasses.show')->with('success','Thêm lớp chuyên ngành thành công !');
+        $majorClass = MajorClass::create($validated);
+        return redirect()->route('admin.majorClasses.show', ['major_id' => $majorClass->major_id])
+            ->with('success', 'Thêm lớp chuyên ngành thành công!');
     }
 
     /**
@@ -55,7 +56,7 @@ class MajorClassController extends Controller
      */
     public function edit($majorId, MajorClass $majorClass)
     {
-        $majorClass->load(['major','employee']);
+        $majorClass->load(['major', 'employee']);
         $major = Major::findOrFail($majorId);
         $faculty_id = $major->faculty_id;
         $employees = Employee::getAvailableTeachers($faculty_id);
@@ -73,7 +74,19 @@ class MajorClassController extends Controller
     {
         $validated = $request->validated();
         $majorClass->update($validated);
-        return redirect()->route('admin.majorClasses.show')->with('success','Cập nhập thông tin lớp chuyên ngành thành công !');
+        return redirect()->route('admin.majorClasses.show', ['major_id' => $majorClass->major_id])
+            ->with('success', 'Cập nhập thông tin lớp chuyên ngành thành công!');
+    }
+
+
+    public function detail($majorClassId)
+    {
+        $adviser = Employee::findOrFail($majorClassId);
+        $students = Student::getStudentInMajorClass($majorClassId);
+        return Inertia::render('Admin.MajorClasses.Detail', [
+            "adviser" => $adviser,
+            "students"=> $students
+        ]);
     }
 
     /**
@@ -81,23 +94,26 @@ class MajorClassController extends Controller
      */
     public function destroy(MajorClass $majorClass)
     {
-        if($majorClass->hasRelations()){
+        if ($majorClass->hasRelations() && $majorClass->quantity != 0) {
+            $majorClass->status = 1;
+            $majorClass->save();
             $majorClass->delete();
-            return redirect()->route('admin.majorClasses.show')->with('success','Xóa lớp chuyên ngành thành công !');
-        }
-        else{
+            return redirect()->route('admin.majorClasses.show')->with('success', 'Xóa lớp chuyên ngành thành công !');
+        } else {
             $majorClass->forceDelete();
-            return redirect()->route('admin.majorClasses.show')->with('success','Xóa lớp chuyên ngành thành công !');
+            return redirect()->route('admin.majorClasses.show')->with('success', 'Xóa lớp chuyên ngành thành công !');
         }
     }
 
-    public static function getMajorClassesByMajor(Request $request){
+    public static function getMajorClassesByMajor(Request $request)
+    {
         $majorId = $request->query('major_id');
         $MajorClasses = MajorClass::getByMajorId($majorId);
         return response()->json($MajorClasses);
     }
 
-    public function endMajorClass(MajorClass $majorClass){
+    public function endMajorClass(MajorClass $majorClass)
+    {
         try {
             $majorClass->status = 1;
             $majorClass->save();

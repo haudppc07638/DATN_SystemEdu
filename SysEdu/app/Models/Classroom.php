@@ -15,7 +15,8 @@ class Classroom extends Model
     protected $table = 'classrooms';
     protected $fillable = [
         'code',
-        'deleted_at'
+        'deleted_at',
+        'stutus',
     ];
 
     public function schedule(): BelongsTo{

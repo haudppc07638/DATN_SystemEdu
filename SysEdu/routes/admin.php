@@ -84,6 +84,7 @@ Route::middleware(['admin'])->group(function () {
         Route::post('lop-chuyen-nganh/them', [MajorClassController::class,'store'])->name('store');
         Route::get('lop-chuyen-nganh/{major}/{majorClass}/sua', [MajorClassController::class,'edit'])->name('edit');
         Route::patch('lop-chuyen-nganh/{majorClass}/sua', [MajorClassController::class, 'update'])->name('update');
+        Route::get('lop-chuyen-nganh/{majarClass}/chi-tiet', [MajorClassController::class,'detail'])->name('detail');
         Route::delete('lop-chuyen-nganh/{majorClass}', [MajorClassController::class, 'destroy'])->name('destroy');
     });
 

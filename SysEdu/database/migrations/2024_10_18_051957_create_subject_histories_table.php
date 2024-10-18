@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('major_classes', function (Blueprint $table) {
+        Schema::create('subject_histories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('training_system');
-            $table->string('name');
-            $table->integer('quantity')->default(0);
-            $table->boolean('status')->default(0);
-            $table->foreignId('major_id')->constrained('majors');
-            $table->foreignId('employee_id')->constrained('employees');
+            $table->foreignId('student_subject_class_id')->constrained('student_subject_classes');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('major_classes');
+        Schema::dropIfExists('subject_histories');
     }
 };

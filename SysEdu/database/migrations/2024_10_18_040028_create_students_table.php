@@ -13,13 +13,29 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('full_name');
-            $table->string('code')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('phone')->nullable();
+            $table->string('full_name' , 150);
+            $table->date('date_of_birth');
+            $table->tinyInteger('gender');
+
+            $table->string('nation' , 100);
+            $table->string('email' , 150)->unique();
+            $table->string('code' , 15)->unique();
+            $table->string('phone' , 15);
+            
             $table->string('image')->nullable();
-            $table->enum('status', ['active', 'inactive', 'graduated'])->default('active');
+
+            $table->string('identity_card', 15);
+            $table->date('card_issuance_date');
+            $table->string('card_location');
+
+            $table->string('provice_city', 150);
+            $table->string('district', 150);
+            $table->string('commune_level', 150);
+            $table->string('house_number', 10);
+
+            $table->string('sponsor_name', 150);
+            $table->string('sponsor_phone', 15);
+
             $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('major_class_id')->constrained('major_classes');
             $table->timestamps();

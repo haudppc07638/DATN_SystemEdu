@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('time_slots', function (Blueprint $table) {
+        Schema::create('feedback_results', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string( 'slot');
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->unsignedSmallInteger('results');
+            $table->string('expertise');
+            $table->foreignId('feedback_question_id')->constrained('feedback_questions');
+            $table->foreignId('student_subject_class_id')->constrained('student_subject_classes');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('time_slots');
+        Schema::dropIfExists('feedback_results');
     }
 };

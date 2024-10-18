@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('student_subject_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('midterm_score', 4, 2)->nullable();
-            $table->decimal('final_score', 4, 2)->nullable();
             $table->decimal('total_score', 4, 2)->nullable();
             $table->string('classification')->nullable();
             $table->string('status')->default('fail');
-            $table->enum('tuition_status', ['unpaid', 'late', 'paid'])->default('unpaid');
             $table->foreignId('student_id')->constrained('students');
             $table->foreignId('subject_class_id')->constrained('subject_classes');
             $table->timestamps();

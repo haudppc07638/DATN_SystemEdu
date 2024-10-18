@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('major_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('content');
-            $table->string('type');
-            $table->dateTime('date_sent');
+            $table->string('training_system');
+            $table->string('name', 100);
+            $table->unsignedInteger('quantity'); // số lượng tôi đa của sinh viên trong 1 lớp
+            $table->boolean('status')->default(0);
+            $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('employee_id')->constrained('employees');
-            $table->json('recipients');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('major_classes');
     }
 };

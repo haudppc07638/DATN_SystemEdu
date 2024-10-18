@@ -69,5 +69,9 @@ class Student extends Authenticatable
             },
         ]);
     }
+
+    public static function getStudentInMajorClass($major_Class_id){
+        return self::where("major_Class_id", $major_Class_id)->get();
+    }
     
 }

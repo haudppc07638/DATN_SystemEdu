@@ -93,7 +93,7 @@ const Create = ({ majorClass, employees }) => {
                         </div>
 
                         <div>
-                            <label className="mb-3 block text-black">Chủ nhiệm</label>
+                            <label className="mb-3 block text-black">Cố vấn</label>
                             <select
                                 name="employee_id"
                                 value={form.employee_id || ''}
