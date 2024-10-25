@@ -3,7 +3,7 @@ import logo from "../../Assets/Images/logo.png";
 
 function FooterBlog() {
     return (
-        <footer className="bg-white p-8 mt-5 border-t-8 border-blue-600">
+        <footer className="bg-whiter p-8 mt-5 border-t-8 border-blue-600">
             <div className="container mx-auto">
                 <div className="grid grid grid-cols-1 lg:grid-cols-3 gap-8">
                     <div className="text-center lg:text-left">
@@ -117,7 +117,7 @@ function FooterBlog() {
                 </div>
             </div>
             <div className="mt-8 text-center text-gray-200">
-                <p className="flex justify-center items-center">
+                <p className="flex justify-center items-center text-sm font-bold">
                     &copy; 2024 SyseduBlog. All rights reserved.
                 </p>
             </div>

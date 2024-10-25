@@ -20,12 +20,12 @@ function LoginAdmin() {
     }, []);
 
     return (
-        <>
+        <div>
             <Header googleLoginUrl="/auth/login/admin/google" />
             <main className="flex-grow mt-24">
                 <Carousel slides={slides} currentSlide={currentSlide} />
             </main> 
-         </>
+         </div>
     );
 }
 

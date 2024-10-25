@@ -1,22 +1,26 @@
-import React from 'react';
+import React from "react";
 
-const Carousel = ({ slides, currentSlide }) => (
-    <div className="carousel">
-        <div className="carousel-inner">
+function Carousel({ slides, currentSlide }) {
+    return (
+        <div className="carousel-container">
             {slides.map((slide, index) => (
-                <div 
-                    key={index} 
-                    className={`carousel-item ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+                <div
+                    key={index}
+                    className={`carousel-slide ${index === currentSlide ? "active" : "inactive"}`}
+                    style={{
+                        backgroundImage: `url(${slide})`,
+                        display: index === currentSlide ? "block" : "none",
+                    }}
                 >
-                    <img 
-                        src={slide} 
-                        alt={`Slide ${index + 1}`} 
-                        className="w-full h-full object-cover"
+                    <img
+                        src={slide}
+                        alt={`slide ${index}`}
+                        className="w-full h-[700px]"
                     />
                 </div>
             ))}
         </div>
-    </div>
-);
+    );
+}
 
 export default Carousel;

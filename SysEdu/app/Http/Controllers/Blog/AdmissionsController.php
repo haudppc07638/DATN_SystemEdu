@@ -6,14 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class HomeController extends Controller
+class AdmissionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return Inertia::render('Blog/Home/Page');
+        return Inertia::render('Blog/Admissions/Page');
     }
 
     /**
