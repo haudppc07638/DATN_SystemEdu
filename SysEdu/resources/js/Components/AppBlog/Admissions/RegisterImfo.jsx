@@ -1,20 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha"; 
 
-function RegisterImfo() {
+function RegisterInfo() {
+    const [captchaValue, setCaptchaValue] = useState(null);
+
+    const handleCaptchaChange = (value) => {
+        setCaptchaValue(value);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!captchaValue) {
+            alert('Vui lòng hoàn thành CAPTCHA.');
+            return;
+        }
+        console.log("CAPTCHA Value:", captchaValue);
+        alert("Đăng ký thành công!");
+        setCaptchaValue(null);
+    };
+
     return (
         <div className="flex flex-col md:flex-row bg-white">
             <div className="md:w-1/2 p-4">
                 <iframe
                     className="w-full h-full"
-                    src="https://www.youtube.com/embed/VIDEO_ID"
-                    title="YouTube"
+                    src="https://www.youtube.com/embed/z5ywlBpVusw?si=_ecwL6EsYLpDaMMj" 
+                    title="YouTube Video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                 ></iframe>
             </div>
 
             <div className="md:w-1/2 bg-blue-600 p-8 flex justify-center items-center">
-                <form className="w-full max-w-md bg-white p-6 rounded shadow-lg">
+                <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded shadow-lg">
                     <h2 className="text-blue-600 text-2xl font-bold mb-6 text-center">
                         ĐĂNG KÍ XÉT TUYỂN NGAY
                     </h2>
@@ -65,10 +83,10 @@ function RegisterImfo() {
                         />
                     </div>
                     <div className="mb-4">
-                        <label className="flex items-center">
-                            <input type="checkbox" className="mr-2 text-sm" required />
-                            Tôi không phải là người máy
-                        </label>
+                        <ReCAPTCHA
+                            sitekey="ví dụ" 
+                            onChange={handleCaptchaChange}
+                        />
                     </div>
                     <div>
                         <button
@@ -84,4 +102,4 @@ function RegisterImfo() {
     );
 }
 
-export default RegisterImfo;
+export default RegisterInfo;

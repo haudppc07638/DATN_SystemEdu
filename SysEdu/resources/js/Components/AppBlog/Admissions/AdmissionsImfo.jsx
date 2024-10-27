@@ -73,10 +73,11 @@ function AdmissionInfo() {
                             </h2>
                             <p>
                                 Chương trình đào tạo có thời gian học tập là 3
-                                năm, chia thành 7 học kỳ.<br></br> Sinh viên sẽ được
-                                trang bị kiến thức và kỹ năng chuyên sâu, kết
-                                hợp giữa lý thuyết và thực hành để sẵn sàng cho
-                                các yêu cầu của ngành nghề sau khi tốt nghiệp.
+                                năm, chia thành 7 học kỳ.<br></br> Sinh viên sẽ
+                                được trang bị kiến thức và kỹ năng chuyên sâu,
+                                kết hợp giữa lý thuyết và thực hành để sẵn sàng
+                                cho các yêu cầu của ngành nghề sau khi tốt
+                                nghiệp.
                             </p>
                         </Element>
 
@@ -90,9 +91,10 @@ function AdmissionInfo() {
                             <p>
                                 Các chuyên ngành đào tạo đa dạng, được thiết kế
                                 đáp ứng nhu cầu của thị trường và xu hướng nghề
-                                nghiệp hiện đại.<br></br> Thông tin cụ thể về từng chuyên
-                                ngành sẽ giúp sinh viên định hướng được lĩnh vực
-                                mình yêu thích và có tiềm năng phát triển.
+                                nghiệp hiện đại.<br></br> Thông tin cụ thể về
+                                từng chuyên ngành sẽ giúp sinh viên định hướng
+                                được lĩnh vực mình yêu thích và có tiềm năng
+                                phát triển.
                             </p>
                         </Element>
 
@@ -134,10 +136,11 @@ function AdmissionInfo() {
                             </h2>
                             <p>
                                 Chi phí học tập được cập nhật cho từng khóa học
-                                và có thể thay đổi tùy theo chuyên ngành.<br></br> Thông
-                                tin chi tiết về mức học phí, các khoản đóng góp
-                                sẽ được cung cấp cụ thể, hỗ trợ sinh viên và phụ
-                                huynh dễ dàng nắm bắt và chuẩn bị.
+                                và có thể thay đổi tùy theo chuyên ngành.
+                                <br></br> Thông tin chi tiết về mức học phí, các
+                                khoản đóng góp sẽ được cung cấp cụ thể, hỗ trợ
+                                sinh viên và phụ huynh dễ dàng nắm bắt và chuẩn
+                                bị.
                             </p>
                         </Element>
 

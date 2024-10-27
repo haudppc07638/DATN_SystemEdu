@@ -9,6 +9,7 @@ import BannerContent from "../../../Components/AppBlog/Admissions/BannerContent"
 import AdmissionImfo from "../../../Components/AppBlog/Admissions/AdmissionsImfo";
 import RegisterImfo from "../../../Components/AppBlog/Admissions/RegisterImfo";
 import Partners from "../../../Components/AppBlog/Home/Partners";
+import CommentSection from "../../../Components/AppBlog/Admissions/CommentSection";
 
 function Admissions() {
     return (
@@ -36,6 +37,12 @@ function Admissions() {
 
             {/* register imfo */}
             <RegisterImfo />
+
+            {/* partners */}
+            <Partners />
+
+            {/* comment */}
+            <CommentSection />
         </div>
     );
 }
