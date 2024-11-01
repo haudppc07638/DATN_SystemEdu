@@ -89,7 +89,7 @@ function BannerTop() {
                         TUYỂN SINH
                     </a>
                     <a
-                        href="#"
+                        href="/recruitment"
                         className="text-white hover:text-blue-500 transition duration-300 text-sm font-medium"
                     >
                         TUYỂN DỤNG

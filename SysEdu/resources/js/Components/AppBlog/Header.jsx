@@ -74,7 +74,7 @@ function Header() {
                         TUYỂN SINH
                     </a>
                     <a
-                        href="#"
+                        href="/recruitment"
                         className="text-blue-600 hover:text-blue-300 transition duration-300 text-sm font-medium"
                     >
                         TUYỂN DỤNG
