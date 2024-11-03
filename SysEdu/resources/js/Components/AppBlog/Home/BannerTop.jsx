@@ -95,7 +95,7 @@ function BannerTop() {
                         TUYỂN DỤNG
                     </a>
                     <a
-                        href="#"
+                        href="/training-program"
                         className="text-white hover:text-blue-500 transition duration-300 text-sm font-medium"
                     >
                         CHƯƠNG TRÌNH ĐÀO TẠO

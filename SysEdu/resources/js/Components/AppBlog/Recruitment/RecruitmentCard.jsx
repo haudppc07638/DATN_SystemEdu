@@ -3,7 +3,7 @@ import RecruitmentBanner from "../../../Assets/Images/recruiment-banner.png";
 
 function RecruitmentCard() {
     return (
-        <div className="container mx-auto mt-16">
+        <div className="container mx-auto py-16">
             <h2 className="text-3xl text-black font-bold text-center mb-8">
                 Tuyển dụng
             </h2>

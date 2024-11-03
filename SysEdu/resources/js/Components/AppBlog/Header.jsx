@@ -80,7 +80,7 @@ function Header() {
                         TUYỂN DỤNG
                     </a>
                     <a
-                        href="#"
+                        href="/training-program"
                         className="text-blue-600 hover:text-blue-300 transition duration-300 text-sm font-medium"
                     >
                         CHƯƠNG TRÌNH ĐÀO TẠO

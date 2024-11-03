@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../../../Assets/Images/logo.png";
 
-function HeaderRecruitment() {
+function HeaderTraining() {
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [isFormVisible, setIsFormVisible] = useState(false);
 
@@ -101,4 +101,4 @@ function HeaderRecruitment() {
     );
 }
 
-export default HeaderRecruitment;
+export default HeaderTraining;

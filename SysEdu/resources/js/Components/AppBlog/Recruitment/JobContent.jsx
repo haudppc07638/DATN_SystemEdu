@@ -82,7 +82,7 @@ const featuredNews = [
     { id: 1, title: "Ngày hội việc làm tại Cao đẳng Sysedu", link: "#" },
     {
         id: 2,
-        title: "Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7",
+        title: "Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7 TP.Hồ Chí Minh",
         link: "#",
     },
     { id: 3, title: "Tuyển dụng nhân viên Thiết kế Content", link: "#" },
@@ -95,7 +95,7 @@ const featuredNews = [
 
 function JobContent() {
     const [currentPage, setCurrentPage] = useState(1);
-    const postsPerPage = 6;
+    const postsPerPage = 8;
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = jobPosts.slice(indexOfFirstPost, indexOfLastPost);
@@ -109,56 +109,72 @@ function JobContent() {
     );
 
     return (
-        <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-            <div className="col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 h-90">
-                {currentPosts.map((post) => (
-                    <div
-                        key={post.id}
-                        className="flex flex-col p-4 shadow-sm items-start bg-white"
-                    >
-                        <img
-                            src={post.imageUrl}
-                            alt={post.title}
-                            className="w-full h-40 object-cover mb-4 rounded-md"
-                        />
-                        <h3 className="text-lg font-semibold text-blue-700 mb-2">
-                            {post.title}
-                        </h3>
-                        <p className="text-gray-600 text-sm mb-2 line-clamp-3">
-                            {post.description}
-                        </p>
-                        <a
-                            href={post.link}
-                            className="text-blue-600 hover:text-blue-500 text-sm inline-block mt-auto"
+        <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
+            <div className="lg:col-span-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {currentPosts.map((post) => (
+                        <div
+                            key={post.id}
+                            className="flex flex-col p-4 shadow-md rounded-lg items-start bg-white hover:shadow-lg transition-shadow duration-300"
                         >
-                            Xem thêm...
-                        </a>
-                    </div>
-                ))}
+                            <img
+                                src={post.imageUrl}
+                                alt={post.title}
+                                className="w-full h-40 object-cover mb-4 rounded-md"
+                            />
+                            <h3 className="text-lg font-semibold text-blue-700 mb-2">
+                                {post.title}
+                            </h3>
+                            <p className="text-gray-600 text-sm mb-2 line-clamp-3">
+                                {post.description}
+                            </p>
+                            <a
+                                href={post.link}
+                                className="text-blue-600 hover:text-blue-500 text-sm mt-auto"
+                            >
+                                Xem thêm...
+                            </a>
+                        </div>
+                    ))}
+                </div>
+                <div className="flex justify-center mt-8 space-x-2">
+                    {pageNumbers.map((page) => (
+                        <button
+                            key={page}
+                            onClick={() => handlePageClick(page)}
+                            className={`px-4 py-2 rounded-md ${
+                                page === currentPage
+                                    ? "bg-blue-700 text-white"
+                                    : "bg-blue-500 text-white hover:bg-blue-600"
+                            }`}
+                        >
+                            {page}
+                        </button>
+                    ))}
+                </div>
             </div>
-
             <div className="space-y-6">
                 <div className="space-y-2">
                     {sidebarItems.map((item) => (
                         <div
                             key={item.id}
-                            className="flex items-center justify-between bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-md shadow-sm"
+                            className="flex items-center justify-between bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-md shadow-sm transition-all duration-300"
                         >
                             <span>{item.text}</span>
                             <span className="text-2xl">{item.icon}</span>
                         </div>
                     ))}
                 </div>
-                <div className="border-t shadow-sm">
-                    <h3 className="text-lg font-semibold text-gray-800 mt-4">
+                <div className="border-t pt-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
                         TIN NỔI BẬT
                     </h3>
-                    <ul className="space-y-2 mt-4">
+                    <ul className="space-y-2">
                         {featuredNews.map((news) => (
                             <li key={news.id}>
                                 <a
                                     href={news.link}
-                                    className="text-sm text-gray-700 hover:text-blue-600"
+                                    className="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200"
                                 >
                                     {news.title}
                                 </a>
@@ -166,21 +182,21 @@ function JobContent() {
                         ))}
                     </ul>
                 </div>
-                <div className="border-t shadow-sm">
+                <div className="border-t pt-4">
                     <img
                         src={Job}
                         alt="Quảng cáo tuyển dụng"
-                        className="w-full rounded-lg mt-4"
+                        className="w-full rounded-lg mt-4 shadow-md"
                     />
                 </div>
-                <div className="border-t shadow-sm">
-                    <h3 className="text-lg font-semibold text-gray-800 mt-4">
+                <div className="border-t pt-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
                         TIN TỨC SYSEDU
                     </h3>
                     <div className="mt-4">
                         <iframe
                             width="100%"
-                            height="200"
+                            height="300"
                             src="https://www.youtube.com/embed/example-video"
                             title="YouTube video"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -190,23 +206,8 @@ function JobContent() {
                     </div>
                 </div>
             </div>
-            <div className="col-span-2 flex justify-center mt-4 space-x-2">
-                {pageNumbers.map((page) => (
-                    <button
-                        key={page}
-                        onClick={() => handlePageClick(page)}
-                        className={`px-4 py-2 rounded-md ${
-                            page === currentPage
-                                ? "bg-blue-700 text-white"
-                                : "bg-blue-500 text-white hover:bg-blue-600"
-                        }`}
-                    >
-                        {page}
-                    </button>
-                ))}
-            </div>
         </div>
     );
-};
+}
 
 export default JobContent;
