@@ -79,16 +79,16 @@ const sidebarItems = [
 ];
 
 const featuredNews = [
-    { id: 1, title: "Ngày hội việc làm tại Cao đẳng Sysedu", link: "#" },
+    { id: 1, title: "- Ngày hội việc làm tại Cao đẳng Sysedu", link: "#" },
     {
         id: 2,
-        title: "Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7 TP.Hồ Chí Minh",
+        title: "- Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7 TP.Hồ Chí Minh",
         link: "#",
     },
-    { id: 3, title: "Tuyển dụng nhân viên Thiết kế Content", link: "#" },
+    { id: 3, title: "- Tuyển dụng nhân viên Thiết kế Content", link: "#" },
     {
         id: 4,
-        title: "Tuyển dụng Leader Quản lý sản xuất tại Cty TNHH Samsung",
+        title: "- Tuyển dụng Leader Quản lý sản xuất tại Cty TNHH Samsung",
         link: "#",
     },
 ];

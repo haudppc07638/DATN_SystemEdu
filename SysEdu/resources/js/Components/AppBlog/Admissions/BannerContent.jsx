@@ -4,7 +4,7 @@ import bannerbottom from "../../../Assets/Images/banner-botton.png";
 function BannerContent() {
     return (
         <div
-            className="sticky z-50 bg-cover bg-center bg-no-repeat h-[500px] shadow-lg border-t-4 border-white"
+            className="sticky bg-cover bg-center bg-no-repeat h-[500px] shadow-lg border-t-4 border-white"
             style={{ backgroundImage: `url(${bannerbottom})` }}
         ></div>
     );

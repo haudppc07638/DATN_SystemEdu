@@ -1,14 +1,19 @@
 import React, { useState } from "react";
+import avataSysedu from "../../../Assets/Images/logo.png";
+import avataUser from "../../../Assets/Images/avatar.png";
+import iconfacebook from "../../../Assets/Images/icon-facebook.jpg";
 
 export default function CommentSection() {
     const [comments, setComments] = useState([
         {
             id: 1,
-            name: "Phúc Lê",
+            avatar: avataUser,
+            name: "Phúc Hậu",
             text: "Đến tháng 9 trường còn xét tuyển pk ạ?",
             replies: [
                 {
                     id: 1,
+                    avatar: avataSysedu,
                     name: "Cao đẳng Sysedu",
                     text: "Chào em. Em ib đến page để được cán bộ tư vấn chi tiết nhé: https://caodang.sys.edu.vn/tuvansinhvien",
                 },
@@ -16,37 +21,43 @@ export default function CommentSection() {
         },
         {
             id: 2,
-            name: "Thành Văn Định",
+            name: "Thái Lộc",
+            avatar: avataUser,
             text: "Trường mình có ngành Kĩ thuật Điện lạnh không vậy ạ",
             replies: [
                 {
                     id: 2,
+                    avatar: avataSysedu,
                     name: "Cao đẳng Sysedu",
-                    text: "Chào em. Em ib đến page để được cán bộ tư vấn chi tiết nhé: https://caodang.sys.edu.vn/tuvansinhvien",
+                    text: "Chào em. Em đến website https://caodang.sys.edu.vn/tuvansinhvien để được cán bộ hỗ trợ nhé !!!",
                 },
             ],
         },
         {
             id: 3,
-            name: "Thành Văn Định",
+            name: "Minh Khánh",
+            avatar: avataUser,
             text: "Trường mình có ngành Kĩ thuật Điện lạnh không vậy ạ",
             replies: [
                 {
                     id: 3,
+                    avatar: avataSysedu,
                     name: "Cao đẳng Sysedu",
-                    text: "Chào em. Em ib đến page để được cán bộ tư vấn chi tiết nhé: https://caodang.sys.edu.vn/tuvansinhvien",
+                    text: "Chào em. Em đến website https://caodang.sys.edu.vn/tuvansinhvien để được cán bộ hỗ trợ nhé !!!",
                 },
             ],
         },
         {
             id: 4,
-            name: "Thành Văn Định",
+            name: "Nhân Nghĩa",
+            avatar: avataUser,
             text: "Trường mình có ngành Kĩ thuật Điện lạnh không vậy ạ",
             replies: [
                 {
                     id: 4,
+                    avatar: avataSysedu,
                     name: "Cao đẳng Sysedu",
-                    text: "Chào em. Em ib đến page để được cán bộ tư vấn chi tiết nhé: https://caodang.sys.edu.vn/tuvansinhvien",
+                    text: "Chào em. Em đến website https://caodang.sys.edu.vn/tuvansinhvien để được cán bộ hỗ trợ nhé !!!",
                 },
             ],
         },
@@ -92,7 +103,7 @@ export default function CommentSection() {
                     className="flex items-center mb-4 border-t"
                 >
                     <img
-                        src="https://via.placeholder.com/40"
+                        src={avataUser}
                         alt="Avatar"
                         className="w-10 h-10 mt-8 rounded-full mr-3"
                     />
@@ -108,7 +119,7 @@ export default function CommentSection() {
                     <div key={comment.id} className="mb-4 mt-8">
                         <div className="flex items-start mb-2">
                             <img
-                                src="https://via.placeholder.com/40"
+                                src={avataUser}
                                 alt="avatar"
                                 className="w-10 h-10 rounded-full mr-3"
                             />
@@ -134,8 +145,8 @@ export default function CommentSection() {
                             <div key={reply.id} className="ml-12 mb-2">
                                 <div className="flex items-start">
                                     <img
-                                        src="https://via.placeholder.com/40"
-                                        alt="Avatar"
+                                        src={avataSysedu}
+                                        alt="avatar"
                                         className="w-10 h-10 rounded-full mr-3"
                                     />
                                     <div>
@@ -168,7 +179,7 @@ export default function CommentSection() {
                 </button>
                 <div className="mt-4 text-sm text-blue-600 flex items-center">
                     <img
-                        src="https://via.placeholder.com/20"
+                        src={iconfacebook}
                         alt="logo facebook"
                         className="w-5 h-5 mr-1"
                     />

@@ -6,6 +6,7 @@ import Partners from "../../../Components/AppBlog/Home/Partners";
 import Content from "../../../Components/AppBlog/Home/Content";
 import BlogHome from "../../../Components/AppBlog/Home/BlogHome";
 import BannerBottom from "../../../Components/AppBlog/Home/BannerBottom";
+import ChatBox from "../../../Components/AppBlog/ChatBox/ChatBox";
 
 function Home() {
     return (
@@ -27,6 +28,9 @@ function Home() {
 
             {/* backgrond bottom */}
             <BannerBottom />
+
+            {/* ChatBox */}
+            <ChatBox />
         </div>
     );
 }

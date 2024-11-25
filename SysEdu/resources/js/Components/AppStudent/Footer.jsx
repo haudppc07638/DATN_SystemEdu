@@ -104,6 +104,12 @@ function Footer() {
                     </div>
                 </div>
             </div>
+            <div className="mt-8 text-center text-gray-200">
+                <p className="flex justify-center items-center text-sm font-bold">
+                    University Sysedu © {new Date().getFullYear()}, All Rights
+                    Reserved
+                </p>
+            </div>
         </footer>
     );
 }

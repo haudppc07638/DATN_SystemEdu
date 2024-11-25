@@ -15,7 +15,7 @@ function Carousel({ slides, currentSlide }) {
                     <img
                         src={slide}
                         alt={`slide ${index}`}
-                        className="w-full h-[800px]"
+                        className="w-full h-[900px]"
                     />
                 </div>
             ))}

@@ -22,7 +22,7 @@ function Header() {
                 </div>
                 <nav className="hidden md:flex space-x-6 md:space-x-8">
                     <a
-                        href="/home"
+                        href="/general-introduction"
                         className="text-blue-600 hover:text-blue-300 transition duration-300 text-sm font-medium"
                     >
                         GIỚI THIỆU CHUNG

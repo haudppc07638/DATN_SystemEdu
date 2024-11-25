@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Logo from "../../../Assets/Images/logo.png";
-import banner from "../../../Assets/Images/banner.jpg";
+import banner from "../../../Assets/Images/banner3.jpg";
 import banner1 from "../../../Assets/Images/banner1.jpg";
 import banner2 from "../../../Assets/Images/banner2.jpg";
 
@@ -29,10 +29,10 @@ function BannerTop() {
                 <div className="flex items-center space-x-2">
                     <i className="text-white fa fa-envelope" />{" "}
                     <a
-                        href="mailto:nhannghiatran2@gmail.com"
+                        href="mail:caodangsysedu@gmail.com"
                         className="text-white hover:text-blue-500 transition duration-300 text-sm font-medium"
                     >
-                        nhannghiatran2@gmail.com
+                        caodangsysedu@gmail.com
                     </a>
                 </div>
 
@@ -101,7 +101,7 @@ function BannerTop() {
                         CHƯƠNG TRÌNH ĐÀO TẠO
                     </a>
                     <a
-                        href="#"
+                        href="/general-introduction"
                         className="text-white hover:text-blue-500 transition duration-300 text-sm font-medium"
                     >
                         GIỚI THIỆU CHUNG

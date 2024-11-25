@@ -47,7 +47,7 @@ function HeaderTraining() {
                     CHƯƠNG TRÌNH ĐÀO TẠO
                 </a>
                 <a
-                    href="#"
+                    href="/general-introduction"
                     className="text-blue-600 hover:text-blue-300 transition duration-300 text-sm font-medium"
                 >
                     GIỚI THIỆU CHUNG

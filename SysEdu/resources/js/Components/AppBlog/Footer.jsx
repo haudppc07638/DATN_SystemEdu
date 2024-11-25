@@ -37,7 +37,9 @@ function FooterBlog() {
                                 Toà nhà F, Phường Trường Thạnh, Quận Ninh Kiều,
                                 TP. Cần Thơ
                             </p>
-                            <p className="text-sm">091 532 9213</p>
+                            <p className="text-sm">
+                                Hotline: 034 5456 544 - 034 5456 545
+                            </p>
                         </div>
                         <div className="mt-4">
                             <h2 className="text-lg font-semibold">
@@ -45,11 +47,11 @@ function FooterBlog() {
                             </h2>
                             <p className="text-sm">
                                 <i className="fa fa-map" aria-hidden="true"></i>{" "}
-                                Tòa nhà QTSC9 (Tòa T), đường Tô Ký, quận 12, TP
-                                HCM
+                                Tòa nhà QTSC9 (Tòa T), Đường Tô Ký, Phường Tăng
+                                Nhơn Phú B, TP. Thủ Đức, TP. HCM
                             </p>
                             <p className="text-sm">
-                                0901 660 002 — (028) 6686 6486
+                                Hotline: 090 1660 002 - 028 6686 648
                             </p>
                         </div>
                         <div className="mt-4">
@@ -58,10 +60,11 @@ function FooterBlog() {
                             </h2>
                             <p className="text-sm">
                                 <i className="fa fa-map" aria-hidden="true"></i>{" "}
-                                219 Nguyễn Sinh Sắc, Liên Chiểu, Đà Nẵng
+                                219 Đường Nguyễn Sinh Sắc, Phường Liên Chiểu,
+                                TP. Đà Nẵng
                             </p>
                             <p className="text-sm">
-                                (023) 6371 0999 — 094 302 5282
+                                Hotline: 023 6371 099 - 094 3025 282
                             </p>
                         </div>
                     </div>
@@ -97,10 +100,10 @@ function FooterBlog() {
                             <div className="flex justify-center lg:justify-start items-center space-x-2 mt-4">
                                 <i className="fa fa-envelope" />{" "}
                                 <a
-                                    href="mailto:nhannghiatran2@gmail.com"
+                                    href="mail:caodangsysedu@gmail.com"
                                     className="transition duration-300 text-sm font-medium"
                                 >
-                                    nhannghiatran2@gmail.com
+                                    caodangsysedu@gmail.com
                                 </a>
                             </div>
                             <div className="flex justify-center lg:justify-start items-center space-x-2 mt-4">
@@ -109,7 +112,7 @@ function FooterBlog() {
                                     href="tel:0345456544"
                                     className="transition duration-300 text-sm font-medium"
                                 >
-                                    (034)5456544 - (034)5456545
+                                    0345456544 - 0345456545
                                 </a>
                             </div>
                         </div>
@@ -118,7 +121,8 @@ function FooterBlog() {
             </div>
             <div className="mt-8 text-center text-gray-200">
                 <p className="flex justify-center items-center text-sm font-bold">
-                    &copy; 2024 SyseduBlog. All rights reserved.
+                    University Sysedu © {new Date().getFullYear()}, All Rights
+                    Reserved
                 </p>
             </div>
         </footer>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha"; 
+import ReCAPTCHA from "react-google-recaptcha";
 
 function RegisterInfo() {
     const [captchaValue, setCaptchaValue] = useState(null);
@@ -11,7 +11,7 @@ function RegisterInfo() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!captchaValue) {
-            alert('Vui lòng hoàn thành CAPTCHA.');
+            alert("Vui lòng hoàn thành CAPTCHA.");
             return;
         }
         console.log("CAPTCHA Value:", captchaValue);
@@ -24,7 +24,7 @@ function RegisterInfo() {
             <div className="md:w-1/2 p-4">
                 <iframe
                     className="w-full h-full"
-                    src="https://www.youtube.com/embed/z5ywlBpVusw?si=_ecwL6EsYLpDaMMj" 
+                    src="https://www.youtube.com/embed/z5ywlBpVusw?si=_ecwL6EsYLpDaMMj"
                     title="YouTube Video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -32,7 +32,10 @@ function RegisterInfo() {
             </div>
 
             <div className="md:w-1/2 bg-blue-600 p-8 flex justify-center items-center">
-                <form onSubmit={handleSubmit} className="w-full max-w-md bg-white p-6 rounded shadow-lg">
+                <form
+                    onSubmit={handleSubmit}
+                    className="w-full max-w-md bg-white p-6 rounded shadow-lg"
+                >
                     <h2 className="text-blue-600 text-2xl font-bold mb-6 text-center">
                         ĐĂNG KÍ XÉT TUYỂN NGAY
                     </h2>
@@ -84,7 +87,7 @@ function RegisterInfo() {
                     </div>
                     <div className="mb-4">
                         <ReCAPTCHA
-                            sitekey="ví dụ" 
+                            sitekey="ví dụ"
                             onChange={handleCaptchaChange}
                         />
                     </div>
