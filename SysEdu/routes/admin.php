@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['admin'])->group(function () {
+// Route::middleware(['admin'])->group(function () {
    
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
 
@@ -117,4 +117,4 @@ Route::middleware(['admin'])->group(function () {
         Route::patch('ca-hoc/{timeSlot}/sua', [TimeSlotController::class,'update'])->name('update');
         Route::delete('ca-hoc/{timeSlot}', [TimeSlotController::class, 'destroy'])->name('destroy');
     });
-});
+// });

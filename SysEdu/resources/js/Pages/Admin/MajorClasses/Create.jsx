@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { router, usePage } from '@inertiajs/react';
-import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
+import React, { useEffect, useState } from "react";
+import { router, usePage } from "@inertiajs/react";
+import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Create = ({ major, employees }) => {
-
     const [form, setForm] = useState({
-        major_id: major.id
+        major_id: major.id,
     });
     const { errors } = usePage().props;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post('/admin/lop-chuyen-nganh/them', form);
+        router.post("/admin/lop-chuyen-nganh/them", form);
         console.log(form);
     };
 
@@ -20,24 +19,48 @@ const Create = ({ major, employees }) => {
     };
 
     const handleCancel = () => {
-        setForm({ training_system: '', name: '', employee_id: '' });
+        setForm({ training_system: "", name: "", employee_id: "" });
     };
 
     const renderError = (field) => {
-        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+        return (
+            errors?.[field] && (
+                <div className="text-red-500 mt-1">{errors[field]}</div>
+            )
+        );
     };
+
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col gap-9">
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm border border-stroke bg-white shadow-default">
-
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
-                    <Breadcrumb items={[
-                        { label: 'Quản lý lớp chuyên ngành', link: '/admin/lop-chuyen-nganh' },
-                        { label: 'Thêm lớp chuyên ngành' }
-                    ]} />
+                    <Breadcrumb
+                        items={[
+                            {
+                                label: "Quản lý lớp chuyên ngành",
+                                link: "/admin/lop-chuyen-nganh",
+                            },
+                            { label: "Thêm lớp chuyên ngành" },
+                        ]}
+                    />
                 </div>
 
                 {/* Form thêm*/}
@@ -54,7 +77,7 @@ const Create = ({ major, employees }) => {
                                 value={form.training_system}
                                 onChange={handleChangeValue}
                             />
-                            {renderError('training_system')}
+                            {renderError("training_system")}
                         </div>
 
                         <div>
@@ -68,7 +91,7 @@ const Create = ({ major, employees }) => {
                                 value={form.name}
                                 onChange={handleChangeValue}
                             />
-                            {renderError('name')}
+                            {renderError("name")}
                         </div>
 
                         <div>
@@ -77,32 +100,43 @@ const Create = ({ major, employees }) => {
                             </label>
                             <select
                                 name="major_id"
-                                value={form.major_id || ''}
+                                value={form.major_id || ""}
                                 onChange={handleChangeValue}
-                                className='relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition text-black'
+                                className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition text-black"
                             >
-                                <option value={form.major_id} disabled>{major.name}</option>
+                                <option value={form.major_id} disabled>
+                                    {major.name}
+                                </option>
                             </select>
-                            {renderError('major_id')}
+                            {renderError("major_id")}
                         </div>
 
                         <div>
-                            <label className="mb-3 block text-black">Cố vấn</label>
+                            <label className="mb-3 block text-black">
+                                Cố vấn
+                            </label>
                             <select
                                 name="employee_id"
-                                value={form.employee_id || ''}
+                                value={form.employee_id || ""}
                                 onChange={handleChangeValue}
-                                className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary ${form.employee_id ? 'text-black' : ''}`}
+                                className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary ${form.employee_id ? "text-black" : ""}`}
                             >
-                                <option value="" disabled>-- Chọn chủ nhiệm --</option>
+                                <option value="" disabled>
+                                    -- Chọn chủ nhiệm --
+                                </option>
                                 {employees.map((employee) => (
-                                    <option key={employee.id} value={employee.id}>{employee.full_name}</option>
+                                    <option
+                                        key={employee.id}
+                                        value={employee.id}
+                                    >
+                                        {employee.full_name}
+                                    </option>
                                 ))}
                             </select>
-                            {renderError('employee_id')}
+                            {renderError("employee_id")}
                         </div>
 
-                        <div className='flex gap-2'>
+                        <div className="flex gap-2">
                             <button
                                 type="submit"
                                 className="bg-graydark hover:opacity-80 text-white py-2 px-4 rounded"
@@ -118,13 +152,10 @@ const Create = ({ major, employees }) => {
                             </button>
                         </div>
                     </div>
-
                 </form>
-
             </div>
-
         </div>
-    )
-}
+    );
+};
 
 export default Create;

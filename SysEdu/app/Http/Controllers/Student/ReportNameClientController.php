@@ -13,7 +13,7 @@ class ReportNameClientController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/ReportNameClient');
+        return Inertia::render('Student/ReportNameClient/Page');
     }
 
     /**

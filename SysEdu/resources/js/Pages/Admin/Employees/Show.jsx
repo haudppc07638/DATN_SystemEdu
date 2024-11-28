@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { Link, useForm, router, usePage } from '@inertiajs/react';
-import Pagination from '../../../Components/Paginations/Base';
-import LimitSelector from '../../../Components/LimitSelectors/Base';
-import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
+import React, { useState, useEffect, useCallback } from "react";
+import { Link, useForm, router, usePage } from "@inertiajs/react";
+import Pagination from "../../../Components/Paginations/Base";
+import LimitSelector from "../../../Components/LimitSelectors/Base";
+import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Show = ({ employees, limit }) => {
     const [showPopup, setShowPopup] = useState(false);
@@ -11,7 +11,7 @@ const Show = ({ employees, limit }) => {
 
     const { data, setData, get } = useForm({
         limit: limit || 10,
-        search: '',
+        search: "",
         page: employees.current_page || 1,
     });
 
@@ -30,18 +30,18 @@ const Show = ({ employees, limit }) => {
     useEffect(() => {
         if (flash.success) {
             Swal.fire({
-                title: 'Thành công!',
+                title: "Thành công!",
                 text: flash.success,
-                icon: 'success',
-                confirmButtonText: 'OK'
+                icon: "success",
+                confirmButtonText: "OK",
             });
         }
         if (flash.error) {
             Swal.fire({
-                title: 'Lỗi!',
+                title: "Lỗi!",
                 text: flash.error,
-                icon: 'error',
-                confirmButtonText: 'OK'
+                icon: "error",
+                confirmButtonText: "OK",
             });
         }
     }, [flash]);
@@ -51,7 +51,7 @@ const Show = ({ employees, limit }) => {
     }, [data.limit]);
 
     const handlePageChange = (page) => {
-        setData('page', page);
+        setData("page", page);
         performSearch();
     };
 
@@ -74,13 +74,13 @@ const Show = ({ employees, limit }) => {
         setData({
             ...data,
             limit: newLimit,
-            page: 1
+            page: 1,
         });
         performSearch();
     };
 
     const handleSearchChange = (e) => {
-        setData('search', e.target.value);
+        setData("search", e.target.value);
     };
 
     const handleSearchSubmit = (e) => {
@@ -89,29 +89,51 @@ const Show = ({ employees, limit }) => {
     };
 
     const handleKeyPress = (e) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             e.preventDefault();
             performSearch();
         }
     };
 
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-
             {/* Breadcrumb */}
-            <Breadcrumb items={[
-                { label: 'Quản lý nhân sự', link: '/admin/nhan-su' },
-                { label: 'Danh sách nhân sự' }
-            ]} />
+            <Breadcrumb
+                items={[
+                    { label: "Quản lý nhân sự", link: "/admin/nhan-su" },
+                    { label: "Danh sách nhân sự" },
+                ]}
+            />
 
             {/* action */}
-            <div className='flex flex-col justify-between md:flex-row gap-5 mb-4'>
-
+            <div className="flex flex-col justify-between md:flex-row gap-5 mb-4">
                 {/* Limit */}
-                <LimitSelector limit={data.limit} onLimitChange={handleLimitChange} />
+                <LimitSelector
+                    limit={data.limit}
+                    onLimitChange={handleLimitChange}
+                />
 
                 {/* Search */}
-                <form onSubmit={handleSearchSubmit} className='flex items-center gap-5'>
+                <form
+                    onSubmit={handleSearchSubmit}
+                    className="flex items-center gap-5"
+                >
                     <div className="flex px-4 py-1 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
                         <input
                             type="text"
@@ -119,18 +141,21 @@ const Show = ({ employees, limit }) => {
                             value={data.search}
                             onChange={handleSearchChange}
                             onKeyPress={handleKeyPress} // Thêm sự kiện keypress
-                            className="w-full outline-none bg-transparent text-gray-600 text-sm" />
+                            className="w-full outline-none bg-transparent text-gray-600 text-sm"
+                        />
                         <button type="submit" className="p-2">
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </div>
 
                     {/* Add */}
-                    <Link href="/admin/nhan-su/them" className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                    <Link
+                        href="/admin/nhan-su/them"
+                        className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center"
+                    >
                         Thêm
                     </Link>
                 </form>
-
             </div>
 
             {/* Table */}
@@ -138,14 +163,30 @@ const Show = ({ employees, limit }) => {
                 <table className="w-full table-auto">
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">#</th>
-                            <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">Họ và Tên</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Email</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">SĐT</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Chức vụ</th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">Thuộc khoa</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Phòng ban</th>
-                            <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
+                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                #
+                            </th>
+                            <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">
+                                Họ và Tên
+                            </th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                Email
+                            </th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                                SĐT
+                            </th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                                Chức vụ
+                            </th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                Thuộc khoa
+                            </th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                                Phòng ban
+                            </th>
+                            <th className="py-4 px-4 font-medium text-black dark:text-white">
+                                Tác vụ
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -153,12 +194,16 @@ const Show = ({ employees, limit }) => {
                             employees.data.map((employee, index) => (
                                 <tr key={employee.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
+                                        <h5 className="font-medium text-black dark:text-white">
+                                            {index + 1}
+                                        </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center gap-3">
                                             <div className="flex-shrink-0">
-                                                <img src={`/storage/avatars/${employee.image}`} alt="avatar"
+                                                <img
+                                                    src={`/storage/avatars/${employee.image}`}
+                                                    alt="avatar"
                                                     className="w-12 h-12 rounded-full object-cover"
                                                 />
                                             </div>
@@ -168,39 +213,71 @@ const Show = ({ employees, limit }) => {
                                         </div>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black text-sm">{employee.email}</p>
+                                        <p className="text-black text-sm">
+                                            {employee.email}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black text-sm">{employee.phone}</p>
+                                        <p className="text-black text-sm">
+                                            {employee.phone}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black text-sm">{employee.position}</p>
+                                        <p className="text-black text-sm">
+                                            {employee.position}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
-                                            className={employee.faculty.deleted_at ? "text-red-500" : "text-black"}
-                                            title={employee.faculty.deleted_at ? "Khoa này đã ngừng hoạt động" : ""}
+                                            className={
+                                                employee.faculty.deleted_at
+                                                    ? "text-red-500"
+                                                    : "text-black"
+                                            }
+                                            title={
+                                                employee.faculty.deleted_at
+                                                    ? "Khoa này đã ngừng hoạt động"
+                                                    : ""
+                                            }
                                         >
                                             {employee.faculty.name}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
-                                            className={employee.department.deleted_at ? "text-red-500" : "text-black"}
-                                            title={employee.department.deleted_at ? "Phòng ban này đã ngừng hoạt động" : ""}
+                                            className={
+                                                employee.department.deleted_at
+                                                    ? "text-red-500"
+                                                    : "text-black"
+                                            }
+                                            title={
+                                                employee.department.deleted_at
+                                                    ? "Phòng ban này đã ngừng hoạt động"
+                                                    : ""
+                                            }
                                         >
                                             {employee.department.name}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/nhan-su/${employee.id}/sua`} className="hover:text-primary">
+                                            <Link
+                                                href={`/admin/nhan-su/${employee.id}/sua`}
+                                                className="hover:text-primary"
+                                            >
                                                 <i
                                                     className="fa-regular fa-pen-to-square text-xl"
                                                     title="Chỉnh sửa"
                                                 ></i>
                                             </Link>
-                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(employee.id)}>
+                                            <button
+                                                className="hover:text-primary"
+                                                onClick={() =>
+                                                    handleDeleteClick(
+                                                        employee.id,
+                                                    )
+                                                }
+                                            >
                                                 <i
                                                     className="fa-regular fa-trash-can text-xl"
                                                     title="Xóa"
@@ -212,7 +289,12 @@ const Show = ({ employees, limit }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
+                                <td
+                                    colSpan="4"
+                                    className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center"
+                                >
+                                    Không có dữ liệu
+                                </td>
                             </tr>
                         )}
                     </tbody>
@@ -220,8 +302,11 @@ const Show = ({ employees, limit }) => {
             </div>
 
             {/* Pagination */}
-            <div className='my-6'>
-                <Pagination link={employees.links} onPageChange={handlePageChange} />
+            <div className="my-6">
+                <Pagination
+                    link={employees.links}
+                    onPageChange={handlePageChange}
+                />
             </div>
 
             {/* Popup */}
@@ -231,10 +316,16 @@ const Show = ({ employees, limit }) => {
                         <h2 className="text-xl font-semibold mb-4">Cảnh báo</h2>
                         <p>Bạn có chắc chắn muốn xóa mục này không?</p>
                         <div className="mt-4 flex justify-end">
-                            <button className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mr-2" onClick={handleClosePopup}>
+                            <button
+                                className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mr-2"
+                                onClick={handleClosePopup}
+                            >
                                 Hủy
                             </button>
-                            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={confirmDelete}>
+                            <button
+                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={confirmDelete}
+                            >
                                 Xóa
                             </button>
                         </div>
@@ -243,6 +334,6 @@ const Show = ({ employees, limit }) => {
             )}
         </div>
     );
-}
+};
 
 export default Show;

@@ -13,7 +13,7 @@ class ClassScheduleController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/ClassSchedule');
+        return Inertia::render('Student/ClassSchedule/Page');
     }
 
     /**

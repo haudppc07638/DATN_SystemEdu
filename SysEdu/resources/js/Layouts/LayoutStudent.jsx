@@ -3,7 +3,7 @@ import Sidebar from '../Components/AppStudent/Sidebar';
 import Header from '../Components/AppStudent/Header';
 import Footer from '../Components/AppStudent/Footer';
 
-function Layout({ children }) {
+function LayoutStudent({ children }) {
   return (
     <div className="flex bg-whiter">
       <Sidebar />
@@ -18,6 +18,6 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+export default LayoutStudent;
 
 

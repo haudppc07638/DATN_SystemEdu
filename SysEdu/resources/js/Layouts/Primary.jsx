@@ -1,24 +1,19 @@
-import React, { useState } from 'react';
-import Header from '../Components/Admin/Header/index';
-import Sidebar from '../Components/Admin/Sidebar/index';
+import React from 'react';
+import Header from '../Components/AppAdmin/Header';
+import Footer from '../Components/AppAdmin/Footer';
+import Sidebar from '../Components/AppAdmin/Sidebar';
 
 const Primary = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="dark:bg-boxdark-2 dark:text-bodydark">
-      <div className="flex h-screen overflow-hidden">
-        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          <main>
-            <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-              {children}
-            </div>
-          </main>
-        </div>
+    <div className="flex bg-whiter">
+      <Sidebar />
+      <div className="flex-grow">
+        <Header />
+        <main className="p-6">
+          {children}
+        </main>
+        <Footer />
       </div>
-      <div id="toast-container" className="toast-custom-position"></div>
     </div>
   );
 };

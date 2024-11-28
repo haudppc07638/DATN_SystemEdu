@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Layout from "../../Layouts/Layout";
+import React, { useState, useEffect } from "react";
 
 const classSchedulesData = [
     {
@@ -122,21 +121,11 @@ const classSchedulesData = [
         study: "Ca 2",
         timestudy: "10:00 - 12:00",
     },
-    {
-        id: 11,
-        schoolday: "Thứ Ba 21/10/2024",
-        classroom: "K304",
-        lecturehall: "Sys Ninh Kiều",
-        code: "CS110",
-        name: "Kỹ thuật phần mềm",
-        class: "IT30412",
-        teacher: "duytn",
-        study: "Ca 2",
-        timestudy: "10:00 - 12:00",
-    },
+    
 ];
 
 function ClassSchedule() {
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -145,6 +134,21 @@ function ClassSchedule() {
         startIndex + itemsPerPage,
     );
     const totalPages = Math.ceil(classSchedulesData.length / itemsPerPage);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-500 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg">
@@ -166,7 +170,7 @@ function ClassSchedule() {
                     </select>
                 </div>
             </div>
-            <div className="flex justify-end mb-3 mt-5">
+            <div className="flex justify-end mb-3 mt-4">
                 {["Print", "Copy", "Excel", "CSV", "PDF"].map((header) => (
                     <div
                         key={header}
@@ -190,10 +194,11 @@ function ClassSchedule() {
                             "Giảng viên",
                             "Ca học",
                             "Giờ học",
+                            "Ghi chú",
                         ].map((header) => (
                             <th
                                 key={header}
-                                className="border border-gray-300 px-4 py-2 font-semibold text-left text-sm"
+                                className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
                             >
                                 {header}
                             </th>
@@ -209,28 +214,28 @@ function ClassSchedule() {
                             <td className="border border-gray-300 px-4 py-2 text-center">
                                 {startIndex + index + 1}
                             </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
+                            <td className="w-20 border border-gray-300 px-2 py-2 text-sm">
                                 {courses.schoolday}
                             </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
+                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
                                 {courses.classroom}
                             </td>
                             <td className="border border-gray-300 px-2 py-2 text-sm">
                                 {courses.lecturehall}
                             </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
+                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
                                 {courses.code}
                             </td>
                             <td className="border border-gray-300 px-2 py-2 text-sm">
                                 {courses.name}
                             </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
+                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
                                 {courses.class}
                             </td>
                             <td className="border border-gray-300 px-2 py-2 text-sm">
                                 {courses.teacher}
                             </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
+                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
                                 {courses.study}
                             </td>
                             <td className="border border-gray-300 px-2 py-2 w-25 text-sm">
@@ -241,20 +246,24 @@ function ClassSchedule() {
                 </tbody>
             </table>
             <div className="flex justify-center space-x-2 mt-4">
-                {[...Array(totalPages)].map((_, i) => (
-                    <button
-                        key={i + 1}
-                        className={`px-4 py-2 rounded ${currentPage === i + 1 ? "bg-blue-700" : "bg-blue-500"} text-white hover:bg-blue-400 text-sm`}
-                        onClick={() => setCurrentPage(i + 1)}
-                    >
-                        {i + 1}
-                    </button>
-                ))}
+                {totalPages > 1 &&
+                    [...Array(totalPages)].map((_, i) => (
+                        <button
+                            key={i + 1}
+                            className={`px-4 py-2 rounded ${
+                                currentPage === i + 1
+                                    ? "bg-blue-700"
+                                    : "bg-blue-500"
+                            } text-white hover:bg-blue-400 text-sm`}
+                            onClick={() => setCurrentPage(i + 1)}
+                            disabled={currentPage === i + 1}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
             </div>
         </div>
     );
 }
-
-ClassSchedule.layout = (page) => <Layout>{page}</Layout>;
 
 export default ClassSchedule;

@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import { Link } from '@inertiajs/react';
 import CoverOne from '../../Assets/Images/cover-01.png';
 import UserDefault from '../../Assets/Images/user-default.png';

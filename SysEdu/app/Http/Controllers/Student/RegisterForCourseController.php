@@ -13,7 +13,7 @@ class RegisterForCourseController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/RegisterForCourse');
+        return Inertia::render('Student/RegisterForCourse/Page');
     }
 
     /**

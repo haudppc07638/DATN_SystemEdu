@@ -1,5 +1,4 @@
-import React from "react";
-import Layout from "../../Layouts/Layout";
+import React, { useState, useEffect } from "react";
 import { Link } from "@inertiajs/react";
 
 const notificationData = {
@@ -14,7 +13,7 @@ const notificationData = {
                 { title: "Lịch thi cuối kỳ", link: "/" },
                 { title: "Thông báo nghỉ lễ 30/4 và 1/5", link: "/" },
                 { title: "Lịch học hè", link: "/" },
-                { title: "Hướng dẫn đăng ký tín chỉ học kỳ I", link: "/" },
+                { title: "Hướng dẫn đăng ký tín chỉ học ở kỳ I", link: "/" },
                 { title: "Cập nhật điểm giữa kỳ", link: "/" },
                 {
                     title: "Thời gian trả lời khảo sát ý kiến sinh viên",
@@ -54,38 +53,63 @@ const notificationData = {
                 { title: "Cách thức xin hoãn học phí", link: "/" },
                 { title: "Thông báo về việc gia hạn học phí", link: "/" },
             ],
-        }
+        },
+        {
+            cateNotification: "Thông tin tuyển dụng",
+            items: [],
+        },
     ],
 };
 
 function Home() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg">
             <h3 className="text-2xl font-semibold">Thông tin mới nhất</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 {notificationData.notification.map(
                     (cateNotification, index) => (
-                        <div key={index} className="p-4 h-full">
+                        <div key={index} className="p-2 h-full">
                             <h5 className="text-red-600 text-xl font-bold">
                                 {cateNotification.cateNotification}
                             </h5>
-                            <div className="max-h-90 overflow-y-auto mt-4 px-2 text-[15px]">
-                                <ul className="list-none space-y-2">
-                                    {cateNotification.items.map(
-                                        (item, index) => (
-                                            <li
-                                                key={index}
-                                                className="last:border-b-0 pb-2"
+                            <div
+                                className="max-h-90 overflow-y-auto mt-4 px-2 text-[15px]"
+                                style={{
+                                    scrollbarWidth: "none",
+                                    msOverflowStyle: "none",
+                                }}
+                            >
+                                <ul className="list-none space-y-2 border-r">
+                                    {cateNotification.items.map((item, idx) => (
+                                        <li
+                                            key={idx}
+                                            className="last:border-b-0 pt-2"
+                                        >
+                                            <Link
+                                                href={item.link}
+                                                className="text-blue-600 border-b border-dashed hover:text-red-600 block transition-colors duration-200"
                                             >
-                                                <Link
-                                                    href={item.link}
-                                                    className="text-blue-600 hover:text-red-600 block transition-colors duration-200"
-                                                >
-                                                    {item.title}
-                                                </Link>
-                                            </li>
-                                        ),
-                                    )}
+                                                {item.title}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
@@ -95,7 +119,5 @@ function Home() {
         </div>
     );
 }
-
-Home.layout = (page) => <Layout>{page}</Layout>;
 
 export default Home;

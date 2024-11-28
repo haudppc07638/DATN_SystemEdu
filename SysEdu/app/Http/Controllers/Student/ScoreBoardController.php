@@ -13,7 +13,7 @@ class ScoreBoardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/ScoreBoard');
+        return Inertia::render('Student/ScoreBoard/Page');
     }
 
     /**

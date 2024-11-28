@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { router, usePage } from '@inertiajs/react';
 import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
 
@@ -23,6 +23,22 @@ const Create = ({ faculties }) => {
     const renderError = (field) => {
         return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
     };
+
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col gap-9">

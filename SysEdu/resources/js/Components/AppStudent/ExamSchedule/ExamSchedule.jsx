@@ -1,7 +1,23 @@
-import React from "react";
-import Layout from "../../Layouts/Layout";
+import React, { useState, useEffect } from "react";
 
 function ExamSchedule() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-500 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg">
             <h3 className="text-2xl font-semibold">Đăng ký lịch học</h3>
@@ -55,7 +71,5 @@ function ExamSchedule() {
         </div>
     );
 }
-
-ExamSchedule.layout = (page) => <Layout>{page}</Layout>;
 
 export default ExamSchedule;

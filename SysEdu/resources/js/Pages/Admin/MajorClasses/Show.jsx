@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { Link, router, usePage } from '@inertiajs/react';
-import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
-import dayjs from 'dayjs';
+import React, { useState, useEffect } from "react";
+import { Link, router, usePage } from "@inertiajs/react";
+import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
+import dayjs from "dayjs";
 
 const Show = ({ faculties }) => {
     const searchParams = new URLSearchParams(window.location.search);
-    const initialMajorId = searchParams.get('major_id') || '';
+    const initialMajorId = searchParams.get("major_id") || "";
 
     const [showPopup, setShowPopup] = useState(false);
-    const [form, setForm] = useState({ faculty_id: '', major_id: initialMajorId });
+    const [form, setForm] = useState({
+        faculty_id: "",
+        major_id: initialMajorId,
+    });
     const [majors, setMajors] = useState([]);
     const [majorClasses, setMajorClasses] = useState([]);
     const [idToDelete, setDepartmentIdToDelete] = useState(null);
@@ -30,13 +33,17 @@ const Show = ({ faculties }) => {
         router.delete(`lop-chuyen-nganh/${idToDelete}`, {
             onSuccess: () => {
                 setMajorClasses((prevClasses) =>
-                    prevClasses.filter((cls) => cls.id !== idToDelete)
+                    prevClasses.filter((cls) => cls.id !== idToDelete),
                 );
-                Swal.fire('Thành công!', 'Đã xóa lớp chuyên ngành.', 'success');
+                Swal.fire("Thành công!", "Đã xóa lớp chuyên ngành.", "success");
                 handleClosePopup();
             },
             onError: () => {
-                Swal.fire('Lỗi!', 'Không thể xóa lớp chuyên ngành. Vui lòng thử lại.', 'error');
+                Swal.fire(
+                    "Lỗi!",
+                    "Không thể xóa lớp chuyên ngành. Vui lòng thử lại.",
+                    "error",
+                );
             },
             onFinish: () => setIsLoading(false),
         });
@@ -45,10 +52,10 @@ const Show = ({ faculties }) => {
     useEffect(() => {
         if (flash.success || flash.error) {
             Swal.fire({
-                title: flash.success ? 'Thành công!' : 'Lỗi!',
+                title: flash.success ? "Thành công!" : "Lỗi!",
                 text: flash.success || flash.error,
-                icon: flash.success ? 'success' : 'error',
-                confirmButtonText: 'OK',
+                icon: flash.success ? "success" : "error",
+                confirmButtonText: "OK",
             });
         }
     }, [flash]);
@@ -63,7 +70,11 @@ const Show = ({ faculties }) => {
 
     const handleFacultyChange = (e) => {
         const facultyId = e.target.value;
-        setForm((prevForm) => ({ ...prevForm, faculty_id: facultyId, major_id: '' }));
+        setForm((prevForm) => ({
+            ...prevForm,
+            faculty_id: facultyId,
+            major_id: "",
+        }));
         fetch(`/api/majors?faculty_id=${facultyId}`)
             .then((response) => response.json())
             .then((data) => setMajors(data));
@@ -76,64 +87,101 @@ const Show = ({ faculties }) => {
 
     const handleEndClass = (majorClass) => {
         Swal.fire({
-            title: 'Bạn có chắc chắn?',
+            title: "Bạn có chắc chắn?",
             text: `Kết thúc lớp chuyên ngành: ${majorClass.name}?`,
-            icon: 'warning',
+            icon: "warning",
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Có, kết thúc!',
-            cancelButtonText: 'Hủy',
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Có, kết thúc!",
+            cancelButtonText: "Hủy",
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`/api/majorClasses/${majorClass.id}/end`, { method: 'PATCH' })
+                fetch(`/api/majorClasses/${majorClass.id}/end`, {
+                    method: "PATCH",
+                })
                     .then((response) => response.json())
                     .then((data) => {
-                        Swal.fire(data.success ? 'Thành công!' : 'Lỗi!', data.message, data.success ? 'success' : 'error');
+                        Swal.fire(
+                            data.success ? "Thành công!" : "Lỗi!",
+                            data.message,
+                            data.success ? "success" : "error",
+                        );
                         if (data.success) {
                             setMajorClasses((prev) =>
-                                prev.map((cls) => (cls.id === majorClass.id ? { ...cls, status: 1 } : cls))
+                                prev.map((cls) =>
+                                    cls.id === majorClass.id
+                                        ? { ...cls, status: 1 }
+                                        : cls,
+                                ),
                             );
                         }
                     })
                     .catch(() => {
-                        Swal.fire('Lỗi!', 'Có lỗi xảy ra, vui lòng thử lại.', 'error');
+                        Swal.fire(
+                            "Lỗi!",
+                            "Có lỗi xảy ra, vui lòng thử lại.",
+                            "error",
+                        );
                     });
             }
         });
     };
 
     const formatDate = (date) => {
-        return dayjs(date).format('MM/YYYY');
+        return dayjs(date).format("MM/YYYY");
     };
+
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-
             {/* Breadcrumb */}
-            <Breadcrumb items={[
-                { label: 'Quản lý Lớp chuyên ngành', link: '/admin/phong-ban' },
-                { label: 'Danh sách lớp chuyên ngành' }
-            ]} />
+            <Breadcrumb
+                items={[
+                    {
+                        label: "Quản lý Lớp chuyên ngành",
+                        link: "/admin/phong-ban",
+                    },
+                    { label: "Danh sách lớp chuyên ngành" },
+                ]}
+            />
 
             {/* action */}
-            <div className='flex flex-col justify-between md:flex-row gap-5 my-6'>
-
+            <div className="flex flex-col justify-between md:flex-row gap-5 my-6">
                 {/* Chọn khoa */}
                 <div className="xl:w-1/2">
                     <label className="mb-3 block text-black">Chọn khoa</label>
                     <div className="relative z-20 bg-transparent dark:bg-form-input">
                         <select
                             name="faculty_id"
-                            value={form.faculty_id}  // Lấy từ state `form`
-                            onChange={handleFacultyChange}  // Gọi khi khoa thay đổi
+                            value={form.faculty_id} // Lấy từ state `form`
+                            onChange={handleFacultyChange} // Gọi khi khoa thay đổi
                             className="relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary"
                         >
                             <option value="" disabled className="text-body">
                                 ... Chọn khoa ...
                             </option>
                             {faculties.map((faculty) => (
-                                <option key={faculty.id} value={faculty.id} className="text-body">
+                                <option
+                                    key={faculty.id}
+                                    value={faculty.id}
+                                    className="text-body"
+                                >
                                     {faculty.name}
                                 </option>
                             ))}
@@ -143,7 +191,9 @@ const Show = ({ faculties }) => {
 
                 {/* Chọn chuyên ngành */}
                 <div className="xl:w-1/2">
-                    <label className="mb-3 block text-black">Chọn chuyên ngành</label>
+                    <label className="mb-3 block text-black">
+                        Chọn chuyên ngành
+                    </label>
                     <div className="relative z-20 bg-transparent dark:bg-form-input">
                         <select
                             name="major_id"
@@ -156,7 +206,11 @@ const Show = ({ faculties }) => {
                                 ... Chọn chuyên ngành ...
                             </option>
                             {majors.map((major) => (
-                                <option key={major.id} value={major.id} className="text-body">
+                                <option
+                                    key={major.id}
+                                    value={major.id}
+                                    className="text-body"
+                                >
                                     {major.name}
                                 </option>
                             ))}
@@ -167,7 +221,10 @@ const Show = ({ faculties }) => {
 
             {form.major_id && (
                 <div className="flex justify-end mb-6">
-                    <Link href={`/admin/lop-chuyen-nganh/${form.major_id}/them`} className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center">
+                    <Link
+                        href={`/admin/lop-chuyen-nganh/${form.major_id}/them`}
+                        className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center"
+                    >
                         Thêm
                     </Link>
                 </div>
@@ -178,46 +235,85 @@ const Show = ({ faculties }) => {
                 <table className="w-full table-auto">
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">#</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Hệ đào tạo</th>
-                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">Tên</th>
-                            <th className="min-w-[60px] py-4 px-4 font-medium text-black dark:text-white">Số lượng</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Chuyên ngành</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Cố vấn</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Tình trạng</th>
-                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">Năm học</th>
-                            <th className="py-4 px-4 font-medium text-black dark:text-white">Tác vụ</th>
+                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                #
+                            </th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                                Hệ đào tạo
+                            </th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
+                                Tên
+                            </th>
+                            <th className="min-w-[60px] py-4 px-4 font-medium text-black dark:text-white">
+                                Số lượng
+                            </th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                                Chuyên ngành
+                            </th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                                Cố vấn
+                            </th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                                Tình trạng
+                            </th>
+                            <th className="min-w-[120px] py-4 px-4 font-medium text-black dark:text-white">
+                                Năm học
+                            </th>
+                            <th className="py-4 px-4 font-medium text-black dark:text-white">
+                                Tác vụ
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
-
-                        {Array.isArray(majorClasses) && majorClasses.length > 0 ? (
+                        {Array.isArray(majorClasses) &&
+                        majorClasses.length > 0 ? (
                             majorClasses.map((majorClass, index) => (
                                 <tr key={majorClass.id}>
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                                        <h5 className="font-medium text-black dark:text-white">{index + 1}</h5>
+                                        <h5 className="font-medium text-black dark:text-white">
+                                            {index + 1}
+                                        </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{majorClass.training_system}</p>
+                                        <p className="text-black dark:text-white">
+                                            {majorClass.training_system}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{majorClass.name}</p>
+                                        <p className="text-black dark:text-white">
+                                            {majorClass.name}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{majorClass.quantity}</p>
+                                        <p className="text-black dark:text-white">
+                                            {majorClass.quantity}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{majorClass.major.name}</p>
+                                        <p className="text-black dark:text-white">
+                                            {majorClass.major.name}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black dark:text-white">{majorClass.employee.full_name}</p>
+                                        <p className="text-black dark:text-white">
+                                            {majorClass.employee.full_name}
+                                        </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <span
-                                            className={`cursor-pointer ${majorClass.status === 0 ? 'text-green-500' : 'text-red-500'}`}
-                                            onClick={majorClass.status === 0 ? () => handleEndClass(majorClass) : null}
+                                            className={`cursor-pointer ${majorClass.status === 0 ? "text-green-500" : "text-red-500"}`}
+                                            onClick={
+                                                majorClass.status === 0
+                                                    ? () =>
+                                                          handleEndClass(
+                                                              majorClass,
+                                                          )
+                                                    : null
+                                            }
                                         >
-                                            {majorClass.status === 0 ? 'Đang học' : 'Đã kết thúc'}
+                                            {majorClass.status === 0
+                                                ? "Đang học"
+                                                : "Đã kết thúc"}
                                         </span>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
@@ -227,18 +323,34 @@ const Show = ({ faculties }) => {
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
-                                            <Link href={`/admin/lop-chuyen-nganh/${majorClass.id}/chi-tiet`} className="hover:text-primary">
-                                                <i className="fa-regular fa-pen-to-square text-xl" title="Xem lớp"></i>
+                                            <Link
+                                                href={`/admin/lop-chuyen-nganh/${majorClass.id}/chi-tiet`}
+                                                className="hover:text-primary"
+                                            >
+                                                <i
+                                                    className="fa-regular fa-pen-to-square text-xl"
+                                                    title="Xem lớp"
+                                                ></i>
                                             </Link>
                                             {majorClass.status === 0 && (
-                                                <Link href={`/admin/lop-chuyen-nganh/${majorClass.major_id}/${majorClass.id}/sua`} className="hover:text-primary">
+                                                <Link
+                                                    href={`/admin/lop-chuyen-nganh/${majorClass.major_id}/${majorClass.id}/sua`}
+                                                    className="hover:text-primary"
+                                                >
                                                     <i
                                                         className="fa-regular fa-pen-to-square text-xl"
                                                         title="Chỉnh sửa"
-                                                    ></i>   
+                                                    ></i>
                                                 </Link>
                                             )}
-                                            <button className="hover:text-primary" onClick={() => handleDeleteClick(majorClass.id)}>
+                                            <button
+                                                className="hover:text-primary"
+                                                onClick={() =>
+                                                    handleDeleteClick(
+                                                        majorClass.id,
+                                                    )
+                                                }
+                                            >
                                                 <i
                                                     className="fa-regular fa-trash-can text-xl"
                                                     title="Xóa"
@@ -250,16 +362,20 @@ const Show = ({ faculties }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="9" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
+                                <td
+                                    colSpan="9"
+                                    className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center"
+                                >
+                                    Không có dữ liệu
+                                </td>
                             </tr>
                         )}
-
                     </tbody>
                 </table>
             </div>
 
             {/* Pagination */}
-            <div className='my-6'>
+            <div className="my-6">
                 {/* <Pagination link={departments.links} onPageChange={handlePageChange} /> */}
             </div>
 
@@ -290,9 +406,8 @@ const Show = ({ faculties }) => {
                     <div className="loader">Đang xử lý...</div>
                 </div>
             )}
-
         </div>
     );
-}
+};
 
 export default Show;

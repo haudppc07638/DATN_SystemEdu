@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Layout from "../../Layouts/Layout";
+import React, { useEffect, useState } from "react";
 
 const reportData = {
     reportSubject: [
@@ -20,7 +19,7 @@ const reportData = {
                     id: 2,
                     date: "28/08/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn A",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC08",
                     session: "Thực hành",
                     status: "Vắng",
@@ -30,7 +29,7 @@ const reportData = {
                     id: 3,
                     date: "29/08/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn B",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC09",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -40,7 +39,7 @@ const reportData = {
                     id: 4,
                     date: "30/08/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn C",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC10",
                     session: "Thực hành",
                     status: "Đi học",
@@ -50,7 +49,7 @@ const reportData = {
                     id: 5,
                     date: "31/08/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn D",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC11",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -60,7 +59,7 @@ const reportData = {
                     id: 6,
                     date: "01/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn E",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC12",
                     session: "Thực hành",
                     status: "Đi học",
@@ -70,7 +69,7 @@ const reportData = {
                     id: 7,
                     date: "02/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn F",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC13",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -80,7 +79,7 @@ const reportData = {
                     id: 8,
                     date: "03/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn G",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC14",
                     session: "Thực hành",
                     status: "Đi học",
@@ -90,7 +89,7 @@ const reportData = {
                     id: 9,
                     date: "04/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn H",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC15",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -100,7 +99,7 @@ const reportData = {
                     id: 10,
                     date: "05/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn I",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC16",
                     session: "Thực hành",
                     status: "Đi học",
@@ -110,7 +109,7 @@ const reportData = {
                     id: 11,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn J",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -120,7 +119,7 @@ const reportData = {
                     id: 12,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn X",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -130,7 +129,7 @@ const reportData = {
                     id: 13,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn Y",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -155,7 +154,7 @@ const reportData = {
                     id: 2,
                     date: "28/08/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn A",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC08",
                     session: "Thực hành",
                     status: "Vắng",
@@ -165,7 +164,7 @@ const reportData = {
                     id: 3,
                     date: "29/08/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn B",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC09",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -175,7 +174,7 @@ const reportData = {
                     id: 4,
                     date: "30/08/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn C",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC10",
                     session: "Thực hành",
                     status: "Đi học",
@@ -185,7 +184,7 @@ const reportData = {
                     id: 5,
                     date: "31/08/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn D",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC11",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -195,7 +194,7 @@ const reportData = {
                     id: 6,
                     date: "01/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn E",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC12",
                     session: "Thực hành",
                     status: "Đi học",
@@ -205,7 +204,7 @@ const reportData = {
                     id: 7,
                     date: "02/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn F",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC13",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -215,7 +214,7 @@ const reportData = {
                     id: 8,
                     date: "03/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn G",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC14",
                     session: "Thực hành",
                     status: "Đi học",
@@ -225,7 +224,7 @@ const reportData = {
                     id: 9,
                     date: "04/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn H",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC15",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -235,7 +234,7 @@ const reportData = {
                     id: 10,
                     date: "05/09/2024",
                     shift: "Ca 2",
-                    name: "Nguyễn Văn I",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC16",
                     session: "Thực hành",
                     status: "Đi học",
@@ -245,7 +244,7 @@ const reportData = {
                     id: 11,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn J",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -255,7 +254,7 @@ const reportData = {
                     id: 12,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn X",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -265,7 +264,7 @@ const reportData = {
                     id: 13,
                     date: "06/09/2024",
                     shift: "Ca 1",
-                    name: "Nguyễn Văn Y",
+                    name: "Trần Nhân Nghĩa",
                     code: "PC17",
                     session: "Lý thuyết",
                     status: "Vắng",
@@ -277,6 +276,7 @@ const reportData = {
 };
 
 function ReportNameClient() {
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
     const getPaginatedItems = (items) => {
@@ -289,6 +289,21 @@ function ReportNameClient() {
         (subject) => subject.items,
     ).length;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-500 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg">
@@ -339,10 +354,11 @@ function ReportNameClient() {
                                     "Buổi học",
                                     "Trạng thái điểm danh",
                                     "Ghi chú buổi học",
+                                    "Ghi chú",
                                 ].map((header) => (
                                     <th
                                         key={header}
-                                        className="border border-gray-300 px-4 py-2 font-semibold text-left"
+                                        className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
                                     >
                                         {header}
                                     </th>
@@ -358,20 +374,23 @@ function ReportNameClient() {
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.date}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                    <td className="border border-gray-300 px-4 py-2 text-center">
                                         {item.shift}
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.name}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                    <td className="border border-gray-300 px-4 py-2 text-center">
                                         {item.code}
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.session}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2">
+                                    <td className="border border-gray-300 px-4 py-2 text-center">
                                         {item.status}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {item.notes}
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.notes}
@@ -476,7 +495,5 @@ function ReportNameClient() {
         </div>
     );
 }
-
-ReportNameClient.layout = (page) => <Layout>{page}</Layout>;
 
 export default ReportNameClient;

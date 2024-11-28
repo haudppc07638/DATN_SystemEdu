@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { router, usePage } from '@inertiajs/react';
-import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
+import React, { useEffect, useState } from "react";
+import { router, usePage } from "@inertiajs/react";
+import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Create = ({ faculties }) => {
     const [form, setForm] = useState({});
@@ -10,42 +10,42 @@ const Create = ({ faculties }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        router.post('/admin/sinh-vien/them', form);
+        router.post("/admin/sinh-vien/them", form);
         console.log(form);
     };
 
     const handleChangeValue = (e) => {
         const { name, value, files } = e.target;
-        setForm(prevForm => ({
+        setForm((prevForm) => ({
             ...prevForm,
-            [name]: files ? files[0] : value
+            [name]: files ? files[0] : value,
         }));
     };
 
     const handleCancel = () => {
         setForm({
-            full_name: '',
-            code: '',
-            email: '',
-            password: '',
-            phone: '',
+            full_name: "",
+            code: "",
+            email: "",
+            password: "",
+            phone: "",
             image: null,
-            faculty_id: '',
-            major: '',
-            major_class_id: ''
+            faculty_id: "",
+            major: "",
+            major_class_id: "",
         });
     };
 
     const handleFacultyChange = (e) => {
         const facultyId = e.target.value;
-        setForm(prevForm => ({ ...prevForm, faculty_id: facultyId }));
+        setForm((prevForm) => ({ ...prevForm, faculty_id: facultyId }));
 
         if (facultyId) {
             fetch(`/api/majors?faculty_id=${facultyId}`)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     setMajors(data);
-                    setForm(prevForm => ({ ...prevForm, major_id: '' }));
+                    setForm((prevForm) => ({ ...prevForm, major_id: "" }));
                 });
         } else {
             setMajors([]);
@@ -54,14 +54,17 @@ const Create = ({ faculties }) => {
 
     const handleMajorChange = (e) => {
         const majorId = e.target.value;
-        setForm(prevForm => ({ ...prevForm, major_id: majorId }));
+        setForm((prevForm) => ({ ...prevForm, major_id: majorId }));
 
         if (majorId) {
             fetch(`/api/majorClasses?major_id=${majorId}`)
-                .then(response => response.json())
-                .then(data => {
+                .then((response) => response.json())
+                .then((data) => {
                     setMajorClasses(data);
-                    setForm(prevForm => ({ ...prevForm, major_class_id: '' }));
+                    setForm((prevForm) => ({
+                        ...prevForm,
+                        major_class_id: "",
+                    }));
                 });
         } else {
             setMajorClasses([]);
@@ -69,30 +72,54 @@ const Create = ({ faculties }) => {
     };
 
     const renderError = (field) => {
-        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+        return (
+            errors?.[field] && (
+                <div className="text-red-500 mt-1">{errors[field]}</div>
+            )
+        );
     };
+
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col gap-9">
-
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm border border-stroke bg-white shadow-default">
-
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
-                    <Breadcrumb items={[
-                        { label: 'Quản lý sinh viên', link: '/admin/sinh-viên' },
-                        { label: 'Thêm sinh viên' }
-                    ]} />
+                    <Breadcrumb
+                        items={[
+                            {
+                                label: "Quản lý sinh viên",
+                                link: "/admin/sinh-viên",
+                            },
+                            { label: "Thêm sinh viên" },
+                        ]}
+                    />
                 </div>
 
                 {/* Form */}
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="flex flex-col gap-5.5 p-6.5">
-
                         <div className="flex flex-col gap-6 xl:flex-row">
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Họ và tên</label>
+                                <label className="mb-3 block text-black">
+                                    Họ và tên
+                                </label>
                                 <input
                                     type="text"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
@@ -100,10 +127,12 @@ const Create = ({ faculties }) => {
                                     value={form.full_name}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('full_name')}
+                                {renderError("full_name")}
                             </div>
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Số điện thoại</label>
+                                <label className="mb-3 block text-black">
+                                    Số điện thoại
+                                </label>
                                 <input
                                     type="text"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
@@ -111,25 +140,29 @@ const Create = ({ faculties }) => {
                                     value={form.phone}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('phone')}
+                                {renderError("phone")}
                             </div>
                         </div>
 
                         <div className="flex flex-col gap-6 xl:flex-row">
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Email</label>
+                                <label className="mb-3 block text-black">
+                                    Email
+                                </label>
                                 <input
                                     type="email"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
                                     name="email"
-                                    placeholder='abc0123@fpt.edu.vn'
+                                    placeholder="abc0123@fpt.edu.vn"
                                     value={form.email}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('email')}
+                                {renderError("email")}
                             </div>
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Mật khẩu</label>
+                                <label className="mb-3 block text-black">
+                                    Mật khẩu
+                                </label>
                                 <input
                                     type="password"
                                     className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
@@ -137,96 +170,127 @@ const Create = ({ faculties }) => {
                                     value={form.password}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('password')}
+                                {renderError("password")}
                             </div>
                         </div>
                         <div className="flex flex-col gap-6 xl:flex-row">
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Mã sinh viên</label>
+                                <label className="mb-3 block text-black">
+                                    Mã sinh viên
+                                </label>
                                 <input
                                     type="text"
                                     name="code"
                                     onChange={handleChangeValue}
                                     className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm focus:border-primary file:focus:border-primary active:border-primary"
                                 />
-                                {renderError('code')}
+                                {renderError("code")}
                             </div>
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Ảnh</label>
+                                <label className="mb-3 block text-black">
+                                    Ảnh
+                                </label>
                                 <input
                                     type="file"
                                     name="image"
                                     onChange={handleChangeValue}
                                     className="w-full rounded-md border border-stroke p-3 outline-none transition file:mr-4 file:rounded file:border-[0.5px] file:border-stroke file:bg-[#EEEEEE] file:py-1 file:px-2.5 file:text-sm focus:border-primary file:focus:border-primary active:border-primary"
                                 />
-                                {renderError('image')}
+                                {renderError("image")}
                             </div>
                         </div>
 
                         {/* Other fields (Faculties and major) */}
                         <div className="flex flex-col gap-6 xl:flex-row">
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Chọn khoa</label>
+                                <label className="mb-3 block text-black">
+                                    Chọn khoa
+                                </label>
                                 <select
                                     name="faculty_id"
-                                    value={form.faculty_id || ''}
+                                    value={form.faculty_id || ""}
                                     onChange={handleFacultyChange}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-                                            ${form.faculty_id ? 'text-black' : ''}`}
+                                            ${form.faculty_id ? "text-black" : ""}`}
                                 >
-                                    <option value="" disabled className="text-body">
+                                    <option
+                                        value=""
+                                        disabled
+                                        className="text-body"
+                                    >
                                         ... Chọn khoa ...
                                     </option>
                                     {faculties.map((faculty) => (
-                                        <option key={faculty.id} value={faculty.id} className="text-body">
+                                        <option
+                                            key={faculty.id}
+                                            value={faculty.id}
+                                            className="text-body"
+                                        >
                                             {faculty.name}
                                         </option>
                                     ))}
                                 </select>
-                                {renderError('faculty_id')}
+                                {renderError("faculty_id")}
                             </div>
 
                             <div className="xl:w-1/2">
-                                <label className="mb-3 block text-black">Chọn chuyên ngành</label>
+                                <label className="mb-3 block text-black">
+                                    Chọn chuyên ngành
+                                </label>
                                 <select
                                     name="major_id"
-                                    value={form.major_id || ''}
+                                    value={form.major_id || ""}
                                     onChange={handleMajorChange}
                                     className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-                                    ${form.major_id ? 'text-black' : ''}`}
+                                    ${form.major_id ? "text-black" : ""}`}
                                 >
-                                    <option value="" disabled className="text-body">
+                                    <option
+                                        value=""
+                                        disabled
+                                        className="text-body"
+                                    >
                                         ... Chọn chuyên ngành ...
                                     </option>
                                     {majors.map((major) => (
-                                        <option key={major.id} value={major.id} className="text-body">
+                                        <option
+                                            key={major.id}
+                                            value={major.id}
+                                            className="text-body"
+                                        >
                                             {major.name}
                                         </option>
-                                    ))} 
+                                    ))}
                                 </select>
-                                {renderError('major_id')}
+                                {renderError("major_id")}
                             </div>
                         </div>
 
                         <div>
-                            <label className="mb-3 block text-black">Chọn lớp chuyên ngành</label>
+                            <label className="mb-3 block text-black">
+                                Chọn lớp chuyên ngành
+                            </label>
                             <select
                                 name="major_class_id"
-                                value={form.major_class_id || ''}
+                                value={form.major_class_id || ""}
                                 onChange={handleChangeValue}
                                 className={`relative z-20 w-full appearance-none rounded border border-stroke bg-transparent py-3 px-5 outline-none transition focus:border-primary active:border-primary 
-            ${form.major_class_id ? 'text-black' : ''}`}
+            ${form.major_class_id ? "text-black" : ""}`}
                             >
                                 <option value="" disabled className="text-body">
                                     ... Chọn lớp chuyên ngành ...
                                 </option>
                                 {majorClasses.map((majorClass) => (
-                                    <option key={majorClass.id} value={majorClass.id} className="text-body">
-                                        {majorClass.name} / {majorClass.quantity} Sinh viên
+                                    <option
+                                        key={majorClass.id}
+                                        value={majorClass.id}
+                                        className="text-body"
+                                    >
+                                        {majorClass.name} /{" "}
+                                        {majorClass.quantity} Sinh viên
                                     </option>
                                 ))}
                             </select>
-                            {renderError('major_class_id')}
+                            {renderError("major_class_id")}
                         </div>
 
                         {/* Submit and Cancel buttons */}
@@ -250,6 +314,6 @@ const Create = ({ faculties }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Create;

@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { router, usePage } from '@inertiajs/react';
-import Breadcrumb from '../../../Components/Breadcrumbs/Breadcrumb';
+import React, { useEffect, useState } from "react";
+import { router, usePage } from "@inertiajs/react";
+import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Create = ({ timeSlot }) => {
-
     const [form, setForm] = useState({
         slot: timeSlot.slot,
         start_time: timeSlot.start_time,
-        end_time: timeSlot.end_time
+        end_time: timeSlot.end_time,
     });
 
     const { errors } = usePage().props;
@@ -16,7 +15,7 @@ const Create = ({ timeSlot }) => {
         e.preventDefault();
         router.post(`/admin/ca-hoc/${timeSlot.id}/sua`, {
             ...form,
-            _method: 'PATCH'
+            _method: "PATCH",
         });
     };
 
@@ -25,24 +24,45 @@ const Create = ({ timeSlot }) => {
     };
 
     const handleCancel = () => {
-        setForm({ slot: '', start_time: '', end_time: '' });
+        setForm({ slot: "", start_time: "", end_time: "" });
     };
 
     const renderError = (field) => {
-        return errors?.[field] && <div className="text-red-500 mt-1">{errors[field]}</div>;
+        return (
+            errors?.[field] && (
+                <div className="text-red-500 mt-1">{errors[field]}</div>
+            )
+        );
     };
+
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col gap-9">
             {/* <!-- Input Fields --> */}
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-
                 {/* Breadcrumb */}
                 <div className="mx-6.5 mt-6.5">
-                    <Breadcrumb items={[
-                        { label: 'Quản lý ca học', link: '/admin/ca-hoc' },
-                        { label: 'Chỉnh sửa ca học' }
-                    ]} />
+                    <Breadcrumb
+                        items={[
+                            { label: "Quản lý ca học", link: "/admin/ca-hoc" },
+                            { label: "Chỉnh sửa ca học" },
+                        ]}
+                    />
                 </div>
 
                 {/* Form thêm*/}
@@ -59,8 +79,7 @@ const Create = ({ timeSlot }) => {
                                 value={form.slot}
                                 onChange={handleChangeValue}
                             />
-                            {renderError('slot')}
-
+                            {renderError("slot")}
                         </div>
                         <div className="flex flex-row xl:flex-row gap-6">
                             <div className="xl:w-1/2">
@@ -74,8 +93,7 @@ const Create = ({ timeSlot }) => {
                                     value={form.start_time}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('start_time')}
-
+                                {renderError("start_time")}
                             </div>
                             <div className="xl:w-1/2">
                                 <label className="mb-3 block text-black dark:text-white">
@@ -88,12 +106,11 @@ const Create = ({ timeSlot }) => {
                                     value={form.end_time}
                                     onChange={handleChangeValue}
                                 />
-                                {renderError('end_time')}
-
+                                {renderError("end_time")}
                             </div>
                         </div>
 
-                        <div className='flex gap-2'>
+                        <div className="flex gap-2">
                             <button
                                 type="submit"
                                 className="bg-graydark hover:opacity-80 text-white py-2 px-4 rounded"
@@ -109,13 +126,10 @@ const Create = ({ timeSlot }) => {
                             </button>
                         </div>
                     </div>
-
                 </form>
-
             </div>
-
         </div>
-    )
-}
+    );
+};
 
 export default Create;

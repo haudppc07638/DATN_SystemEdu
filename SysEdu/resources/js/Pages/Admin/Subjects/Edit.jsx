@@ -66,6 +66,22 @@ const Create = ({ subject, faculties }) => {
 
     const isFacultySoftDeleted = !faculties.find(f => f.id === form.faculty_id);
 
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gray-100">
+                <div className="w-16 h-16 border-4 border-dashed border-t-blue-600 border-b-transparent rounded-full animate-spin"></div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col gap-9">
             {/* Form Input Fields */}

@@ -24,8 +24,7 @@ function ChatBox() {
         "Địa chỉ liên hệ của trường?",
         "Trường còn nhận hồ sơ không?",
         "Tôi muốn ứng tuyển nhân viên tại trường!",
-        "Chào em!!!",
-        "Cho anh làm quen nha!!!"
+
     ];
 
     const handleBotReply = (userMessage) => {
@@ -38,10 +37,7 @@ function ChatBox() {
                 "Chúng tôi đang mở tuyển sinh! Vui lòng kiểm tra thêm thông tin trên website của chúng tôi để biết chi tiết.",
             "tôi muốn ứng tuyển nhân viên tại trường!":
                 "Hiện tại trường không còn nhận tuyển dụng nữa. Xin lỗi và cảm ơn bạn đã quan tâm!",
-            "chào em!!!":
-                "Chào anh!!!",
-            "cho anh làm quen nha!!!":
-                "Dạ anh yêu!!!",
+            
         };
 
         const normalizedMessage = userMessage.toLowerCase().trim();
@@ -83,7 +79,7 @@ function ChatBox() {
         <div className="fixed bottom-10 right-10 z-50">
             {!isOpen && (
                 <div onClick={() => setIsOpen(true)}>
-                    <img src={botchat} alt="bot chat" className="w-25 animate-bounce"/>
+                    <img src={botchat} alt="botchat" className="w-25 animate-bounce"/>
                 </div>
             )}
 

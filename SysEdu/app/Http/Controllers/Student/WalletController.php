@@ -13,7 +13,7 @@ class WalletController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Student/Wallet');
+        return Inertia::render('Student/WalletStudent/Page');
     }
 
     /**
