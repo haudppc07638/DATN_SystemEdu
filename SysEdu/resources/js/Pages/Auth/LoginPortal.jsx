@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import logo from '../../Assets/Images/logo.png';
-import Carousel from '../../Components/Auth/Carousel';
-import banner from '../../Assets/Images/banner.jpg';
-import banner1 from '../../Assets/Images/banner1.jpg';
-import banner2 from '../../Assets/Images/banner2.jpg';
-import { Link, router, usePage } from '@inertiajs/react';
-import Auth from '../../Layouts/Auth';
-import '../../Assets/Css/Custom.css';
+import logo from "../../Assets/Images/logo.png";
+import Carousel from "../../Components/Auth/Carousel";
+import banner from "../../Assets/Images/banner.jpg";
+import banner1 from "../../Assets/Images/banner1.jpg";
+import banner2 from "../../Assets/Images/banner2.jpg";
+import { Link, router, usePage } from "@inertiajs/react";
+import Auth from "../../Layouts/Auth";
+import "../../Assets/Css/Custom.css";
 
 function LoginPortal() {
     const { flash } = usePage().props;
@@ -30,10 +30,10 @@ function LoginPortal() {
     useEffect(() => {
         if (flash.error) {
             Swal.fire({
-                title: 'Lỗi!',
+                title: "Lỗi!",
                 text: flash.error,
-                icon: 'error',
-                confirmButtonText: 'OK'
+                icon: "error",
+                confirmButtonText: "OK",
             });
         }
     }, [flash]);
@@ -43,9 +43,15 @@ function LoginPortal() {
             <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
                 <div className="container mx-auto px-4 py-3">
                     <div className="flex items-center justify-between">
-                        <Link href='auth' className="flex items-center">
-                            <img src={logo} alt="Sysedu Logo" className="h-16 w-auto mr-3" />
-                            <h4 className="text-primary text-xl font-semibold">Sysedu University</h4>
+                        <Link href="auth" className="flex items-center">
+                            <img
+                                src={logo}
+                                alt="Sysedu Logo"
+                                className="h-16 w-auto mr-3"
+                            />
+                            <h4 className="text-primary text-xl font-semibold">
+                                College Sysedu
+                            </h4>
                         </Link>
                         <div className="relative">
                             <button

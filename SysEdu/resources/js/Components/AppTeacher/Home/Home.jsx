@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "@inertiajs/react";
+import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 
 const notificationData = {
     notification: [
@@ -73,8 +74,8 @@ function Home() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg">
-            <h3 className="text-2xl font-semibold">Thông tin mới nhất</h3>
+        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+            <BreadcrumbTeacher items={[{ label: "Thông tin mới nhất" }]} />
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 {notificationData.notification.map(
                     (cateNotification, index) => (

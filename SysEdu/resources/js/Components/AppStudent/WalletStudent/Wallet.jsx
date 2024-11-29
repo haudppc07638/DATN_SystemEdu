@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import BreadcrumbStudent from "../../Breadcrumbs/BreadcrumbStudent";
 
 const walletData = [
     {
@@ -52,8 +53,8 @@ function Wallet() {
     }
 
     return (
-        <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
-            <h3 className="text-2xl font-semibold mb-6">Ví sinh viên</h3>
+        <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg shadow-default">
+            <BreadcrumbStudent items={[{ label: "Ví sinh viên" }]} />
             <div className="flex flex-col mb-6 mt-4">
                 <div className="mb-4">
                     <label

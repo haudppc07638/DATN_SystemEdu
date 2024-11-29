@@ -10,7 +10,7 @@ function Footer() {
                         <img src={logo} alt="Sysedu Logo" className="w-20" />
                         <div>
                             <h5 className="text-blue-600 font-bold mb-1">
-                                University Sysedu
+                                College Sysedu
                             </h5>
                             <p className="text-sm">
                                 <i className="fa fa-map" aria-hidden="true"></i>{" "}
@@ -106,7 +106,7 @@ function Footer() {
             </div>
             <div className="mt-8 text-center text-gray-200">
                 <p className="flex justify-center items-center text-sm font-bold">
-                    University Sysedu © {new Date().getFullYear()}, All Rights
+                    College Sysedu © {new Date().getFullYear()}, All Rights
                     Reserved
                 </p>
             </div>

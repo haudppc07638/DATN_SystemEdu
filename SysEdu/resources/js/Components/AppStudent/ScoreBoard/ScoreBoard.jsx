@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import BreadcrumbStudent from "../../Breadcrumbs/BreadcrumbStudent";
 
 const scoreBoardData = {
     courses: [
@@ -127,8 +128,8 @@ function ScoreBoard() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg">
-            <h3 className="text-2xl font-semibold">Bảng điểm</h3>
+        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+            <BreadcrumbStudent items={[{ label: "Bảng điểm" }]} />
             <div className="flex flex-col mb-6 mt-4">
                 <h3 className="text-lg font-bold pt-2">
                     Chuyên ngành: <span>Lập trình Web</span>

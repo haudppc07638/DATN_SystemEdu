@@ -43,17 +43,12 @@ function Sidebar() {
                 >
                     {[
                         {
-                            link: "/",
-                            label: "Thống kê",
-                            icon: "chart-bar",
-                        },
-                        {
                             link: "/teacher",
                             label: "Thông báo và tin tức",
                             icon: "bell",
                         },
                         {
-                            link: "/student/xem-diem-danh",
+                            link: "/teacher/student-seach",
                             label: "Tìm kiếm sinh viên",
                             icon: "search",
                         },

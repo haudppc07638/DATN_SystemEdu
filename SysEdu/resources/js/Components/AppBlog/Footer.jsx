@@ -15,7 +15,7 @@ function FooterBlog() {
                         />
                         <div className="mt-4">
                             <h3 className="text-blue-600 text-2xl font-bold">
-                                University Sysedu
+                                College Sysedu
                             </h3>
                             <p className="text-sm">
                                 <i className="fa fa-map" aria-hidden="true"></i>{" "}
@@ -121,7 +121,7 @@ function FooterBlog() {
             </div>
             <div className="mt-8 text-center text-gray-200">
                 <p className="flex justify-center items-center text-sm font-bold">
-                    University Sysedu © {new Date().getFullYear()}, All Rights
+                    College Sysedu © {new Date().getFullYear()}, All Rights
                     Reserved
                 </p>
             </div>
