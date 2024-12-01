@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             // ClassroomSeeder::class,
             // TimeSlotSeeder::class,
             // MajorClassSeeder::class,
-            SeedersStudentSeeder::class,
+            // SeedersStudentSeeder::class,
+
+            SubjectLecturersSeeder::class,
         ]);
     }
 }

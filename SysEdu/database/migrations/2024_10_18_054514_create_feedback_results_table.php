@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('feedback_results', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedSmallInteger('results');
-            $table->string('expertise');
+            $table->unsignedSmallInteger('results')->nullable();
+            $table->string('expertise')->nullable();
             $table->foreignId('feedback_question_id')->constrained('feedback_questions');
             $table->foreignId('student_subject_class_id')->constrained('student_subject_classes');
             $table->timestamps();

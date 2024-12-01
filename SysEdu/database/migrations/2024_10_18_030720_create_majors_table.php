@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->string('code', 15)->unique();
-            $table->unsignedSmallInteger('total_credits');
+            $table->unsignedInteger('total_credits')->nullable();
             $table->foreignId('faculty_id')->constrained('faculties');
             $table->timestamps();
             $table->softDeletes();

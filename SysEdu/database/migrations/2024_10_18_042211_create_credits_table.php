@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('credits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->decimal('price', 10, 2);
-            $table->decimal('vat', 5, 2);
             $table->timestamps();
             $table->softDeletes();
         });

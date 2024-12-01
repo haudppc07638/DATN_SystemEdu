@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('type', ['email','system']);
             $table->dateTime('date_sent');
             $table->json('recipients');
+            $table->enum('status', ['pending', 'sent', 'failed'])->default('pending');
             $table->foreignId('employee_id')->constrained('employees');
             $table->timestamps();
             $table->softDeletes();

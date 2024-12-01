@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('feedback_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->foreignId('student_id')->constrained('students');
-            $table->foreignId('employee_id')->constrained('employees');
+            $table->enum('target_type', ['student', 'employee'])->default('student');
+            $table->foreignId('student_id')->nullable()->constrained('students');
+            $table->foreignId('employee_id')->nullable()->constrained('employees');
             $table->timestamps();
             $table->softDeletes();
         });

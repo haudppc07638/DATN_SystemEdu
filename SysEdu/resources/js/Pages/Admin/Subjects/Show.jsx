@@ -214,33 +214,19 @@ const Show = ({ subjects, limit }) => {
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">
-                                            {Number(
-                                                subject.price,
-                                            ).toLocaleString("vi-VN")}{" "}
-                                            đ
-                                        </p>
+                                        <p className="text-black max-w-[150px] truncate">{subject.description}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black max-w-[150px] truncate">
-                                            {subject.description}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p
-                                            className={
-                                                subject.major.deleted_at
-                                                    ? "text-red-500"
-                                                    : "text-black"
-                                            }
-                                            title={
-                                                subject.major.deleted_at
-                                                    ? "Phòng ban này đã ngừng hoạt động"
-                                                    : ""
-                                            }
-                                        >
-                                            {subject.major.name}
-                                        </p>
+                                        {subject.major ? (
+                                            <p
+                                                className={subject.major.deleted_at ? "text-red-500" : "text-black"}
+                                                title={subject.major.deleted_at ? "Phòng ban này đã ngừng hoạt động" : ""}
+                                            >
+                                                {subject.major.name}
+                                            </p>
+                                        ) :
+                                            ''
+                                        }
                                     </td>
 
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">

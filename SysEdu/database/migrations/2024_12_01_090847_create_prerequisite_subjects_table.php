@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('subjects', function (Blueprint $table) {
+        Schema::create('prerequisite_subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name' , 100);
-            $table->string('code', 15)->unique();
-            $table->unsignedSmallInteger( 'credit');
-            $table->text('description')->nullable();
-            $table->foreignId('major_id')->nullable()->constrained('majors');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->foreignId('prerequisite_id')->constrained('subjects')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('subjects');
+        Schema::dropIfExists('prerequisite_subjects');
     }
 };

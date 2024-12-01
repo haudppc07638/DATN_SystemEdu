@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('score_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string("name", 100)->unique();
+            $table->enum('type', ['single', 'multi'])->default('single')->after('name');
             $table->timestamps();
             $table->softDeletes();
         });

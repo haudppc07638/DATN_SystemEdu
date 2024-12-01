@@ -29,6 +29,21 @@ class DepartmentController extends Controller
         ]);
     }
 
+    public function test(Request $request){
+        $limit = $request->input('limit', 10);
+        $search = $request->input('search', '');
+        $page = $request->input('page', 1);
+
+        $departments = Department::search($search)->latestPaginate($limit);
+
+        return Inertia::render('Admin/Departments/Test', [
+            'departments' => $departments,
+            'limit' => $limit,
+            'search' => $search,
+            'currentPage' => $page  
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

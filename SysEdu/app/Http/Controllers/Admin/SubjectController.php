@@ -50,7 +50,7 @@ class SubjectController extends Controller
     {
         $request->validated();
         $data = $request->only('name', 'code', 'credit', 'description', 'major_id');
-        $data['price'] = $data['credit'] * Subject::CREDIT_PRICE;
+        // $data['price'] = $data['credit'] * Subject::CREDIT_PRICE;
         Subject::create($data);
         return redirect()->route('admin.subjects.show')->with('success','Thêm môn học thành công !');
     }
@@ -74,7 +74,7 @@ class SubjectController extends Controller
     {
         $request->validated();
         $data = $request->only('name', 'code', 'credit', 'description', 'major_id') ;
-        $data['price'] = $data['credit'] * Subject::CREDIT_PRICE;
+        // $data['price'] = $data['credit'] * Subject::CREDIT_PRICE;
         $subject->update($data);
         return redirect()->route('admin.subjects.show')->with('success','Sửa môn học thành công !');
     }

@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
     // Department
     Route::name('admin.departments.')->group(function () {
         Route::get('phong-ban', [DepartmentController::class, 'index'])->name('show');
+        Route::get('test', [DepartmentController::class, 'test'])->name('test');
         Route::get('phong-ban/them', [DepartmentController::class, 'create'])->name('create');
         Route::post('phong-ban/them', [DepartmentController::class, 'store'])->name('store');
         Route::get('phong-ban/{department}/sua', [DepartmentController::class, 'edit'])->name('edit');
@@ -116,5 +117,15 @@ use Illuminate\Support\Facades\Route;
         Route::get('ca-hoc/{timeSlot}/sua', [TimeSlotController::class,'edit'])->name('edit');
         Route::patch('ca-hoc/{timeSlot}/sua', [TimeSlotController::class,'update'])->name('update');
         Route::delete('ca-hoc/{timeSlot}', [TimeSlotController::class, 'destroy'])->name('destroy');
+    });
+
+    //Subject Class
+    Route::name('admin.subjectCLasses.')->group(function () {
+        Route::get('lop-mon', [TimeSlotController::class, 'index'])->name('show');
+        Route::get('lop-mon/them', [TimeSlotController::class, 'create'])->name('create');
+        Route::post('lop-mon/them', [TimeSlotController::class, 'store'])->name('store');
+        Route::get('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'edit'])->name('edit');
+        Route::patch('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'update'])->name('update');
+        Route::delete('lop-mon/{subjectClass}', [TimeSlotController::class, 'destroy'])->name('destroy');
     });
 // });

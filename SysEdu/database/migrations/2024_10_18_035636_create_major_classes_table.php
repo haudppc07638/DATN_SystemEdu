@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('major_classes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('training_system');
             $table->string('name', 100);
-            $table->unsignedInteger('quantity'); // số lượng tôi đa của sinh viên trong 1 lớp
+            $table->unsignedInteger('quantity')->comment('Max student');
             $table->boolean('status')->default(0);
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('employee_id')->constrained('employees');
             $table->timestamps();

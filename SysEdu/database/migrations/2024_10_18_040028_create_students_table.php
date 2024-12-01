@@ -36,6 +36,14 @@ return new class extends Migration
             $table->string('sponsor_name', 150);
             $table->string('sponsor_phone', 15);
 
+            $table->enum('status', [
+                'active', 
+                'inactive', 
+                'graduated', 
+                'suspended', 
+                'deferred'
+            ])->default('active');
+
             $table->foreignId('major_id')->constrained('majors');
             $table->foreignId('major_class_id')->constrained('major_classes');
             $table->timestamps();

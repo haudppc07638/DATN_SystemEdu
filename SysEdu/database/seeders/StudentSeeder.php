@@ -31,8 +31,8 @@ class StudentSeeder extends Seeder
                 'house_number' => $faker->buildingNumber,
                 'sponsor_name' => $faker->name,
                 'sponsor_phone' => '0' . $faker->numberBetween(900000000, 999999999),
-                'major_id' => 4, // Hoặc ID chuyên ngành bạn muốn
-                'major_class_id' => 4, // Hoặc ID lớp chuyên ngành bạn muốn
+                'major_id' => 3, // Hoặc ID chuyên ngành bạn muốn
+                'major_class_id' => 8, // Hoặc ID lớp chuyên ngành bạn muốn
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

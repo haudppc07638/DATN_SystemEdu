@@ -19,13 +19,11 @@ class Subject extends Model
         'name',
         'code',
         'credit',
-        'price',
         'description',
         'major_id',
+        'prerequisite_subject_id',
         'deleted_at'
     ];
-
-    const CREDIT_PRICE = 250000;
 
     public function major(): BelongsTo
     {
