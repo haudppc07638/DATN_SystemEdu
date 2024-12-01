@@ -121,7 +121,7 @@ const Show = ({ semesters, limit }) => {
 
             {/* Breadcrumb */}
             <Breadcrumb items={[
-                { label: 'Quản lý Học kỳ', link: '/admin/hoc-ky' },
+                { label: 'Quản lý học kỳ', link: '/admin/hoc-ky' },
                 { label: 'Danh sách học kỳ' }
             ]} />
 

@@ -37,13 +37,13 @@ function Header() {
                 </div>
             </form>
             <div className="flex items-center">
-                <div>
+                {/* <div>
                     <i
                         className={`fa ${isToggled ? "fa-toggle-on" : "fa-toggle-off"} text-blue-400 text-[25px]`}
                         onClick={toggleIcon}
                         aria-hidden="true"
                     ></i>
-                </div>
+                </div> */}
                 <div>
                     <i
                         className="fa fa-bell mx-5 text-blue-400 text-[20px]"

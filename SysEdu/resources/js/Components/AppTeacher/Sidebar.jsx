@@ -53,6 +53,16 @@ function Sidebar() {
                             icon: "search",
                         },
                         {
+                            link: "/teacher/student-attendance",
+                            label: "Điểm danh sinh viên",
+                            icon: "pen-to-square",
+                        },
+                        {
+                            link: "/teacher/student-examlist",
+                            label: "Danh sách thi",
+                            icon: "list-alt",
+                        },
+                        {
                             link: "/student/dang-ki-mon-hoc",
                             label: "Lớp của tôi",
                             icon: "chalkboard",
@@ -63,40 +73,16 @@ function Sidebar() {
                             icon: "calendar-alt",
                         },
                         {
+                            link: "/",
+                            label: "Đăng kí lịch dạy",
+                            icon: "pen",
+                        },
+                        {
                             link: "/student/bang-diem",
                             label: "Feedback",
                             icon: "comment-dots",
                         },
-                        {
-                            link: "/",
-                            label: "1/3 Block",
-                            icon: "th",
-                        },
-                        {
-                            link: "/",
-                            label: "Danh sách thi",
-                            icon: "list-alt",
-                        },
-                        {
-                            link: "/",
-                            label: "Sắp xếp lịch thi",
-                            icon: "calendar-check",
-                        },
-                        {
-                            link: "/",
-                            label: "Đăng kí dịch vụ",
-                            icon: "concierge-bell",
-                        },
-                        {
-                            link: "/",
-                            label: "Quản lý dự giờ",
-                            icon: "chalkboard-teacher",
-                        },
-                        {
-                            link: "/",
-                            label: "Hướng dẫn",
-                            icon: "info-circle",
-                        },
+                        
                     ].map((item, index) => (
                         <div key={index}>
                             {item.isDropdown ? (
