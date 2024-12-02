@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            // DepartmentSeeder::class,
-            // FacultySeeder::class,
-            // MajorSeeder::class,
-            // EmployeeSeeder::class,
+            DepartmentSeeder::class,
+            FacultySeeder::class,
+            MajorSeeder::class,
+            EmployeeSeeder::class,
             // SubjectSeeder::class,
             // SemesterSeeder::class,
             // ClassroomSeeder::class,
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             // MajorClassSeeder::class,
             // SeedersStudentSeeder::class,
 
-            SubjectLecturersSeeder::class,
+            // SubjectLecturersSeeder::class,
         ]);
     }
 }

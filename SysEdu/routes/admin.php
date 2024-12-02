@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClassroomController;
+use App\Http\Controllers\Admin\CreditController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FacultyController;
@@ -127,5 +128,14 @@ use Illuminate\Support\Facades\Route;
         Route::get('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'edit'])->name('edit');
         Route::patch('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'update'])->name('update');
         Route::delete('lop-mon/{subjectClass}', [TimeSlotController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::name('admin.credits.')->group(function () {
+        Route::get('tin-chi', [CreditController::class, 'index'])->name('show');
+        Route::get('tin-chi/them', [CreditController::class, 'create'])->name('create');
+        Route::post('tin-chi/them', [CreditController::class, 'store'])->name('store');
+        Route::get('tin-chi/{credit}/sua', [CreditController::class,'edit'])->name('edit');
+        Route::patch('tin-chi/{credit}/sua', [CreditController::class,'update'])->name('update');
+        Route::delete('tin-chi/{credit}', [CreditController::class, 'destroy'])->name('destroy');
     });
 // });

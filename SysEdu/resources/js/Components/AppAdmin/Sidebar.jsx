@@ -46,8 +46,8 @@ function Sidebar() {
                     label: "Đăng ký môn dạy",
                 },
                 {
-                    link: "",
-                    label: "Tính chỉ",
+                    link: "/admin/tin-chi",
+                    label: "Tín chỉ",
                 },
                 {
                     link: "/admin/phong-ban",

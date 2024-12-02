@@ -5,7 +5,10 @@ use App\Http\Controllers\Teacher\AttendanceDetailController;
 use App\Http\Controllers\Teacher\ExamDetailController;
 use App\Http\Controllers\Teacher\ExamListController;
 use App\Http\Controllers\Teacher\HomeController;
+use App\Http\Controllers\Teacher\MyClassController;
+use App\Http\Controllers\Teacher\MyClassDetailController;
 use App\Http\Controllers\Teacher\StudentSeachController;
+use App\Http\Controllers\Teacher\TeachingScheduleController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +21,7 @@ use Illuminate\Support\Facades\Route;
     Route::get('/student-attendance-detail', [AttendanceDetailController::class, 'index'])->name('teacher.attendance-detail');
     Route::get('/student-examlist', [ExamListController::class, 'index'])->name('teacher.examlist');
     Route::get('/student-examdetail', [ExamDetailController::class, 'index'])->name('teacher.examdetail');
-
+    Route::get('/student-myclass', [MyClassController::class, 'index'])->name('teacher.myclass');
+    Route::get('/student-myclass-detail', [MyClassDetailController::class, 'index'])->name('teacher.myclass-detail');
+    Route::get('/teaching-schedule', [TeachingScheduleController::class, 'index'])->name('teacher.teaching-schedule');
 // });

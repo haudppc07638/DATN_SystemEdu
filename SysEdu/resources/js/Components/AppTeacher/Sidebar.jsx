@@ -63,12 +63,12 @@ function Sidebar() {
                             icon: "list-alt",
                         },
                         {
-                            link: "/student/dang-ki-mon-hoc",
+                            link: "/teacher/student-myclass",
                             label: "Lớp của tôi",
                             icon: "chalkboard",
                         },
                         {
-                            link: "/student/dang-ki-mon-hoc",
+                            link: "/teacher/teaching-schedule",
                             label: "Lịch dạy",
                             icon: "calendar-alt",
                         },
@@ -78,7 +78,7 @@ function Sidebar() {
                             icon: "pen",
                         },
                         {
-                            link: "/student/bang-diem",
+                            link: "/",
                             label: "Feedback",
                             icon: "comment-dots",
                         },

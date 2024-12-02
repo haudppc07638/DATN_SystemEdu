@@ -1,62 +1,46 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 
-const studentsList = [
+const classList = [
     {
         id: 1,
-        name: "Trần Nhân Nghĩa",
-        studentId: "SV001",
-        gender: "Nam",
-        major: "Công nghệ thông tin",
-        birthDay: "20/07/2002",
+        className: "Lập trình Website",
+        classCode: "WD18306",
+        department: "Công nghệ thông tin",
+        nameStudent: "Trần Nhân Nghĩa",
+        idStudent: "SV001",
     },
     {
         id: 2,
-        name: "Thái Văn Lộc",
-        gender: "Nam",
-        studentId: "SV002",
-        major: "Kinh tế",
-        birthDay: "12/05/2001",
+        className: "Lập trình Website",
+        classCode: "WD18307",
+        department: "Công nghệ thông tin",
+        nameStudent: "Võ Minh Khánh",
+        idStudent: "SV002",
     },
     {
         id: 3,
-        name: "Danh Phúc Hậu",
-        gender: "Nam",
-        studentId: "SV003",
-        major: "Quản trị kinh doanh",
-        birthDay: "20/09/2000",
+        className: "Lập trình Website",
+        classCode: "WD18308",
+        department: "Công nghệ thông tin",
+        nameStudent: "Thái Văn Lộc",
+        idStudent: "SV003",
     },
     {
         id: 4,
-        name: "Võ Minh Khánh",
-        gender: "Nam",
-        studentId: "KT004",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
-    },
-    {
-        id: 5,
-        name: "Ngô Thừa Ân",
-        gender: "Nam",
-        studentId: "KT008",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
-    },
-    {
-        id: 6,
-        name: "Gia Cát Lượng",
-        gender: "Nam",
-        studentId: "KT009",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
+        className: "Lập trình Website",
+        classCode: "WD18306",
+        department: "Công nghệ thông tin",
+        nameStudent: "Danh Phúc Hậu",
+        idStudent: "SV004",
     },
 ];
 
-function StudentSearch() {
+function MyClassDetail() {
     const [loading, setLoading] = useState(true);
-    const [students] = useState(studentsList);
+    const [classes] = useState(classList);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredStudents, setFilteredStudents] = useState(studentsList);
+    const [filteredClasses, setFilteredClasses] = useState(classList);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
 
@@ -69,31 +53,31 @@ function StudentSearch() {
 
     useEffect(() => {
         if (searchTerm.trim() === "") {
-            setFilteredStudents(students);
+            setFilteredClasses(classes);
         } else {
-            setFilteredStudents(
-                students.filter(
-                    (student) =>
-                        student.name
+            setFilteredClasses(
+                classes.filter(
+                    (classItem) =>
+                        classItem.nameStudent
                             .toLowerCase()
                             .includes(searchTerm.toLowerCase()) ||
-                        student.studentId
+                        classItem.idStudent
                             .toLowerCase()
                             .includes(searchTerm.toLowerCase()),
                 ),
             );
         }
         setCurrentPage(1);
-    }, [searchTerm, students]);
+    }, [searchTerm, classes]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentStudents = filteredStudents.slice(
+    const currentClasses = filteredClasses.slice(
         indexOfFirstItem,
         indexOfLastItem,
     );
 
-    const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredClasses.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -109,14 +93,22 @@ function StudentSearch() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbTeacher items={[{ label: "Tìm kiếm sinh viên" }]} />
-            <div className="mt-4">
+            <BreadcrumbTeacher
+                items={[
+                    {
+                        label: "Danh sách lớp tôi",
+                        link: "/teacher/student-myclass",
+                    },
+                    { label: "Chi tiết danh sách lớp" },
+                ]}
+            />
+            <div className="flex justify-start mb-4">
                 <input
                     type="text"
-                    placeholder="Nhập tên hoặc mã sinh viên..."
-                    className="w-full p-2 pl-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Tìm kiếm sinh viên"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
             <div className="max-w-full overflow-x-auto">
@@ -127,60 +119,58 @@ function StudentSearch() {
                                 STT
                             </th>
                             <th className="border py-4 px-4 text-center">
-                                Tên SV
+                                Tên lớp
                             </th>
                             <th className="border py-4 px-4 text-center">
-                                Mã SV
+                                Mã lớp
                             </th>
                             <th className="border py-4 px-4 text-center">
-                                Giới tính
+                                Tên sinh viên
                             </th>
                             <th className="border py-4 px-4 text-center">
-                                Ngày sinh
+                                Mã số sinh viên
                             </th>
                             <th className="border py-4 px-4 text-center">
                                 Chuyên ngành
                             </th>
                             <th className="border py-4 px-4 text-center">
-                                Tác vụ
+                                Ghi chú
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {currentStudents.length > 0 ? (
-                            currentStudents.map((student, index) => (
-                                <tr key={student.id}>
+                        {currentClasses.length > 0 ? (
+                            currentClasses.map((classItem, index) => (
+                                <tr key={classItem.id}>
                                     <td className="border py-4 px-4 text-center">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
                                     <td className="border py-2 px-4">
-                                        {student.name}
+                                        {classItem.className}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
-                                        {student.studentId}
-                                    </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        {student.gender}
+                                        {classItem.classCode}
                                     </td>
                                     <td className="border py-2 px-4">
-                                        {student.birthDay}
-                                    </td>
-                                    <td className="border py-2 px-4">
-                                        {student.major}
+                                        {classItem.nameStudent}
                                     </td>
                                     <td className="border py-2 px-4 text-center">
-                                        <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-400">
-                                            Xem chi tiết
-                                        </button>
+                                        {classItem.idStudent}
+                                    </td>
+                                    <td className="border py-2 px-4 text-center">
+                                        {classItem.department}
+                                    </td>
+                                    <td className="border py-2 px-4 text-center">
+                                        {classItem.note}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
                                 <td colSpan="12" className="py-4 text-center">
-                                    Không tìm thấy sinh viên nào.
+                                    Không tìm thấy sinh viên.
                                 </td>
                             </tr>
                         )}
@@ -208,4 +198,4 @@ function StudentSearch() {
     );
 }
 
-export default StudentSearch;
+export default MyClassDetail;

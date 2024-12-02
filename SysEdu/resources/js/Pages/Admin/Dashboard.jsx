@@ -39,7 +39,7 @@ const data = {
     ],
     datasets: [
         {
-            label: "Số lượng giáo viên",
+            label: "Số lượng giảng viên",
             data: [44, 41, 45, 39, 33, 43, 36, 38, 38, 30, 40, 55],
             borderColor: "rgba(255, 99, 132, 1)",
             backgroundColor: "rgba(255, 99, 132, 0.2)",
@@ -108,7 +108,7 @@ function Dashboard() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <StatisticCard
-                    label="Số lượng giáo viên"
+                    label="Số lượng giảng viên"
                     value={55}
                     backgroundColor="rgba(255, 99, 132, 0.2)"
                 />

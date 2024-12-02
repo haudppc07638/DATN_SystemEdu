@@ -16,7 +16,7 @@ class EmployeeSeeder extends Seeder
                 'date_of_birth' => '1985-05-12',
                 'gender' => 1,
                 'nation' => 'Kinh',
-                'email' => 'loctvpc06110@fpt.edu.vn',
+                'email' => 'nghiatnpc07595@fpt.edu.vn',
                 'code' => 'EMP001',
                 'phone' => '0912345678',
                 'image' => null,

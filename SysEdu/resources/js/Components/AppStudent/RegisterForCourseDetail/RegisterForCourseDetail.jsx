@@ -9,24 +9,22 @@ const RegisterForCourseData = {
             code: "WDIT122",
             teacher: "Nhân Nghĩa",
             name: "Lập trình Web",
-            amount: 30,
             teacherId: 1,
             study: "Ca 2",
-            amount: 20,
+            amount: 16,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024",
+            timeEnd: "20/02/2024", 
             classTime: "8:00 - 10:00",
             notes: "Cần chuẩn bị tài liệu",
         },
         {
             id: 2,
             code: "WDIT122",
-            teacher: "Minh Khánh",
+            teacher: "Minh Khánh", 
             name: "Lập trình Web",
-            amount: 30,
             teacherId: 2,
             study: "Ca 3",
-            amount: 20,
+            amount: 18,
             timeStart: "20/11/2024",
             timeEnd: "20/02/2024",
             classTime: "10:00 - 12:00",
@@ -36,11 +34,10 @@ const RegisterForCourseData = {
             id: 3,
             code: "WDIT122",
             teacher: "Phúc Hậu",
-            name: "Lập trình Web",
-            amount: 30,
+            name: "Lập trình Web", 
             teacherId: 3,
             study: "Ca 4",
-            amount: 20,
+            amount: 11,
             timeStart: "20/11/2024",
             timeEnd: "20/02/2024",
             classTime: "13:00 - 15:00",
@@ -53,7 +50,7 @@ const RegisterForCourseData = {
             name: "Lập trình Web",
             teacherId: 3,
             study: "Ca 5",
-            amount: 20,
+            amount: 15,
             timeStart: "20/11/2024",
             timeEnd: "20/02/2024",
             classTime: "13:00 - 15:00",
@@ -66,7 +63,7 @@ const RegisterForCourseData = {
             name: "Lập trình Web",
             teacherId: 3,
             study: "Ca 6",
-            amount: 20,
+            amount: 19,
             timeStart: "20/11/2024",
             timeEnd: "20/02/2024",
             classTime: "16:00 - 18:00",
@@ -132,7 +129,7 @@ function RegisterForCourseDetail() {
                                 "Tên môn",
                                 "Giảng viên",
                                 "Ca học",
-                                "Số lượng",
+                                "Số lượng tham gia",
                                 "Ngày bắt đầu",
                                 "Ngày kết thúc",
                                 "Ghi chú",
@@ -165,12 +162,12 @@ function RegisterForCourseDetail() {
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
                                     {course.teacher}
                                 </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
+                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
                                     {course.study}
                                 </td>
 
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.amount}
+                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                    {course.amount}/20
                                 </td>
 
                                 <td className="border border-gray-300 px-4 py-2 text-sm">

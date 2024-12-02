@@ -6,23 +6,21 @@ const walletData = [
         id: 1,
         name: "Lập trình Web",
         time: "2024-10-14 09:30",
-        Fee: "50,000 VND",
-        amount: "5,000,000 VND",
+        credits: 3,
+        creditPrice: 850000,
+        amount: 2550000,
         paymentdeadline: "2024-10-30",
         status: "Chưa thanh toán",
-        qrcode: "https://example.com/qrcode1",
-        act: "Thanh toán",
     },
     {
         id: 2,
-        name: "Front-End Framework 2",
+        name: "Cơ sở dữ liệu",
         time: "2024-10-13 15:00",
-        Fee: "30,000 VND",
-        amount: "3,200,000 VND",
+        credits: 4,
+        creditPrice: 850000,
+        amount: 3400000,
         paymentdeadline: "2024-10-25",
-        status: "Đã thanh toán",
-        qrcode: "https://example.com/qrcode2",
-        act: "Xem chi tiết",
+        status: "Chưa thanh toán",
     },
 ];
 
@@ -36,6 +34,13 @@ function Wallet() {
         startIndex + itemsPerPage,
     );
     const totalPages = Math.ceil(walletData.length / itemsPerPage);
+
+    // Tính tổng số tín chỉ và tổng tiền
+    const totalCredits = walletData.reduce(
+        (sum, item) => sum + item.credits,
+        0,
+    );
+    const totalAmount = walletData.reduce((sum, item) => sum + item.amount, 0);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -52,9 +57,17 @@ function Wallet() {
         );
     }
 
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        }).format(amount);
+    };
+
     return (
-        <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg shadow-default">
-            <BreadcrumbStudent items={[{ label: "Ví sinh viên" }]} />
+        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+            <BreadcrumbStudent items={[{ label: "Thanh toán học phí" }]} />
+
             <div className="flex flex-col mb-6 mt-4">
                 <div className="mb-4">
                     <label
@@ -72,28 +85,19 @@ function Wallet() {
                     </select>
                 </div>
             </div>
-            <div className="flex justify-end mb-3 mt-4">
-                {["Print", "Copy", "Excel", "CSV", "PDF"].map((header) => (
-                    <div
-                        key={header}
-                        className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
-                    >
-                        {header}
-                    </div>
-                ))}
-            </div>
+
             <table className="table-auto w-full border border-gray-300 rounded-md text-sm">
                 <thead className="bg-gray-200">
                     <tr>
                         {[
                             "STT",
-                            "Tên",
+                            "Tên môn học",
                             "Thời gian",
-                            "Phí dịch vụ",
-                            "Số tiền cần đóng",
+                            "Số tín chỉ",
+                            "Đơn giá/tín chỉ",
+                            "Thành tiền",
                             "Hạn thanh toán",
                             "Trạng thái",
-                            "Hành động",
                         ].map((header) => (
                             <th
                                 key={header}
@@ -119,27 +123,55 @@ function Wallet() {
                             <td className="border border-gray-300 px-4 py-2 text-sm">
                                 {wallet.time}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.Fee}
+                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                {wallet.credits}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.amount}
+                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                {formatCurrency(wallet.creditPrice)}
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                {formatCurrency(wallet.amount)}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-sm">
                                 {wallet.paymentdeadline}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.status}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition">
-                                    {wallet.act}
-                                </button>
+                                <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full">
+                                    {wallet.status}
+                                </span>
                             </td>
                         </tr>
                     ))}
                 </tbody>
+                <tfoot className="bg-gray-100">
+                    <tr>
+                        <td
+                            colSpan="3"
+                            className="border border-gray-300 px-4 py-3 font-semibold text-center"
+                        >
+                            Tổng cộng:
+                        </td>
+                        <td className="border border-gray-300 px-4 py-3 font-semibold text-center">
+                            {totalCredits}
+                        </td>
+                        <td className="border border-gray-300 px-4 py-3"></td>
+                        <td className="border border-gray-300 px-4 py-3 font-semibold text-center">
+                            {formatCurrency(totalAmount)}
+                        </td>
+                        <td
+                            colSpan="2"
+                            className="border border-gray-300 px-4 py-3"
+                        ></td>
+                    </tr>
+                </tfoot>
             </table>
+
+            <div className="flex justify-end mt-6">
+                <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition duration-200">
+                    Thanh toán tất cả ({formatCurrency(totalAmount)})
+                </button>
+            </div>
+
             <div className="flex justify-center space-x-2 mt-4">
                 {totalPages > 1 &&
                     [...Array(totalPages)].map((_, i) => (

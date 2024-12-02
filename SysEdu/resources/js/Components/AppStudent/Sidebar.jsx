@@ -79,7 +79,7 @@ function Sidebar() {
                         },
                         {
                             link: "/student/vi-sinh-vien",
-                            label: "Ví sinh viên",
+                            label: "Thanh toán học phí",
                             icon: "wallet",
                         },
                         {

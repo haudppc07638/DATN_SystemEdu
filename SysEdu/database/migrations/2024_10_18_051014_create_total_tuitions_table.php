@@ -15,7 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->decimal('total_amount', 10, 2);
             $table->unsignedSmallInteger('total_credit');
-            $table->enum('payment_status', ['paid', 'unpaid', 'late']);
+            $table->enum('payment_status', ['paid', 'unpaid', 'late'])->default('unpaid');
             $table->date('payment_date')->nullable();
             $table->foreignId('student_id')->constrained('students')->onDelete('cascade');
             $table->timestamps();
