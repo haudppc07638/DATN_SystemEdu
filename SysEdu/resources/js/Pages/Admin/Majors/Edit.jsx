@@ -8,6 +8,8 @@ const Edit = ({ major, faculties }) => {
     const [form, setForm] = useState({
         name: major.name,
         faculty_id: major.faculty_id,
+        code: major.code,
+        total_credits: major.total_credits,
     });
 
     const handleSubmit = (e) => {
@@ -74,21 +76,8 @@ const Edit = ({ major, faculties }) => {
                 {/* Form */}
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col gap-5.5 p-6.5">
-                        <div>
-                            <label className="mb-3 block text-black">
-                                Tên chuyên ngành
-                            </label>
-                            <input
-                                type="text"
-                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
-                                name="name"
-                                value={form.name}
-                                onChange={handleChangeValue}
-                            />
-                            {renderError("name")}
-                        </div>
 
-                        <div>
+                    <div>
                             <label className="mb-3 block text-black">
                                 Chọn khoa
                             </label>
@@ -120,6 +109,48 @@ const Edit = ({ major, faculties }) => {
                                 </select>
                                 {renderError("faculty_id")}
                             </div>
+                        </div>
+
+                        <div>
+                            <label className="mb-3 block text-black">
+                                Tên chuyên ngành
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
+                                name="name"
+                                value={form.name}
+                                onChange={handleChangeValue}
+                            />
+                            {renderError("name")}
+                        </div>
+
+                        <div>
+                            <label className="mb-3 block text-black">
+                                Mã chuyên ngành
+                            </label>
+                            <input
+                                type="text"
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
+                                name="code"
+                                value={form.code}
+                                onChange={handleChangeValue}
+                            />
+                            {renderError("code")}
+                        </div>
+
+                        <div>
+                            <label className="mb-3 block text-black">
+                                Tổng số tín chỉ
+                            </label>
+                            <input
+                                type="number"
+                                className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary"
+                                name="total_credits"
+                                value={form.total_credits}
+                                onChange={handleChangeValue}
+                            />
+                            {renderError("total_credits")}
                         </div>
 
                         <div className="flex gap-2">

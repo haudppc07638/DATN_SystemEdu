@@ -17,9 +17,11 @@ class Major extends Model
 
     protected $fillable = [
         'name',
+        'code',
+        'total_credits',
         'faculty_id',
-        'deleted_at'
     ];
+
 
     public function faculty(): BelongsTo
     {
@@ -31,24 +33,24 @@ class Major extends Model
         return $this->hasMany(Subject::class);
     }
 
-    public function classes(): HasMany
+    public function majorClasses(): HasMany
     {
         return $this->hasMany(MajorClass::class);
     }
 
-    public function students(): HasMany
+    public function students():HasMany
     {
         return $this->hasMany(Student::class);
     }
 
-    public function employees(): HasMany
+    public function employees():HasMany
     {
         return $this->hasMany(Employee::class);
     }
 
     public function hasRelations()
     {
-        $relations = ['faculty', 'subjects', 'classes', 'students', 'employees'];
+        $relations = ['subjects', 'majorClasses', 'students', 'employees'];
         foreach ($relations as $relation) {
             if ($this->{$relation}()->exists()) {
                 return true;

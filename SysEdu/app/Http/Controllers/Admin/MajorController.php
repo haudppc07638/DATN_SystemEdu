@@ -80,14 +80,20 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        if ($major->hasRelations()){
-            $major->delete();
-            return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
-        }
-        else {
+        try {
+            if ($major->hasRelations()) {
+                return redirect()->route('admin.majors.show')
+                    ->with('error', 'Không thể xóa chuyên ngành này vì đang có dữ liệu liên quan!');
+            }
+
             $major->forceDelete();
-            return redirect()->route('admin.majors.show')->with('success', 'Xóa thành công chuyên ngành');
-        }   
+            return redirect()->route('admin.majors.show')
+                ->with('success', 'Xóa chuyên ngành thành công!');
+                
+        } catch (\Exception $e) {
+            return redirect()->route('admin.majors.show')
+                ->with('error', 'Có lỗi xảy ra khi xóa chuyên ngành!');
+        }
     }
 
     public function getMajorsByFaculty(Request $request)

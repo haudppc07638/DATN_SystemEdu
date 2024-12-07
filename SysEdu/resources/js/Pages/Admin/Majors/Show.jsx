@@ -155,7 +155,9 @@ const Show = ({ majors, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">#</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black">Mã chuyên ngành</th>
                             <th className="max-w-[150px] py-4 px-4 font-medium text-black">Tên chuyên ngành</th>
+                            <th className="min-w-[100px] py-4 px-4 font-medium text-black">Tổng số tín chỉ</th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black">Thuộc khoa</th>
                             <th className="py-4 px-4 font-medium text-black">Tác vụ</th>
                         </tr>
@@ -168,7 +170,13 @@ const Show = ({ majors, limit }) => {
                                         <h5 className="font-medium text-black">{index + 1}</h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black">{major.code}</p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p className="text-black">{major.name}</p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black">{major.total_credits}</p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
@@ -198,7 +206,7 @@ const Show = ({ majors, limit }) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="4" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
+                                <td colSpan="6" className="border-b border-[#eee] py-4 px-4 dark:border-strokedark text-center">Không có dữ liệu</td>
                             </tr>
                         )}
                     </tbody>

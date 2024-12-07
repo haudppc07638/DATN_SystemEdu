@@ -26,8 +26,10 @@ class MajorRequest extends FormRequest
         $majorId = $major ? $major->id : null;
 
         return [
-            'name' => ['required', 'string', 'max:100',Rule::unique('majors')->ignore($majorId)],
-            'faculty_id' => 'required'
+            'name' => ['required', 'string', 'max:100'],
+            'faculty_id' => 'required',
+            'code' => ['required', 'string', 'max:15', Rule::unique('majors')->ignore($majorId)],
+            'total_credits' => 'required|integer|min:1',
         ];
     }
 
@@ -41,6 +43,15 @@ class MajorRequest extends FormRequest
 
             'faculty_id.required' => 'Vui lòng chọn khoa !',
             'faculty_id.exists' => 'Khoa không hợp lệ !',
+
+            'code.required' => 'Mã chuyên ngành không được để trống !',
+            'code.string' => 'Mã chuyên ngành phải là 1 chuỗi !',
+            'code.max' => 'Mã chuyên ngành không được quá 15 ký tự !',
+            'code.unique' => 'Mã chuyên ngành đã tồn tại !',
+
+            'total_credits.required' => 'Tổng số tín chỉ không được để trống !',
+            'total_credits.integer' => 'Tổng số tín chỉ phải là 1 số nguyên !',
+            'total_credits.min' => 'Tổng số tín chỉ phải lớn hơn 0 !',
         ];
     }
 }
