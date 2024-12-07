@@ -7,6 +7,9 @@ use App\Http\Requests\Admin\EmployeeRequest;
 use App\Models\Department;
 use App\Models\Employee;
 use App\Models\Faculty;
+use App\Models\Subject;
+use App\Models\SubjectLecturer;
+use App\Models\SubjectLecturers;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +32,7 @@ class EmployeeController extends Controller
         $page = $request->input('page', 1);
 
         $employees = Employee::search($search)
-            ->withFacultyAndDepartment()
+            ->withMajorAndDepartment()
             ->latestPaginate($limit);
 
         return Inertia::render('Admin/Employees/Show', [
@@ -85,17 +88,17 @@ class EmployeeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(EmployeeRequest $request, Employee $employee)
-{
-    $validated = $request->validated();
-    
-    if ($request->hasFile('image')) {
-        $validated['image'] = $this->imageService->handleImageUpdate($request, $employee);
+    {
+        $validated = $request->validated();
+
+        if ($request->hasFile('image')) {
+            $validated['image'] = $this->imageService->handleImageUpdate($request, $employee);
+        }
+
+        $employee->update($validated);
+
+        return redirect()->route('admin.employees.show')->with('success', 'Cập nhật thông tin nhân sự thành công!');
     }
-
-    $employee->update($validated);
-
-    return redirect()->route('admin.employees.show')->with('success', 'Cập nhật thông tin nhân sự thành công!');
-}
 
     /**
      * Remove the specified resource from storage.
@@ -110,5 +113,50 @@ class EmployeeController extends Controller
             $employee->forceDelete();
             return redirect()->route('admin.employees.show')->with('success', 'Xóa nhân viên thành công !');
         }
+    }
+
+    public function show(Employee $employee)
+    {
+        $subjects = Subject::all();
+        $nameSubject = SubjectLecturer::getNameSubjectByEmployeeId($employee->id);
+        $employeeSubjects = $employee->subjectLecturers->pluck('subject_id')->toArray();
+
+        return Inertia::render('Admin/Employees/Detail', [
+            'employee' => $employee,
+            'subjects' => $subjects,
+            'nameSubject' => $nameSubject,
+            'employeeSubjects' => $employeeSubjects
+        ]);
+    }
+
+    public function updateSubjects(Request $request, $id)
+    {
+        $request->validate([
+            'subjects' => 'array',
+            'subjects.*' => 'exists:subjects,id',
+        ]);
+        $employee = Employee::findOrFail($id);
+
+        $existingSubjects = $employee->subjectLecturers()->pluck('subject_id')->toArray();
+
+        if ($request->filled('subjects')) {
+            // Thêm các môn học mới
+            foreach ($request->subjects as $subjectId) {
+                if (!in_array($subjectId, $existingSubjects)) {
+                    $employee->subjectLecturers()->create(['subject_id' => $subjectId]);
+                }
+            }
+
+            // Xóa các môn học không còn được chọn
+            foreach ($existingSubjects as $existingSubject) {
+                if (!in_array($existingSubject, $request->subjects)) {
+                    $employee->subjectLecturers()->where('subject_id', $existingSubject)->delete();
+                }
+            }
+        } else {
+            $employee->subjectLecturers()->delete();
+        }
+
+        return redirect()->route('admin.employees.detail', $employee->id)->with('success', 'Cập nhật môn học thành công cho nhân sự: ' . $employee->full_name);
     }
 }

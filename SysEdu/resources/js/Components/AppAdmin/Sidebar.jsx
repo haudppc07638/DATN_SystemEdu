@@ -42,7 +42,7 @@ function Sidebar() {
                     label: "Điểm quá trình",
                 },
                 {
-                    link: "",
+                    link: "/admin/dang-ky-mon",
                     label: "Đăng ký môn dạy",
                 },
                 {

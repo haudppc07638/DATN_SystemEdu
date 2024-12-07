@@ -18,18 +18,30 @@ class Employee extends Authenticatable
     protected $fillable = [
         'full_name',
         'email',
-        'password',
+        'code',
         'phone',
         'image',
         'position',
-        'faculty_id',
+        'gender',
+        'major_id',
         'department_id',
-        'deleted_at'
+        'nation',
+        'educational_level',
+        'provice_city',
+        'district',
+        'commune_level',
+        'identity_card',
+        'card_issuance_date',
+        'card_location',
+        'house_number',
+        'date_of_birth',
+        'year_graduation',
+        'graduate',
     ];
 
-    public function faculty(): BelongsTo
+    public function major(): BelongsTo
     {
-        return $this->belongsTo(Faculty::class);
+        return $this->belongsTo(Major::class);
     }
 
     public function department(): BelongsTo
@@ -52,10 +64,14 @@ class Employee extends Authenticatable
         return $this->hasMany(SubjectClass::class);
     }
 
-    
+    public function subjectLecturers(): HasMany
+    {
+        return $this->hasMany(SubjectLecturer::class);
+    }
 
-    public function hasRelations(){
-        $relations = ['faculty', 'department', 'classes', 'notifications', 'subjectClasses'];
+    public function hasRelations()
+    {
+        $relations = ['major', 'department', 'classes', 'notifications', 'subjectClasses'];
         foreach ($relations as $relation) {
             if ($this->{$relation}()->exists()) {
                 return true;
@@ -74,10 +90,10 @@ class Employee extends Authenticatable
         return $query;
     }
 
-    public function scopeWithFacultyAndDepartment($query)
+    public function scopeWithMajorAndDepartment($query)
     {
         return $query->with([
-            'faculty' => function ($query) {
+            'major' => function ($query) {
                 $query->withTrashed();
             },
             'department' => function ($query) {
@@ -86,12 +102,13 @@ class Employee extends Authenticatable
         ]);
     }
 
-    public static function getAvailableTeachers($faculty_id){
+    public static function getAvailableTeachers($faculty_id)
+    {
         return self::where('position', 'teacher')
-        ->where('faculty_id', $faculty_id)
-        ->whereDoesntHave('classes', function ($query){
-            $query->where('status', 0);
-        })
-        ->get();
-    } 
+            ->where('faculty_id', $faculty_id)
+            ->whereDoesntHave('classes', function ($query) {
+                $query->where('status', 0);
+            })
+            ->get();
+    }
 }

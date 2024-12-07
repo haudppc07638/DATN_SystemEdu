@@ -25,11 +25,12 @@ class DepartmentController extends Controller
             'departments' => $departments,
             'limit' => $limit,
             'search' => $search,
-            'currentPage' => $page  
+            'currentPage' => $page
         ]);
     }
 
-    public function test(Request $request){
+    public function test(Request $request)
+    {
         $limit = $request->input('limit', 10);
         $search = $request->input('search', '');
         $page = $request->input('page', 1);
@@ -40,7 +41,7 @@ class DepartmentController extends Controller
             'departments' => $departments,
             'limit' => $limit,
             'search' => $search,
-            'currentPage' => $page  
+            'currentPage' => $page
         ]);
     }
 
@@ -87,13 +88,19 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        if ($department->hasRelations()) {
-            $department->delete();
-            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
-        }
-        else {
+        try {
+            if ($department->hasRelations()) {
+                return redirect()->route('admin.departments.show')
+                    ->with('error', 'Không thể xóa phòng ban này vì đang có nhân sự thuộc phòng ban!');
+            }
+
             $department->forceDelete();
-            return redirect()->route('admin.departments.show')->with('success', 'Xóa phòng ban thành công!');
+            return redirect()->route('admin.departments.show')
+                ->with('success', 'Xóa phòng ban thành công!');
+
+        } catch (\Exception $e) {
+            return redirect()->route('admin.departments.show')
+                ->with('error', 'Có lỗi xảy ra khi xóa phòng ban!');
         }
     }
 }

@@ -16,13 +16,13 @@ class Subject extends Model
     protected $table = 'subjects';
 
     protected $fillable = [
-        'name',
+        'id',
         'code',
+        'name',
         'credit',
+        'price',
         'description',
         'major_id',
-        'prerequisite_subject_id',
-        'deleted_at'
     ];
 
     public function major(): BelongsTo
@@ -33,6 +33,16 @@ class Subject extends Model
     public function subjectClasses(): HasMany
     {
         return $this->hasMany(SubjectClass::class);
+    }
+
+    public function subjectLecturers()
+    {
+        return $this->hasMany(SubjectLecturer::class);
+    }
+
+    public function lecturers()
+    {
+        return $this->hasMany(SubjectLecturer::class);
     }
 
     public function hasRelations()

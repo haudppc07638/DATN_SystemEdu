@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\SubjectLecturerController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,8 @@ use Illuminate\Support\Facades\Route;
        Route::get('nhan-su/{employee}/sua', [EmployeeController::class, 'edit'])->name('edit');
        Route::patch('nhan-su/{employee}/sua', [EmployeeController::class, 'update'])->name('update');
        Route::delete('nhan-su/{employee}', [EmployeeController::class, 'destroy'])->name('destroy');
+       Route::get('nhan-su/{employee}', [EmployeeController::class, 'show'])->name('detail');
+       Route::post('nhan-su/{id}', [EmployeeController::class, 'updateSubjects'])->name('updateSubjects');
     });
 
     //Major Class
@@ -128,4 +131,12 @@ use Illuminate\Support\Facades\Route;
         Route::patch('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'update'])->name('update');
         Route::delete('lop-mon/{subjectClass}', [TimeSlotController::class, 'destroy'])->name('destroy');
     });
+
+    Route::name('admin.subjectLecturers.')->group(function () {
+        Route::get('dang-ky-mon', [SubjectLecturerController::class, 'register'])->name('register');
+        Route::post('giang-vien-mon-hoc', [SubjectLecturerController::class, 'storeOrUpdate'])->name('storeOrUpdate');
+        Route::get('giang-vien-mon-hoc/loc', [SubjectLecturerController::class, 'filter'])->name('filter');
+        Route::get('giang-vien-mon-hoc/giang-vien', [SubjectLecturerController::class, 'getLecturersBySubject'])->name('getLecturersBySubject');
+    });
+    
 // });

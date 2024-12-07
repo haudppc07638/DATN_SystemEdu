@@ -35,7 +35,7 @@ class Faculty extends Model
 
     public function hasRelations()
     {
-        $relations = ['majors', 'employees'];
+        $relations = ['majors'];
         foreach ($relations as $relation) {
             if ($this->{$relation}()->exists()) {
                 return true;

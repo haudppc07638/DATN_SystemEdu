@@ -164,22 +164,25 @@ const Show = ({ employees, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                #
+                                STT
+                            </th>
+                            <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                                Mã NS
                             </th>
                             <th className="min-w-[200px] py-4 px-4 font-medium text-black dark:text-white">
-                                Họ và Tên
+                                Họ và tên
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                 Email
                             </th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
-                                SĐT
+                                Số điện thoại
                             </th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
                                 Chức vụ
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Thuộc khoa
+                                Chuyên Nghành
                             </th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
                                 Phòng ban
@@ -196,6 +199,11 @@ const Show = ({ employees, limit }) => {
                                     <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
                                         <h5 className="font-medium text-black dark:text-white">
                                             {index + 1}
+                                        </h5>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                                        <h5 className="font-medium text-black dark:text-white">
+                                            {employee.code}
                                         </h5>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
@@ -230,17 +238,17 @@ const Show = ({ employees, limit }) => {
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p
                                             className={
-                                                employee.faculty.deleted_at
+                                                employee.major.deleted_at
                                                     ? "text-red-500"
                                                     : "text-black"
                                             }
                                             title={
-                                                employee.faculty.deleted_at
+                                                employee.major.deleted_at
                                                     ? "Khoa này đã ngừng hoạt động"
                                                     : ""
                                             }
                                         >
-                                            {employee.faculty.name}
+                                            {employee.major.name}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
@@ -261,6 +269,15 @@ const Show = ({ employees, limit }) => {
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <div className="flex items-center space-x-3.5">
+                                            <Link
+                                                href={`/admin/nhan-su/${employee.id}`}
+                                                className="hover:text-primary"
+                                            >
+                                                <i
+                                                    className="fa-regular fa-eye text-xl"
+                                                    title="Xem chi tiết"
+                                                ></i>
+                                            </Link>
                                             <Link
                                                 href={`/admin/nhan-su/${employee.id}/sua`}
                                                 className="hover:text-primary"

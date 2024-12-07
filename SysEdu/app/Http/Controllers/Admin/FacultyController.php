@@ -26,7 +26,7 @@ class FacultyController extends Controller
             'faculties' => $faculties,
             'limit' => $limit,
             'search' => $search,
-            'currentPage'=> $page
+            'currentPage' => $page
         ]);
     }
 
@@ -43,9 +43,9 @@ class FacultyController extends Controller
      */
     public function store(FacultyRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->validated();        
         Faculty::create($validated);
-        return redirect()->route('admin.faculties.show')->with('success','Thêm khoa thành công !');
+        return redirect()->route('admin.faculties.show')->with('success', 'Thêm khoa thành công !');
     }
 
     /**
@@ -54,7 +54,7 @@ class FacultyController extends Controller
     public function edit(Faculty $faculty)
     {
         return Inertia::render('Admin/Faculties/Edit', [
-            'faculty'=> $faculty
+            'faculty' => $faculty
         ]);
     }
 
@@ -65,21 +65,27 @@ class FacultyController extends Controller
     {
         $validated = $request->validated();
         $faculty->update($validated);
-        return redirect()->route('admin.faculties.show')->with('success','Sửa khoa thành công !');
+        return redirect()->route('admin.faculties.show')->with('success', 'Sửa khoa thành công !');
     }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Faculty $faculty)
-    {    
-        if ($faculty->hasRelations()){
-            $faculty->delete();
-            return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
-        }
-        else {
+    {
+        try {
+            if ($faculty->hasRelations()) {
+                return redirect()->route('admin.faculties.show')
+                    ->with('error', 'Không thể xóa khoa này vì đang có dữ liệu liên quan!');
+            }
+
             $faculty->forceDelete();
-            return redirect()->route('admin.faculties.show')->with('success','Xóa khoa thành công!');
+            return redirect()->route('admin.faculties.show')
+                ->with('success', 'Xóa khoa thành công!');
+                
+        } catch (\Exception $e) {
+            return redirect()->route('admin.faculties.show')
+                ->with('error', 'Có lỗi xảy ra khi xóa khoa!');
         }
     }
 }

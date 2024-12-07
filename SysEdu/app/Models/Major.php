@@ -41,9 +41,14 @@ class Major extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function employees(): HasMany
+    {
+        return $this->hasMany(Employee::class);
+    }
+
     public function hasRelations()
     {
-        $relations = ['faculty', 'subjects', 'classes', 'students'];
+        $relations = ['faculty', 'subjects', 'classes', 'students', 'employees'];
         foreach ($relations as $relation) {
             if ($this->{$relation}()->exists()) {
                 return true;

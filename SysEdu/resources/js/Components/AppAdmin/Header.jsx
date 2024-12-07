@@ -59,7 +59,7 @@ function Header() {
                             onClick={toggleDropdown}
                         />
                         <div className="text-[15px]">
-                            Xin chào, <span className="font-bold">Nghĩa</span>
+                            Xin chào, <span className="font-bold">Lộc</span>
                         </div>
 
                         {isDropdownOpen && (
