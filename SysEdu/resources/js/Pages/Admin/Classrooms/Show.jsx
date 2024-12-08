@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useForm, router, usePage } from "@inertiajs/react";
 import Pagination from "../../../Components/Paginations/Base";
-import LimitSelector from "../../../Components/LimitSelectors/Base";
 import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Show = ({ classrooms, limit }) => {
@@ -113,34 +112,25 @@ const Show = ({ classrooms, limit }) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            {/* Breadcrumb */}
-            <Breadcrumb
-                items={[
-                    { label: "Quản lý phòng ban", link: "/admin/phong-hoc" },
-                    { label: "Danh sách phòng học" },
-                ]}
-            />
-
-            {/* action */}
-            <div className="flex flex-col justify-between md:flex-row gap-5 mb-4">
-                {/* Limit */}
-                <LimitSelector
-                    limit={data.limit}
-                    onLimitChange={handleLimitChange}
+            <h2 className="text-2xl font-bold">Danh sách phòng học</h2>
+            <div className="flex flex-col items-start mb-2">
+                <Breadcrumb
+                    items={[
+                        { label: "Danh sách phòng học" },
+                    ]}
                 />
-
-                {/* Search */}
+            </div>
+            <div className="flex flex-col justify-end md:flex-row gap-5 mb-4">
                 <form
                     onSubmit={handleSearchSubmit}
                     className="flex items-center gap-5"
                 >
-                    <div className="flex px-4 py-1 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
+                    <div className="flex px-4 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
                         <input
                             type="text"
                             placeholder="Tìm kiếm..."
                             value={data.search}
                             onChange={handleSearchChange}
-                            onKeyPress={handleKeyPress} // Thêm sự kiện keypress
                             className="w-full outline-none bg-transparent text-gray-600 text-sm"
                         />
                         <button type="submit" className="p-2">
@@ -164,7 +154,7 @@ const Show = ({ classrooms, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                #
+                                STT
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                 Mã phòng

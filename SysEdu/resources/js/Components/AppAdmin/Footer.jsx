@@ -91,7 +91,7 @@ function Footer() {
                                 href="mailto:ykien@fpt.edu.vn"
                                 className="text-blue-600 hover:underline"
                             >
-                                ykien@fpt.edu.vn
+                                ykien@sys.edu.vn
                             </a>{" "}
                             hoặc email{" "}
                             <a

@@ -22,6 +22,7 @@
         "@vitejs/plugin-react": "^4.3.1",
         "chart.js": "^4.4.6",
         "dayjs": "^1.11.13",
+        "dialogflow": "^1.2.0",
         "lodash": "^4.17.21",
         "react": "^18.3.1",
         "react-chartjs-2": "^5.2.0",

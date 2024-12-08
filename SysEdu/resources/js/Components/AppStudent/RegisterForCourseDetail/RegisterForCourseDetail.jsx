@@ -11,24 +11,30 @@ const RegisterForCourseData = {
             name: "Lập trình Web",
             teacherId: 1,
             study: "Ca 2",
+            day: "Thứ 2,4,6",
             amount: 16,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024", 
-            classTime: "8:00 - 10:00",
+            timeEnd: "20/12/2024",
+            classTime: "8:00 - 10:00", 
             notes: "Cần chuẩn bị tài liệu",
+            subjectCode: "WEB1022",
+            registerDeadline: "20/12/2024"
         },
         {
             id: 2,
-            code: "WDIT122",
-            teacher: "Minh Khánh", 
+            code: "WDIT122", 
+            teacher: "Minh Khánh",
             name: "Lập trình Web",
             teacherId: 2,
             study: "Ca 3",
+            day: "Thứ 3,5,7",
             amount: 18,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024",
+            timeEnd: "20/12/2024",
             classTime: "10:00 - 12:00",
             notes: "Cần chuẩn bị tài liệu",
+            subjectCode: "WEB1022",
+            registerDeadline: "20/12/2024"
         },
         {
             id: 3,
@@ -37,11 +43,14 @@ const RegisterForCourseData = {
             name: "Lập trình Web", 
             teacherId: 3,
             study: "Ca 4",
+            day: "Thứ 2,4,6",
             amount: 11,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024",
+            timeEnd: "20/12/2024",
             classTime: "13:00 - 15:00",
             notes: "Cần chuẩn bị tài liệu",
+            subjectCode: "WEB1022",
+            registerDeadline: "20/12/2024"
         },
         {
             id: 4,
@@ -50,11 +59,14 @@ const RegisterForCourseData = {
             name: "Lập trình Web",
             teacherId: 3,
             study: "Ca 5",
+            day: "Thứ 3,5,7",
             amount: 15,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024",
+            timeEnd: "20/12/2024",
             classTime: "13:00 - 15:00",
             notes: "Cần chuẩn bị tài liệu",
+            subjectCode: "WEB1022",
+            registerDeadline: "20/12/2024"
         },
         {
             id: 5,
@@ -63,11 +75,14 @@ const RegisterForCourseData = {
             name: "Lập trình Web",
             teacherId: 3,
             study: "Ca 6",
+            day: "Thứ 2,4,6",
             amount: 19,
             timeStart: "20/11/2024",
-            timeEnd: "20/02/2024",
+            timeEnd: "20/12/2024",
             classTime: "16:00 - 18:00",
             notes: "Cần chuẩn bị tài liệu",
+            subjectCode: "WEB1022", 
+            registerDeadline: "20/12/2024"
         },
     ],
 };
@@ -103,10 +118,11 @@ function RegisterForCourseDetail() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+            <h2 className="text-2xl font-bold">Đăng kí môn học</h2>
             <BreadcrumbStudent
                         items={[
-                            { label: "Đăng kí môn học", link: "/student/dang-ki-mon-hoc" },
-                            { label: "Chi tiết đăng ký môn học" },
+                            { label: "Danh sách môn học", link: "/student/dang-ki-mon-hoc" },
+                            { label: "Đăng ký môn học" },
                         ]}
                     />
             <div className="py-4">
@@ -127,12 +143,14 @@ function RegisterForCourseDetail() {
                                 "STT",
                                 "Mã môn",
                                 "Tên môn",
+                                "Lớp môn",
                                 "Giảng viên",
                                 "Ca học",
+                                "Ngày học",
                                 "Số lượng tham gia",
                                 "Ngày bắt đầu",
                                 "Ngày kết thúc",
-                                "Ghi chú",
+                                "Ngày hết hạn đăng kí",
                                 "Thao tác",
                             ].map((header) => (
                                 <th
@@ -159,13 +177,18 @@ function RegisterForCourseDetail() {
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
                                     {course.name}
                                 </td>
+                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                    {course.subjectCode}
+                                </td>
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
                                     {course.teacher}
                                 </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
+                                <td className="min-w-20 border border-gray-300 px-4 py-2 text-sm text-center">
                                     {course.study}
                                 </td>
-
+                                <td className="min-w-20 border border-gray-300 px-4 py-2 text-sm text-center">
+                                    {course.day}
+                                </td>
                                 <td className="border border-gray-300 px-4 py-2 text-sm text-center">
                                     {course.amount}/20
                                 </td>
@@ -173,13 +196,11 @@ function RegisterForCourseDetail() {
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
                                     {course.timeStart}
                                 </td>
-
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
                                     {course.timeEnd}
                                 </td>
-
                                 <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.notes}
+                                    {course.registerDeadline}
                                 </td>
                                 <td className="flex justify-center items-center">
                                     <Link

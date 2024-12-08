@@ -4,11 +4,11 @@ import BreadcrumbStudent from "../../Breadcrumbs/BreadcrumbStudent";
 const reportData = {
     reportSubject: [
         {
-            cateSubject: "Lập trình Web",
+            cateSubject: "Lập trình Web (WEB1022) - WD18306",
             items: [
                 {
                     id: 1,
-                    date: "27/08/2024",
+                    date: "Thứ Ba 27/08/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC07",
@@ -18,17 +18,17 @@ const reportData = {
                 },
                 {
                     id: 2,
-                    date: "28/08/2024",
+                    date: "Thứ Năm 29/08/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC08",
                     session: "Thực hành",
-                    status: "Vắng",
-                    notes: "Có lý do",
+                    status: "Đi học",
+                    notes: "",
                 },
                 {
                     id: 3,
-                    date: "29/08/2024",
+                    date: "Thứ Bảy 31/08/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC09",
@@ -38,7 +38,7 @@ const reportData = {
                 },
                 {
                     id: 4,
-                    date: "30/08/2024",
+                    date: "Thứ Ba 02/08/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC10",
@@ -48,7 +48,7 @@ const reportData = {
                 },
                 {
                     id: 5,
-                    date: "31/08/2024",
+                    date: "Thứ Năm 04/08/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC11",
@@ -58,7 +58,7 @@ const reportData = {
                 },
                 {
                     id: 6,
-                    date: "01/09/2024",
+                    date: "Thứ Bảy 06/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC12",
@@ -68,7 +68,7 @@ const reportData = {
                 },
                 {
                     id: 7,
-                    date: "02/09/2024",
+                    date: "Thứ Ba 08/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC13",
@@ -78,7 +78,7 @@ const reportData = {
                 },
                 {
                     id: 8,
-                    date: "03/09/2024",
+                    date: "Thứ Năm 10/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC14",
@@ -88,7 +88,7 @@ const reportData = {
                 },
                 {
                     id: 9,
-                    date: "04/09/2024",
+                    date: "Thứ Bảy 12/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC15",
@@ -98,7 +98,7 @@ const reportData = {
                 },
                 {
                     id: 10,
-                    date: "05/09/2024",
+                    date: "Thứ Ba 14/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC16",
@@ -108,7 +108,7 @@ const reportData = {
                 },
                 {
                     id: 11,
-                    date: "06/09/2024",
+                    date: "Thứ Năm 16/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -118,7 +118,7 @@ const reportData = {
                 },
                 {
                     id: 12,
-                    date: "06/09/2024",
+                    date: "Thứ Bảy 18/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -128,7 +128,7 @@ const reportData = {
                 },
                 {
                     id: 13,
-                    date: "06/09/2024",
+                    date: "Thứ Ba 20/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -139,13 +139,13 @@ const reportData = {
             ],
         },
         {
-            cateSubject: "Lập trình ReactJS",
+            cateSubject: "Lập trình ReactJS (RE1022) - WD18306",
             items: [
                 {
                     id: 1,
-                    date: "27/08/2024",
+                    date: "Thứ Ba 26/08/2024",
                     shift: "Ca 1",
-                    name: "Trần Nhân Nghĩa",
+                    name: "Trần Nhân Nghĩa", 
                     code: "PC07",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -153,7 +153,7 @@ const reportData = {
                 },
                 {
                     id: 2,
-                    date: "28/08/2024",
+                    date: "Thứ Năm 28/08/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC08",
@@ -163,7 +163,7 @@ const reportData = {
                 },
                 {
                     id: 3,
-                    date: "29/08/2024",
+                    date: "Thứ Bảy 30/08/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC09",
@@ -173,7 +173,7 @@ const reportData = {
                 },
                 {
                     id: 4,
-                    date: "30/08/2024",
+                    date: "Thứ Ba 01/08/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC10",
@@ -183,8 +183,8 @@ const reportData = {
                 },
                 {
                     id: 5,
-                    date: "31/08/2024",
-                    shift: "Ca 1",
+                    date: "Thứ Năm 03/08/2024",
+                    shift: "Ca 1", 
                     name: "Trần Nhân Nghĩa",
                     code: "PC11",
                     session: "Lý thuyết",
@@ -193,7 +193,7 @@ const reportData = {
                 },
                 {
                     id: 6,
-                    date: "01/09/2024",
+                    date: "Thứ Bảy 05/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC12",
@@ -203,7 +203,7 @@ const reportData = {
                 },
                 {
                     id: 7,
-                    date: "02/09/2024",
+                    date: "Thứ Ba 07/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC13",
@@ -213,7 +213,7 @@ const reportData = {
                 },
                 {
                     id: 8,
-                    date: "03/09/2024",
+                    date: "Thứ Năm 09/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC14",
@@ -223,7 +223,7 @@ const reportData = {
                 },
                 {
                     id: 9,
-                    date: "04/09/2024",
+                    date: "Thứ Bảy 11/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC15",
@@ -233,7 +233,7 @@ const reportData = {
                 },
                 {
                     id: 10,
-                    date: "05/09/2024",
+                    date: "Thứ Ba 13/09/2024",
                     shift: "Ca 2",
                     name: "Trần Nhân Nghĩa",
                     code: "PC16",
@@ -243,7 +243,7 @@ const reportData = {
                 },
                 {
                     id: 11,
-                    date: "06/09/2024",
+                    date: "Thứ Năm 15/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -253,7 +253,7 @@ const reportData = {
                 },
                 {
                     id: 12,
-                    date: "06/09/2024",
+                    date: "Thứ Bảy 17/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -263,7 +263,7 @@ const reportData = {
                 },
                 {
                     id: 13,
-                    date: "06/09/2024",
+                    date: "Thứ Ba 19/09/2024",
                     shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC17",
@@ -308,21 +308,26 @@ function ReportNameClient() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbStudent items={[{ label: "Điểm danh" }]} />
-            <div className="flex flex-col mb-6 mt-4">
+            <h2 className="text-2xl font-bold">Điểm danh</h2>
+            <div className="flex flex-col items-start mb-2">
+                <BreadcrumbStudent items={[{ label: "Điểm danh" }]} />
+            </div>
+            <div className="flex flex-col mb-2 mt-4">
                 <div className="mb-4">
                     <label
                         htmlFor="select"
                         className="block mb-2 font-medium text-gray-700 text-sm"
                     >
-                        Học kỳ
+                        Thời gian
                     </label>
                     <select
                         className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 w-full text-sm"
                         id="select"
                     >
+                        <option>Spring 2024</option>
                         <option>Summer 2024</option>
-                        <option>Fall 2025</option>
+                        <option>Fall 2024</option>
+                        <option>Winter 2024</option>
                     </select>
                 </div>
             </div>
@@ -350,12 +355,10 @@ function ReportNameClient() {
                                     "STT",
                                     "Ngày",
                                     "Ca",
-                                    "Người điểm danh",
-                                    "Mã số",
+                                    "Giảng viên",
                                     "Buổi học",
                                     "Trạng thái điểm danh",
                                     "Ghi chú buổi học",
-                                    "Ghi chú",
                                 ].map((header) => (
                                     <th
                                         key={header}
@@ -381,17 +384,15 @@ function ReportNameClient() {
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.name}
                                     </td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        {item.code}
-                                    </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.session}
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2 text-center">
-                                        {item.status}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2">
-                                        {item.notes}
+                                        <span
+                                            className={`${item.status === "Đi học" ? "text-green-500" : "text-red-500"}`}
+                                        >
+                                            {item.status}
+                                        </span>
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {item.notes}
@@ -402,14 +403,54 @@ function ReportNameClient() {
                     </table>
                     <div className="flex justify-between my-4 text-sm text-gray-600 mt-5">
                         <p className="mb-0">
-                            Vắng:{" "}
-                            <span className="text-red-500 font-bold">0/20</span>{" "}
-                            (0% trên tổng số buổi điểm danh)
+                            Số ngày vắng:{" "}
+                            <span className="text-red-500 font-bold">
+                                {subject.cateSubject.includes("WEB1022")
+                                    ? 1
+                                    : 2}
+                                /
+                                {
+                                    new Set(
+                                        subject.items.map((item) => item.date),
+                                    ).size
+                                }
+                            </span>{" "}
+                            (
+                            {(
+                                ((subject.cateSubject.includes("WEB1022")
+                                    ? 1
+                                    : 2) /
+                                    new Set(
+                                        subject.items.map((item) => item.date),
+                                    ).size) *
+                                100
+                            ).toFixed(1)}
+                            % trên tổng số ngày học)
                         </p>
                         <p className="mb-0">
-                            Vắng:{" "}
-                            <span className="text-red-500 font-bold">0/20</span>{" "}
-                            (0% tổng số buổi học để hạ tín chỉ)
+                            Số ngày vắng không phép:{" "}
+                            <span className="text-red-500 font-bold">
+                                {subject.cateSubject.includes("WEB1022")
+                                    ? 1
+                                    : 2}
+                                /
+                                {
+                                    new Set(
+                                        subject.items.map((item) => item.date),
+                                    ).size
+                                }
+                            </span>{" "}
+                            (
+                            {(
+                                ((subject.cateSubject.includes("WEB1022")
+                                    ? 1
+                                    : 2) /
+                                    new Set(
+                                        subject.items.map((item) => item.date),
+                                    ).size) *
+                                100
+                            ).toFixed(1)}
+                            % tổng số ngày học để hạ tín chỉ)
                         </p>
                     </div>
                     <div className="flex justify-between items-center mt-5 text-sm">
@@ -429,19 +470,6 @@ function ReportNameClient() {
                             <span className="font-semibold">{totalItems}</span>{" "}
                             mục
                         </p>
-                        {/* <div className="flex items-center">
-                            <span className="mr-2">Xem</span>
-                            <select
-                                className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 text-sm"
-                                value={itemsPerPage}
-                                readOnly
-                            >
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                            </select>
-                            <span className="ml-2">mục</span>
-                        </div> */}
                         <nav aria-label="Page navigation example">
                             <ul className="flex items-center space-x-2">
                                 <li

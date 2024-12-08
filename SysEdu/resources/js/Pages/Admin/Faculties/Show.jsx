@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useForm, router, usePage } from "@inertiajs/react";
 import Pagination from "../../../Components/Paginations/Base";
-import LimitSelector from "../../../Components/LimitSelectors/Base";
 import Breadcrumb from "../../../Components/Breadcrumbs/Breadcrumb";
 
 const Show = ({ faculties, limit }) => {
@@ -113,34 +112,21 @@ const Show = ({ faculties, limit }) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            {/* Breadcrumb */}
-            <Breadcrumb
-                items={[
-                    { label: "Quản lý khoa", link: "/admin/khoa" },
-                    { label: "Danh sách khoa" },
-                ]}
-            />
-
-            {/* action */}
-            <div className="flex flex-col justify-between md:flex-row gap-5 mb-4">
-                {/* Limit */}
-                <LimitSelector
-                    limit={data.limit}
-                    onLimitChange={handleLimitChange}
-                />
-
-                {/* Search */}
+            <h2 className="text-2xl font-bold">Danh sách khoa</h2>
+            <div className="flex flex-col items-start mb-2">
+                <Breadcrumb items={[{ label: "Danh sách khoa" }]} />
+            </div>
+            <div className="flex flex-col justify-end md:flex-row gap-5 mb-4">
                 <form
                     onSubmit={handleSearchSubmit}
                     className="flex items-center gap-5"
                 >
-                    <div className="flex px-4 py-1 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
+                    <div className="flex px-4 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
                         <input
                             type="text"
                             placeholder="Tìm kiếm..."
                             value={data.search}
                             onChange={handleSearchChange}
-                            onKeyPress={handleKeyPress} // Thêm sự kiện keypress
                             className="w-full outline-none bg-transparent text-gray-600 text-sm"
                         />
                         <button type="submit" className="p-2">
@@ -164,19 +150,13 @@ const Show = ({ faculties, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">
-                                #
+                                STT
                             </th>
                             <th className="max-w-[150px] wrap py-4 px-4 font-medium text-black">
                                 Tên khoa
                             </th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black">
                                 Mã khoa
-                            </th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">
-                                Trưởng khoa
-                            </th>
-                            <th className="min-w-[150px] py-4 px-4 font-medium text-black">
-                                Phó khoa
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black">
                                 Mô tả
@@ -203,20 +183,6 @@ const Show = ({ faculties, limit }) => {
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p className="text-black">
                                             {faculty.code}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">
-                                            {faculty.dean
-                                                ? faculty.dean
-                                                : "Chưa có"}
-                                        </p>
-                                    </td>
-                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <p className="text-black">
-                                            {faculty.assistant_dean
-                                                ? faculty.assistant_dean
-                                                : "Chưa có"}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">

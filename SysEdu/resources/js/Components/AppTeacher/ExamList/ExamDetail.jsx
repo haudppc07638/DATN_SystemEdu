@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
-import { Link } from "@inertiajs/react";
-
 const classList = [
     {
         id: 1,
         className: "Lập trình Website",
-        classCode: "WD18306",
+        classCode: "WD18306", 
         nameStudents: "Trần Nhân Nghĩa",
         idStudent: "SV001",
         date: "01/12/2024",
@@ -16,7 +14,7 @@ const classList = [
     },
     {
         id: 2,
-        className: "Lập trình Website",
+        className: "Lập trình Website", 
         classCode: "WD18306",
         nameStudents: "Danh Phúc Hậu",
         idStudent: "SV002",
@@ -76,7 +74,13 @@ function ExamList() {
                             .includes(searchTerm.toLowerCase()) ||
                         classItem.classCode
                             .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
+                            .includes(searchTerm.toLowerCase()) ||
+                        classItem.nameStudents
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase()) ||
+                        classItem.idStudent
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase())
                 ),
             );
         }
@@ -105,7 +109,7 @@ function ExamList() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+        <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
             <BreadcrumbTeacher
                 items={[
                     {
@@ -115,87 +119,89 @@ function ExamList() {
                     { label: "Danh sách sinh viên" },
                 ]}
             />
-            <div className="flex justify-start mb-4">
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm thí sinh"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+
+            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+                <div className="w-full md:w-1/3">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm theo tên, mã sinh viên..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                </div>
             </div>
-            <div className="max-w-full overflow-x-auto">
-                <table className="w-full table-auto mt-8">
+
+            <div className="bg-white rounded-lg shadow">
+                <table className="min-w-full divide-y divide-gray-200">
                     <thead>
-                        <tr className="text-left dark:bg-meta-4">
-                            <th className="border py-4 px-4 text-center">
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tên lớp
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Mã lớp
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tên sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Mã số sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ngày thi
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ca thi
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Phòng thi
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Môn thi
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white divide-y divide-gray-200">
                         {currentClasses.length > 0 ? (
                             currentClasses.map((classItem, index) => (
-                                <tr key={classItem.id}>
-                                    <td className="border py-4 px-4 text-center">
-                                        {(currentPage - 1) * itemsPerPage +
-                                            index +
-                                            1}
+                                <tr key={classItem.id} className="hover:bg-gray-50">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                                        {(currentPage - 1) * itemsPerPage + index + 1}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {classItem.className}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {classItem.nameStudents}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.idStudent}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.date}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.study}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.examClass}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
                                         {classItem.examSubject}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="12" className="py-4 text-center">
-                                    Không tìm thấy lớp nào.
+                                <td colSpan="9" className="px-6 py-4 text-center text-sm text-gray-500">
+                                    Không tìm thấy dữ liệu
                                 </td>
                             </tr>
                         )}
@@ -203,21 +209,24 @@ function ExamList() {
                 </table>
             </div>
 
-            <div className="flex justify-center mt-4">
-                {totalPages > 1 &&
-                    Array.from({ length: totalPages }, (_, i) => (
-                        <button
-                            key={i + 1}
-                            onClick={() => handlePageChange(i + 1)}
-                            className={`px-4 py-2 mx-1 ${
-                                currentPage === i + 1
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-gray-300"
-                            } rounded`}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
+            <div className="flex justify-center mt-6">
+                {totalPages > 1 && (
+                    <nav className="flex items-center space-x-2">
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i + 1}
+                                onClick={() => handlePageChange(i + 1)}
+                                className={`px-3 py-1 rounded-md ${
+                                    currentPage === i + 1
+                                        ? "bg-blue-600 text-white"
+                                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                }`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+                    </nav>
+                )}
             </div>
         </div>
     );

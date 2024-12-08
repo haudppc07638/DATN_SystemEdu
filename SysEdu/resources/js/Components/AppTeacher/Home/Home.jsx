@@ -75,7 +75,10 @@ function Home() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbTeacher items={[{ label: "Thông tin mới nhất" }]} />
+            <h2 className="text-2xl font-bold">Thông báo và tin tức</h2>
+            <div className="flex flex-col items-start mb-2">
+                <BreadcrumbTeacher items={[{ label: "Thông báo và tin tức" }]} />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 {notificationData.notification.map(
                     (cateNotification, index) => (

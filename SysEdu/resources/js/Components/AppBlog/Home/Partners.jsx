@@ -12,33 +12,22 @@ import doitac10 from "../../../Assets/Images/doitac10.png";
 
 function Partners() {
     const images = [
-        doitac1,
-        doitac2,
-        doitac3,
-        doitac4,
-        doitac5,
-        doitac6,
-        doitac7,
-        doitac8,
-        doitac9,
-        doitac10,
+        doitac1, doitac2, doitac3, doitac4, doitac5,
+        doitac6, doitac7, doitac8, doitac9, doitac10
     ];
     const [currentSlide, setCurrentSlide] = useState(0);
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentSlide(
-                (prevSlide) => (prevSlide + 1) % (images.length - 2),
-            );
+            setCurrentSlide((prevSlide) => (prevSlide + 1) % (images.length - 2));
         }, 3000);
 
         return () => clearInterval(interval);
     }, [images.length]);
 
     const handlePrev = () => {
-        setCurrentSlide(
-            (prevSlide) =>
-                (prevSlide - 1 + images.length - 2) % (images.length - 2),
+        setCurrentSlide((prevSlide) => 
+            (prevSlide - 1 + images.length - 2) % (images.length - 2)
         );
     };
 
@@ -47,43 +36,43 @@ function Partners() {
     };
 
     return (
-        <div className="py-16">
-            <h3 className="text-center text-2xl font-bold mb-6 relative">
-                ĐỐI TÁC
-                <span className="block h-1 bg-blue-500 rounded mt-2 mx-auto w-30"></span>
+        <div className="py-16 bg-gray-50">
+            <h3 className="text-center text-3xl font-bold mb-10 relative">
+                ĐỐI TÁC CHIẾN LƯỢC
+                <span className="block h-1 bg-blue-600 rounded mt-3 mx-auto w-32"></span>
             </h3>
-            <div className="relative flex justify-center items-center h-30">
-                <div className="relative overflow-hidden w-full max-w-[900px]">
+            <div className="relative flex justify-center items-center min-h-[120px]">
+                <div className="relative overflow-hidden w-full max-w-[1200px] mx-auto px-4">
                     <div
-                        className="flex transition-transform duration-500"
+                        className="flex transition-transform duration-700 ease-in-out"
                         style={{
-                            transform: `translateX(-${currentSlide * (100 / 3)}%)`,
+                            transform: `translateX(-${currentSlide * (100 / 3)}%)`
                         }}
                     >
                         {images.map((img, index) => (
                             <div
                                 key={index}
-                                className="w-50 flex-shrink-0 mx-8"
+                                className="w-1/3 flex-shrink-0 px-6"
                             >
                                 <img
                                     src={img}
-                                    alt={`slide ${index + 1}`}
-                                    className="w-50 h-16"
+                                    alt={`Đối tác ${index + 1}`}
+                                    className="w-full h-20 object-contain hover:scale-110 transition-transform duration-300"
                                 />
                             </div>
                         ))}
                     </div>
                     <button
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 text-gray-200 text-5xl bg-opacity-50 hover:bg-gray-600 rounded-full opacity-25 transition-opacity duration-200 hover:opacity-75"
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-blue-600/50 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700/50 transition-colors duration-300"
                         onClick={handlePrev}
                     >
-                        <i className="fas fa-angle-left"></i>
+                        <i className="fas fa-angle-left text-xl"></i>
                     </button>
                     <button
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-200 text-5xl bg-opacity-50 hover:bg-gray-600 rounded-full opacity-25 transition-opacity duration-200 hover:opacity-75"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-blue-600/50 text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-blue-700/50 transition-colors duration-300"
                         onClick={handleNext}
                     >
-                        <i className="fas fa-angle-right"></i>
+                        <i className="fas fa-angle-right text-xl"></i>
                     </button>
                 </div>
             </div>

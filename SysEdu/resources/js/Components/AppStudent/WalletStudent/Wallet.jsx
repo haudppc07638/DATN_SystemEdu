@@ -5,22 +5,56 @@ const walletData = [
     {
         id: 1,
         name: "Lập trình Web",
-        time: "2024-10-14 09:30",
+        idName: "LP218306",
+        semester: "Summer 2024",
         credits: 3,
         creditPrice: 850000,
         amount: 2550000,
-        paymentdeadline: "2024-10-30",
-        status: "Chưa thanh toán",
     },
     {
         id: 2,
         name: "Cơ sở dữ liệu",
-        time: "2024-10-13 15:00",
-        credits: 4,
+        idName: "LP218306",
+        semester: "Summer 2024",
+        credits: 3,
         creditPrice: 850000,
         amount: 3400000,
-        paymentdeadline: "2024-10-25",
-        status: "Chưa thanh toán",
+    },
+    {
+        id: 3,
+        name: "ReactJS Framework",
+        idName: "RE18306",
+        semester: "Summer 2024",
+        credits: 3,
+        creditPrice: 850000,
+        amount: 3400000,
+    },
+    {
+        id: 4,
+        name: "Anglar Framework",
+        idName: "AN18306",
+        semester: "Summer 2024",
+        credits: 3,
+        creditPrice: 850000,
+        amount: 3400000,
+    },
+    {
+        id: 5,
+        name: "Dự án ứng dụng web",
+        idName: "DA18302",
+        semester: "Summer 2024",
+        credits: 3,
+        creditPrice: 850000,
+        amount: 3400000,
+    },
+    {
+        id: 6,
+        name: "Dự án ứng dụng di động",
+        idName: "DA18304",
+        semester: "Summer 2024",
+        credits: 3,
+        creditPrice: 850000,
+        amount: 3400000,
     },
 ];
 
@@ -35,7 +69,6 @@ function Wallet() {
     );
     const totalPages = Math.ceil(walletData.length / itemsPerPage);
 
-    // Tính tổng số tín chỉ và tổng tiền
     const totalCredits = walletData.reduce(
         (sum, item) => sum + item.credits,
         0,
@@ -66,38 +99,21 @@ function Wallet() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbStudent items={[{ label: "Thanh toán học phí" }]} />
-
-            <div className="flex flex-col mb-6 mt-4">
-                <div className="mb-4">
-                    <label
-                        htmlFor="select"
-                        className="block mb-2 font-medium text-gray-700 text-sm"
-                    >
-                        Học kỳ
-                    </label>
-                    <select
-                        className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 w-full text-sm"
-                        id="select"
-                    >
-                        <option>Summer 2024</option>
-                        <option>Fall 2025</option>
-                    </select>
-                </div>
+            <h2 className="text-2xl font-bold">Thanh toán học phí</h2>
+            <div className="flex flex-col items-start mb-2">
+                <BreadcrumbStudent items={[{ label: "Thanh toán học phí" }]} />
             </div>
-
-            <table className="table-auto w-full border border-gray-300 rounded-md text-sm">
+            <table className="table-auto w-full border border-gray-300 rounded-md text-sm mt-4">
                 <thead className="bg-gray-200">
                     <tr>
                         {[
                             "STT",
                             "Tên môn học",
-                            "Thời gian",
+                            "Mã môn học",
+                            "Học kỳ",
                             "Số tín chỉ",
                             "Đơn giá/tín chỉ",
                             "Thành tiền",
-                            "Hạn thanh toán",
-                            "Trạng thái",
                         ].map((header) => (
                             <th
                                 key={header}
@@ -121,7 +137,10 @@ function Wallet() {
                                 {wallet.name}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.time}
+                                {wallet.idName}
+                            </td>
+                            <td className="border border-gray-300 px-4 py-2 text-sm">
+                                {wallet.semester}
                             </td>
                             <td className="border border-gray-300 px-4 py-2 text-sm text-center">
                                 {wallet.credits}
@@ -132,21 +151,13 @@ function Wallet() {
                             <td className="border border-gray-300 px-4 py-2 text-sm text-center">
                                 {formatCurrency(wallet.amount)}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.paymentdeadline}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full">
-                                    {wallet.status}
-                                </span>
-                            </td>
                         </tr>
                     ))}
                 </tbody>
                 <tfoot className="bg-gray-100">
                     <tr>
                         <td
-                            colSpan="3"
+                            colSpan="4"
                             className="border border-gray-300 px-4 py-3 font-semibold text-center"
                         >
                             Tổng cộng:
@@ -158,10 +169,6 @@ function Wallet() {
                         <td className="border border-gray-300 px-4 py-3 font-semibold text-center">
                             {formatCurrency(totalAmount)}
                         </td>
-                        <td
-                            colSpan="2"
-                            className="border border-gray-300 px-4 py-3"
-                        ></td>
                     </tr>
                 </tfoot>
             </table>
@@ -170,23 +177,6 @@ function Wallet() {
                 <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition duration-200">
                     Thanh toán tất cả ({formatCurrency(totalAmount)})
                 </button>
-            </div>
-
-            <div className="flex justify-center space-x-2 mt-4">
-                {totalPages > 1 &&
-                    [...Array(totalPages)].map((_, i) => (
-                        <button
-                            key={i + 1}
-                            className={`px-4 py-2 rounded-md text-sm ${
-                                currentPage === i + 1
-                                    ? "bg-blue-700"
-                                    : "bg-blue-500 hover:bg-blue-400"
-                            } text-white`}
-                            onClick={() => setCurrentPage(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
             </div>
         </div>
     );

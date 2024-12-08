@@ -140,7 +140,6 @@ const Show = ({ subjects, limit }) => {
                             placeholder="Tìm kiếm..."
                             value={data.search}
                             onChange={handleSearchChange}
-                            onKeyPress={handleKeyPress} // Thêm sự kiện keypress
                             className="w-full outline-none bg-transparent text-gray-600 text-sm"
                         />
                         <button type="submit" className="p-2">
@@ -164,7 +163,7 @@ const Show = ({ subjects, limit }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black xl:pl-11">
-                                #
+                                STT
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black">
                                 Tên môn

@@ -39,7 +39,7 @@ function Sidebar() {
                 },
                 {
                     link: "",
-                    label: "Điểm quá trình",
+                    label: "Quản lý loại điểm",
                 },
                 {
                     link: "",
@@ -70,7 +70,12 @@ function Sidebar() {
             icon: "chalkboard-teacher", 
         },
         {
-            link: "/",
+            link: "/admin/ca-hoc",
+            label: "Thời gian theo ca",
+            icon: "clock", 
+        },
+        {
+            link: "/admin/lop-mon",
             label: "Lớp môn",
             icon: "book", 
         },
@@ -88,11 +93,6 @@ function Sidebar() {
             link: "/",
             label: "Gửi thông báo",
             icon: "paper-plane",
-        },
-        {
-            link: "/admin/ca-hoc",
-            label: "Thời gian theo ca",
-            icon: "clock", 
         },
         {
             link: "/",

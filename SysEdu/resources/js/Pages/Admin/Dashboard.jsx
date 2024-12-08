@@ -104,8 +104,10 @@ function Dashboard() {
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            <Breadcrumb items={[{ label: "Danh sách thống kê" }]} />
-
+            <h2 className="text-2xl font-bold">Danh sách thống kê</h2>
+            <div className="flex flex-col items-start mb-2">
+                <Breadcrumb items={[{ label: "Danh sách thống kê" }]} />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <StatisticCard
                     label="Số lượng giảng viên"

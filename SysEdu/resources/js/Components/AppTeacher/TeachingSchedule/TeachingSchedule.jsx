@@ -4,7 +4,7 @@ import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 const scheduleList = [
     {
         id: 1,
-        teachingDate: "Thứ 5 25/11/2024",
+        teachingDate: "Thứ Ba 25/11/2024",
         campus: "Sys Ninh Kiều",
         room: "K301",
         subject: "Lập trình Web",
@@ -12,11 +12,11 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15/09:15",
+        timeRange: "07:15 - 09:15",
     },
     {
         id: 2,
-        teachingDate: "Thứ 6 26/11/2024",
+        teachingDate: "Thứ Năm 26/11/2024",
         campus: "Sys Ninh Kiều",
         room: "K301",
         subject: "Lập trình Web",
@@ -24,11 +24,11 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15/09:15",
+        timeRange: "07:15 - 09:15",
     },
     {
         id: 3,
-        teachingDate: "Thứ 7 27/11/2024",
+        teachingDate: "Thứ Bảy 27/11/2024",
         campus: "Sys Ninh Kiều",
         room: "K301",
         subject: "Lập trình Web",
@@ -36,11 +36,11 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15/09:15",
+        timeRange: "07:15 -09:15",
     },
     {
         id: 4,
-        teachingDate: "Thứ 2 28/11/2024",
+        teachingDate: "Thứ Ba 28/11/2024",
         campus: "Sys Ninh Kiều",
         room: "K301",
         subject: "Lập trình Web",
@@ -48,7 +48,7 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15/09:15",
+        timeRange: "07:15 -09:15",
     },
 ];
 
@@ -64,6 +64,7 @@ const departments = [
 function TeachingSchedule() {
     const [loading, setLoading] = useState(true);
     const [schedules] = useState(scheduleList);
+    const [searchTerm, setSearchTerm] = useState("");
     const [filteredSchedules, setFilteredSchedules] = useState(scheduleList);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 5;
@@ -134,123 +135,98 @@ function TeachingSchedule() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbTeacher items={[{ label: "Lịch dạy của tôi" }]} />
-            <div className="flex space-x-4 mb-4">
-                <select
-                    name="campus"
-                    value={filters.campus}
-                    onChange={handleFilterChange}
-                    className="text-sm px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="">Chọn cơ sở</option>
-                    {campuses.map((campus) => (
-                        <option key={campus} value={campus} className="text-sm">
-                            {campus}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    name="timeSlot"
-                    value={filters.timeSlot}
-                    onChange={handleFilterChange}
-                    className="text-sm px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="">Chọn ca học</option>
-                    {timeSlots.map((slot) => (
-                        <option key={slot} value={slot} className="text-sm">
-                            {slot}
-                        </option>
-                    ))}
-                </select>
-                <select
-                    name="department"
-                    value={filters.department}
-                    onChange={handleFilterChange}
-                    className="text-sm px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="">Chọn chuyên ngành</option>
-                    {departments.map((dept) => (
-                        <option key={dept} value={dept} className="text-sm">
-                            {dept}
-                        </option>
-                    ))}
-                </select>
+        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-800">
+                    Danh sách lịch dạy của tôi
+                </h2>
+                <BreadcrumbTeacher
+                    items={[{ label: "Danh sách lịch dạy của tôi" }]}
+                />
             </div>
 
-            <div className="max-w-full overflow-x-auto">
-                <table className="w-full table-auto mt-8">
-                    <thead>
-                        <tr className="text-center dark:bg-meta-4 test-sm">
-                            <th className="border py-3 px-4 text-center">
+            <div className="mb-6">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm lịch dạy..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="absolute right-3 top-2">
+                        <i className="fas fa-search text-gray-400 text-lg"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ngày dạy
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Giảng đường
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Phòng
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Môn dạy
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Mã môn dạy
                             </th>
-                            <th className="border py-3 px-4 text-center">
-                                Chuyên ngành
-                            </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Lớp
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ca dạy
                             </th>
-                            <th className="border py-3 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Giờ dạy
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white divide-y divide-gray-200">
                         {currentSchedules.length > 0 ? (
                             currentSchedules.map((schedule, index) => (
                                 <tr
                                     key={schedule.id}
-                                    className="hover:bg-gray-50 text-sm"
+                                    className="hover:bg-gray-50"
                                 >
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {schedule.teachingDate}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.campus}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.room}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.subject}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.subjectCode}
                                     </td>
-                                    <td className="border py-2 px-4">
-                                        {schedule.department}
-                                    </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.className}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.timeSlot}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {schedule.timeRange}
                                     </td>
                                 </tr>
@@ -258,10 +234,10 @@ function TeachingSchedule() {
                         ) : (
                             <tr>
                                 <td
-                                    colSpan="11"
-                                    className="py-4 text-center text-sm"
+                                    colSpan="9"
+                                    className="px-6 py-4 text-center text-sm text-gray-500"
                                 >
-                                    Không tìm thấy lịch dạy.
+                                    Không tìm thấy lịch dạy nào.
                                 </td>
                             </tr>
                         )}
@@ -269,17 +245,16 @@ function TeachingSchedule() {
                 </table>
             </div>
 
-            {/* Phân trang */}
             <div className="flex justify-center mt-4">
                 {totalPages > 1 &&
                     Array.from({ length: totalPages }, (_, i) => (
                         <button
                             key={i + 1}
                             onClick={() => handlePageChange(i + 1)}
-                            className={`px-3 py-1 mx-1 text-sm ${
+                            className={`px-4 py-2 mx-1 ${
                                 currentPage === i + 1
                                     ? "bg-blue-600 text-white"
-                                    : "bg-gray-300 hover:bg-gray-400"
+                                    : "bg-gray-300"
                             } rounded`}
                         >
                             {i + 1}

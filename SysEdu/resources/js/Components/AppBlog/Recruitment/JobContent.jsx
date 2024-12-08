@@ -69,26 +69,26 @@ const jobPosts = [
 ];
 
 const sidebarItems = [
-    { id: 1, text: "THÔNG BÁO TUYỂN SINH", icon: "👥" },
-    { id: 2, text: "CHƯƠNG TRÌNH ĐÀO TẠO", icon: "📎" },
-    { id: 3, text: "QUY CHẾ TUYỂN SINH", icon: "✅" },
-    { id: 4, text: "PHIẾU ĐĂNG KÝ HỌC", icon: "✏️" },
-    { id: 5, text: "HƯỚNG DẪN NHẬP HỌC", icon: "👉" },
-    { id: 6, text: "HỌC PHÍ", icon: "🔑" },
-    { id: 7, text: "CÂU HỎI THƯỜNG GẶP", icon: "❓" },
+    { id: 1, text: "Thông báo tuyển sinh", icon: "fa-bell" },
+    { id: 2, text: "Chương trình đào tạo", icon: "fa-graduation-cap" },
+    { id: 3, text: "Quy chế tuyển sinh", icon: "fa-book" },
+    { id: 4, text: "Phiếu đăng kí học", icon: "fa-file-text" },
+    { id: 5, text: "Hướng dẫn nhập học", icon: "fa-info-circle" },
+    { id: 6, text: "Học phí", icon: "fa fa-university" },
+    { id: 7, text: "Câu hỏi thường gặp", icon: "fa-question-circle" },
 ];
 
 const featuredNews = [
-    { id: 1, title: "- Ngày hội việc làm tại Cao đẳng Sysedu", link: "#" },
+    { id: 1, title: "Ngày hội việc làm tại Cao đẳng Sysedu", link: "#" },
     {
         id: 2,
-        title: "- Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7 TP.Hồ Chí Minh",
+        title: "Thông báo tuyển dụng TTS tại Công ty Công nghệ CND Quận 7 TP.Hồ Chí Minh",
         link: "#",
     },
-    { id: 3, title: "- Tuyển dụng nhân viên Thiết kế Content", link: "#" },
+    { id: 3, title: "Tuyển dụng nhân viên Thiết kế Content", link: "#" },
     {
         id: 4,
-        title: "- Tuyển dụng Leader Quản lý sản xuất tại Cty TNHH Samsung",
+        title: "Tuyển dụng Leader Quản lý sản xuất tại Cty TNHH Samsung",
         link: "#",
     },
 ];
@@ -120,7 +120,7 @@ function JobContent() {
                             <img
                                 src={post.imageUrl}
                                 alt={post.title}
-                                className="w-full h-40 object-cover mb-4 rounded-md"
+                                className="w-full h-60 object-cover mb-4 rounded-md"
                             />
                             <h3 className="text-lg font-semibold text-blue-700 mb-2">
                                 {post.title}
@@ -138,19 +138,20 @@ function JobContent() {
                     ))}
                 </div>
                 <div className="flex justify-center mt-8 space-x-2">
-                    {pageNumbers.map((page) => (
-                        <button
-                            key={page}
-                            onClick={() => handlePageClick(page)}
-                            className={`px-4 py-2 rounded-md ${
-                                page === currentPage
-                                    ? "bg-blue-700 text-white"
-                                    : "bg-blue-500 text-white hover:bg-blue-600"
-                            }`}
-                        >
-                            {page}
-                        </button>
-                    ))}
+                    {pageNumbers.length > 1 &&
+                        pageNumbers.map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => handlePageClick(page)}
+                                className={`px-4 py-2 rounded-md ${
+                                    page === currentPage
+                                        ? "bg-blue-700 text-white"
+                                        : "bg-blue-500 text-white hover:bg-blue-600"
+                                }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
                 </div>
             </div>
             <div className="space-y-6">
@@ -161,47 +162,59 @@ function JobContent() {
                             className="flex items-center justify-between bg-blue-600 hover:bg-blue-500 text-white p-3 rounded-md shadow-sm transition-all duration-300"
                         >
                             <span>{item.text}</span>
-                            <span className="text-2xl">{item.icon}</span>
+                            <span className="text-xl">
+                                <i className={`fas ${item.icon}`}></i>
+                            </span>
                         </div>
                     ))}
                 </div>
-                <div className="border-t pt-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        TIN NỔI BẬT
+
+                <div className="border-t pt-4 bg-white rounded-lg shadow-md p-4">
+                    <h3 className="text-xl font-bold text-blue-700 mb-4 uppercase border-b pb-2">
+                        Tin Nổi Bật
                     </h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-3">
                         {featuredNews.map((news) => (
-                            <li key={news.id}>
+                            <li
+                                key={news.id}
+                                className="hover:translate-x-2 transition-transform duration-200"
+                            >
                                 <a
                                     href={news.link}
-                                    className="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                                    className="text-sm text-gray-700 hover:text-blue-600 transition-colors duration-200 flex items-center"
                                 >
+                                    <span className="text-blue-500 mr-2">
+                                        ►
+                                    </span>
                                     {news.title}
                                 </a>
                             </li>
                         ))}
                     </ul>
                 </div>
-                <div className="border-t pt-4">
+                <div className="border-t pt-4 bg-white rounded-lg shadow-md p-4">
+                    <h3 className="text-xl font-bold text-blue-700 mb-4 uppercase border-b pb-2">
+                        Tuyển Dụng
+                    </h3>
                     <img
                         src={Job}
                         alt="Quảng cáo tuyển dụng"
-                        className="w-full rounded-lg mt-4 shadow-md"
+                        className="w-full rounded-lg shadow-md hover:opacity-90 transition-opacity duration-300"
                     />
                 </div>
-                <div className="border-t pt-4">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
-                        TIN TỨC SYSEDU
+                <div className="border-t pt-4 bg-white rounded-lg shadow-md p-4">
+                    <h3 className="text-xl font-bold text-blue-700 mb-4 uppercase border-b pb-2">
+                        GIỚI THIỆU SYSEDU
                     </h3>
                     <div className="mt-4">
                         <iframe
-                            width="100%"
-                            height="300"
-                            src="https://www.youtube.com/embed/example-video"
-                            title="YouTube video"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            className="w-[100%] h-[300px]"
+                            src="https://www.youtube.com/embed/bZjQq_T1hDE?si=Am9t0aNki8Wb2vHr"
+                            title="YouTube Sysedu"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerPolicy="strict-origin-when-cross-origin"
                             allowFullScreen
-                            className="rounded-md"
+                            autoPlay
                         ></iframe>
                     </div>
                 </div>

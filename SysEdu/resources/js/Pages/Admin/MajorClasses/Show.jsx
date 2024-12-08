@@ -150,20 +150,15 @@ const Show = ({ faculties }) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            {/* Breadcrumb */}
-            <Breadcrumb
-                items={[
-                    {
-                        label: "Quản lý Lớp chuyên ngành",
-                        link: "/admin/phong-ban",
-                    },
-                    { label: "Danh sách lớp chuyên ngành" },
-                ]}
-            />
-
-            {/* action */}
+            <h2 className="text-2xl font-bold">Danh sách lớp chuyên ngành</h2>
+            <div className="flex flex-col items-start mb-2">
+                <Breadcrumb
+                    items={[
+                        { label: "Danh sách lớp chuyên ngành" },
+                    ]}
+                />
+            </div>
             <div className="flex flex-col justify-between md:flex-row gap-5 my-6">
-                {/* Chọn khoa */}
                 <div className="xl:w-1/2">
                     <label className="mb-3 block text-black">Chọn khoa</label>
                     <div className="relative z-20 bg-transparent dark:bg-form-input">
@@ -236,7 +231,7 @@ const Show = ({ faculties }) => {
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                #
+                                STT
                             </th>
                             <th className="min-w-[100px] py-4 px-4 font-medium text-black dark:text-white">
                                 Hệ đào tạo

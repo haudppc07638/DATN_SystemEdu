@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "@inertiajs/react";
+import React from 'react';
+import { Link } from '@inertiajs/react';
 
 function BreadcrumbTeacher({ items }) {
     if (!items || items.length === 0) {
@@ -7,19 +7,12 @@ function BreadcrumbTeacher({ items }) {
     }
 
     return (
-        <div className="my-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="text-2xl font-semibold">
-                {items[items.length - 1].label}
-            </h2>
-
+        <div className="my-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <nav>
                 <ol className="flex items-center gap-2 flex-wrap">
                     <li>
-                        <Link
-                            className="font-medium hover:underline"
-                            href="/teacher"
-                        >
-                            Home
+                        <Link className="font-medium hover:underline" href="/teacher" >
+                            Trang chủ
                         </Link>
                         <span className="mx-2">/</span>
                     </li>
@@ -27,27 +20,19 @@ function BreadcrumbTeacher({ items }) {
                     {items.map((item, index) => (
                         <li key={index}>
                             {item.link ? (
-                                <Link
-                                    className="font-medium hover:underline"
-                                    href={`${item.link}`}
-                                    to={item.link}
-                                >
+                                <Link className="font-medium hover:underline" href={`${item.link}`} to={item.link}>
                                     {item.label}
                                 </Link>
                             ) : (
-                                <span className="font-medium">
-                                    {item.label}
-                                </span>
+                                <span className="font-medium">{item.label}</span>
                             )}
-                            {index < items.length - 1 && (
-                                <span className="mx-2">/</span>
-                            )}
+                            {index < items.length - 1 && <span className="mx-2">/</span>}
                         </li>
                     ))}
                 </ol>
             </nav>
         </div>
     );
-}
+};
 
 export default BreadcrumbTeacher;

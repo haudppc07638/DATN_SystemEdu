@@ -17,7 +17,7 @@ class Student extends Authenticatable
 
     protected $fillable = [
         'full_name',
-        'code',
+        'code', 
         'email',
         'password',
         'phone',
@@ -32,7 +32,7 @@ class Student extends Authenticatable
         return $this->belongsTo(Major::class);
     }
 
-    public function majorClass(): BelongsTo
+    public function majorClass(): BelongsTo 
     {
         return $this->belongsTo(MajorClass::class);
     }
@@ -45,20 +45,17 @@ class Student extends Authenticatable
     public function scopeSearch($query, $searchTerm)
     {
         if ($searchTerm) {
-            return $query->where('full_name', 'like', '%' . $searchTerm . '%')
-            ->orWhere('code', 'like', '%' . $searchTerm . '%')
-            ->orWhere('email', 'like', '%' . $searchTerm . '%')
-            ->orWhereHas('major', function ($subQuery) use ($searchTerm) {
-                $subQuery->where('name', 'like', '%' . $searchTerm . '%');
-            })
-            ->orWhereHas('majorClass', function ($subQuery) use ($searchTerm) {
-                $subQuery->where('name', 'like', '%' . $searchTerm . '%');
+            return $query->where(function($query) use ($searchTerm) {
+                $query->where('full_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('code', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('phone', 'like', '%' . $searchTerm . '%');
             });
         }
         return $query;
     }
 
-    public function scopeWithMajorAndMajorClass($query)
+    public function scopeWithRelations($query)
     {
         return $query->with([
             'major' => function ($query) {
@@ -70,8 +67,8 @@ class Student extends Authenticatable
         ]);
     }
 
-    public static function getStudentInMajorClass($major_Class_id){
-        return self::where("major_Class_id", $major_Class_id)->get();
+    public function scopeGetStudentsByMajorClass($query, $majorClassId)
+    {
+        return $query->where('major_class_id', $majorClassId);
     }
-    
 }

@@ -110,33 +110,34 @@ function BannerSection() {
                     Sysedu !!!
                 </h2>
                 <button
-                    className="text-2xl font-bold text-white bg-red-600 p-4 mt-6 inline-block transform transition-transform duration-200 hover:scale-105 hover:text-white hover:bg-blue-600 rounded-lg"
+                    className="text-2xl font-bold text-white bg-red-600 p-4 mt-6 inline-flex items-center justify-center gap-2 transform transition-transform duration-200 hover:scale-105 hover:text-white hover:bg-blue-600 rounded-lg mx-auto"
                     onClick={handleClick}
                 >
+                    <i className="fas fa-file-upload"></i>
                     NỘP HỒ SƠ ONLINE
                 </button>
             </div>
 
             {isModalVisible && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="container bg-whiter p-8 shadow-lg w-full max-h-[82vh] overflow-y-auto relative mt-16 scrollbar-hide">
-                        <h3 className="text-3xl font-bold text-blue-600 text-center mb-6 mt-8">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center mt-12 z-50">
+                    <div className="container bg-white p-8 shadow-lg w-full max-w-6xl max-h-[85vh] overflow-y-auto relative mt-8 rounded-xl">
+                        <h3 className="text-2xl font-bold text-blue-600 text-center mb-8">
                             ĐĂNG KÍ NỘP HỒ SƠ
                         </h3>
                         <button
                             onClick={handleClose}
-                            className="absolute top-2 right-5 rounded-full text-4xl text-blue-600 hover:text-red-600"
+                            className="absolute top-4 right-6 rounded-full w-8 h-8 flex items-center justify-center text-3xl text-gray-500 hover:text-red-600 transition-colors"
                         >
                             &times;
                         </button>
                         <form
                             onSubmit={handleSubmit}
-                            className="bg-white p-6 shadow-md rounded-lg space-y-6"
+                            className="bg-white p-8 rounded-lg space-y-8 shadow-sm border border-gray-100"
                         >
                             {/* Thông tin thứ nhất */}
-                            <section>
-                                <h3 className="text-xl text-blue-600 font-semibold mb-4 flex items-center">
-                                    <span className="mr-2 text-blue-600">
+                            <section className="bg-gray-50 p-6 rounded-xl">
+                                <h3 className="text-xl text-blue-600 font-semibold mb-6 flex items-center">
+                                    <span className="mr-3 text-blue-600 text-2xl">
                                         ■
                                     </span>
                                     <span className="flex items-center">
@@ -144,36 +145,36 @@ function BannerSection() {
                                     </span>
                                 </h3>
 
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4">
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Họ và tên
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Họ và tên"
                                             name="fullName"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Ngày sinh
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             type="date"
                                             name="dob"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Giới tính
                                         </label>
                                         <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             name="gender"
                                         >
                                             <option value="">
@@ -183,12 +184,12 @@ function BannerSection() {
                                             <option value="Nữ">Nữ</option>
                                         </select>
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Dân tộc
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Dân tộc"
                                             name="ethnicity"
@@ -196,36 +197,36 @@ function BannerSection() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Số CCCD/Chứng minh nhân dân
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Số CCCD/Chứng minh nhân dân"
                                             name="idNumber"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Ngày cấp
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             type="date"
                                             name="issueDate"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Nơi cấp
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Nơi cấp"
                                             name="issuePlace"
@@ -234,14 +235,14 @@ function BannerSection() {
                                     </div>
                                 </div>
 
-                                <h5 className="text-sm text-black font-bold mt-8">
+                                <h5 className="text-sm font-semibold text-gray-700 mt-6 mb-4">
                                     Địa chỉ thường trú (Điền đầy đủ như trong
                                     CMND/CCCD)
                                 </h5>
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4">
-                                    <div className="w-full col-span-1">
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                                    <div className="w-full">
                                         <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             name="province"
                                         >
                                             <option value="Chọn tỉnh/thành phố">
@@ -252,9 +253,9 @@ function BannerSection() {
                                             </option>
                                         </select>
                                     </div>
-                                    <div className="w-full col-span-1">
+                                    <div className="w-full">
                                         <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             name="district"
                                         >
                                             <option value="Chọn Quận/Huyện">
@@ -265,9 +266,9 @@ function BannerSection() {
                                             </option>
                                         </select>
                                     </div>
-                                    <div className="w-full col-span-1">
+                                    <div className="w-full">
                                         <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
                                             name="ward"
                                         >
                                             <option value="Chọn Xã/Phường/Thị Trấn">
@@ -278,9 +279,9 @@ function BannerSection() {
                                             </option>
                                         </select>
                                     </div>
-                                    <div className="w-full col-span-1">
+                                    <div className="w-full">
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Số nhà, đường, ngõ, ấp"
                                             name="addressDetail"
@@ -288,49 +289,49 @@ function BannerSection() {
                                     </div>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Số điện thoại thí sinh
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="0123456789"
                                             name="phoneNumber"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Email thí sinh
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="email"
-                                            placeholder="nghiatnpc07595@gmail.com"
+                                            placeholder="email@example.com"
                                             name="email"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Họ tên phụ huynh/người giám hộ
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="Họ và tên"
                                             name="guardianName"
                                             required
                                         />
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <label className="block mb-1 font-bold text-sm text-black">
+                                    <div className="w-full">
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
                                             Số điện thoại phụ huynh
                                         </label>
                                         <input
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200 placeholder-gray-700"
+                                            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 placeholder-gray-400 transition-all"
                                             type="text"
                                             placeholder="0123456789"
                                             name="guardianPhone"
@@ -340,25 +341,21 @@ function BannerSection() {
                                 </div>
                             </section>
                             {/* Thông tin thứ 2 */}
-                            <section>
-                                <h3 className="text-xl text-blue-600 font-semibold mb-4 flex items-center mt-16">
-                                    <span className="mr-2 text-blue-600">
+                            <section className="bg-gray-50 p-6 rounded-xl">
+                                <h3 className="text-xl text-blue-600 font-semibold mb-6 flex items-center">
+                                    <span className="mr-3 text-blue-600 text-2xl">
                                         ■
                                     </span>
                                     THÔNG TIN ĐĂNG KÝ TRƯỜNG CAO ĐẲNG SYSEDU CỦA
                                     THÍ SINH
                                 </h3>
-                                <div className="w-full col-span-1">
-                                    <label
-                                        className="block mb-1 font-bold text-sm text-black"
-                                        htmlFor="province"
-                                    >
+                                <div className="w-full mb-6">
+                                    <label className="block mb-2 font-semibold text-sm text-gray-700">
                                         Cơ sở nhập học
                                     </label>
                                     <select
-                                        className="w-1/2 border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                        id="province"
-                                        name="province"
+                                        className="w-1/2 border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                        name="campus"
                                     >
                                         <option value="Cần Thơ">Cần Thơ</option>
                                         <option value="Vĩnh Long">
@@ -367,239 +364,198 @@ function BannerSection() {
                                     </select>
                                 </div>
 
-                                <label className="block mb-1 font-bold text-sm text-black mt-4">
-                                    Nguyện vọng thứ nhất
-                                </label>
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4">
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="province1"
-                                        >
-                                            <option value="Chọn tỉnh/thành phố">
-                                                Ngành
-                                            </option>
-                                            <option value="Vĩnh Long">
-                                                Công nghệ thông tin
-                                            </option>
-                                        </select>
+                                <div className="space-y-6">
+                                    <div>
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
+                                            Nguyện vọng thứ nhất
+                                        </label>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="major1"
+                                            >
+                                                <option value="">Ngành</option>
+                                                <option value="CNTT">
+                                                    Công nghệ thông tin
+                                                </option>
+                                            </select>
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="method1"
+                                            >
+                                                <option value="">
+                                                    Phương thức dự tuyển
+                                                </option>
+                                                <option value="hocba">
+                                                    Điểm học bạ
+                                                </option>
+                                                <option value="thpt">
+                                                    Điểm thi THPT quốc gia
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="district1"
-                                        >
-                                            <option value="Chọn Quận/Huyện">
-                                                Phương thức dự tuyển
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Điểm học bạ
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Điểm thi THPT quốc gia
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <label className="block mb-1 font-bold text-sm text-black mt-4">
-                                    Nguyện vọng thứ hai
-                                </label>
-                                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-4">
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="province1"
-                                        >
-                                            <option value="Chọn tỉnh/thành phố">
-                                                Ngành
-                                            </option>
-                                            <option value="Vĩnh Long">
-                                                Công nghệ thông tin
-                                            </option>
-                                        </select>
+                                    <div>
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
+                                            Nguyện vọng thứ hai
+                                        </label>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="major2"
+                                            >
+                                                <option value="">Ngành</option>
+                                                <option value="CNTT">
+                                                    Công nghệ thông tin
+                                                </option>
+                                            </select>
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="method2"
+                                            >
+                                                <option value="">
+                                                    Phương thức dự tuyển
+                                                </option>
+                                                <option value="hocba">
+                                                    Điểm học bạ
+                                                </option>
+                                                <option value="thpt">
+                                                    Điểm thi THPT quốc gia
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="district1"
-                                        >
-                                            <option value="Chọn Quận/Huyện">
-                                                Phương thức dự tuyển
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Điểm học bạ
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Điểm thi THPT quốc gia
-                                            </option>
-                                        </select>
-                                    </div>
-                                </div>
 
-                                <label className="block mb-1 font-bold text-sm text-black mt-4">
-                                    Nơi tốt nghiệp
-                                </label>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4">
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="district1"
-                                        >
-                                            <option value="Chọn Quận/Huyện">
-                                                Chọn Tỉnh/Thành phố
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Long Hồ
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="district1"
-                                        >
-                                            <option value="Chọn Quận/Huyện">
-                                                Chọn Quận/Huyện
-                                            </option>
-                                            <option value="Long Hồ">
-                                                Long Hồ
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div className="w-full col-span-1">
-                                        <select
-                                            className="w-full border p-2 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                                            name="ward1"
-                                        >
-                                            <option value="Chọn Xã/Phường/Thị Trấn">
-                                                Chọn Xã/Phường/Thị Trấn
-                                            </option>
-                                            <option value="Đồng Phú">
-                                                Đồng Phú
-                                            </option>
-                                        </select>
+                                    <div>
+                                        <label className="block mb-2 font-semibold text-sm text-gray-700">
+                                            Nơi tốt nghiệp
+                                        </label>
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="graduationProvince"
+                                            >
+                                                <option value="">
+                                                    Chọn Tỉnh/Thành phố
+                                                </option>
+                                                <option value="VinhLong">
+                                                    Vĩnh Long
+                                                </option>
+                                            </select>
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="graduationDistrict"
+                                            >
+                                                <option value="">
+                                                    Chọn Quận/Huyện
+                                                </option>
+                                                <option value="LongHo">
+                                                    Long Hồ
+                                                </option>
+                                            </select>
+                                            <select
+                                                className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all"
+                                                name="graduationWard"
+                                            >
+                                                <option value="">
+                                                    Chọn Xã/Phường/Thị Trấn
+                                                </option>
+                                                <option value="DongPhu">
+                                                    Đồng Phú
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </section>
                             {/* Thông tin thứ 3 */}
-                            <section>
-                                <h3 className="text-xl text-blue-600 font-semibold mb-4 flex items-center mt-16">
-                                    <span className="mr-2 text-blue-600">
+                            <section className="bg-gray-50 p-6 rounded-xl">
+                                <h3 className="text-xl text-blue-600 font-semibold mb-6 flex items-center">
+                                    <span className="mr-3 text-blue-600 text-2xl">
                                         ■
                                     </span>
                                     THÔNG TIN NHẬN GIẤY BÁO KẾT QUẢ
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div>
-                                        <label
-                                            htmlFor="receiver"
-                                            className="block mb-1 font-bold text-sm text-black"
-                                        >
+                                        <label className="block mb-3 font-semibold text-sm text-gray-700">
                                             Người nhận
                                         </label>
-                                        <div className="space-y-4 mt-4">
-                                            <div className="flex items-center">
+                                        <div className="space-y-4">
+                                            <label className="flex items-center space-x-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
-                                                    id="checkboxStudent"
-                                                    name="checkboxStudent"
-                                                    className="mr-3 w-3 h-3"
+                                                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                                     onChange={
                                                         handleCheckboxChange
                                                     }
                                                 />
-                                                <label
-                                                    htmlFor="checkboxStudent"
-                                                    className="font-medium"
-                                                >
+                                                <span className="text-gray-700">
                                                     Thí sinh
-                                                </label>
-                                            </div>
-
-                                            <div className="flex items-center">
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center space-x-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
-                                                    id="checkboxParent"
-                                                    name="checkboxParent"
-                                                    className="mr-3 w-3 h-3"
+                                                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                                     onChange={
                                                         handleCheckboxChange
                                                     }
                                                 />
-                                                <label
-                                                    htmlFor="checkboxParent"
-                                                    className="font-medium"
-                                                >
+                                                <span className="text-gray-700">
                                                     Phụ huynh/người giám hộ
-                                                </label>
-                                            </div>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label
-                                            htmlFor="receiverAddress"
-                                            className="block mb-1 font-bold text-sm text-black"
-                                        >
+                                        <label className="block mb-3 font-semibold text-sm text-gray-700">
                                             Địa chỉ nhận
                                         </label>
-                                        <div className="space-y-4 mt-4">
-                                            <div className="flex items-center">
+                                        <div className="space-y-4">
+                                            <label className="flex items-center space-x-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
-                                                    id="checkboxPermanentAddress"
-                                                    name="checkboxPermanentAddress"
-                                                    className="mr-3 w-3 h-3"
+                                                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                                     onChange={
                                                         handleCheckboxChange
                                                     }
                                                 />
-                                                <label
-                                                    htmlFor="checkboxPermanentAddress"
-                                                    className="font-medium"
-                                                >
+                                                <span className="text-gray-700">
                                                     Địa chỉ thường trú
-                                                </label>
-                                            </div>
-
-                                            <div className="flex items-center">
+                                                </span>
+                                            </label>
+                                            <label className="flex items-center space-x-3 cursor-pointer">
                                                 <input
                                                     type="checkbox"
-                                                    id="checkboxOther"
-                                                    name="checkboxOther"
-                                                    className="mr-3 w-3 h-3"
+                                                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                                     onChange={
                                                         handleCheckboxChange
                                                     }
                                                 />
-                                                <label
-                                                    htmlFor="checkboxOther"
-                                                    className="font-medium"
-                                                >
+                                                <span className="text-gray-700">
                                                     Khác
-                                                </label>
-                                            </div>
+                                                </span>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                             </section>
                             {/* Thông tin thứ 4 */}
-                            <section>
-                                <h3 className="text-xl text-blue-600 font-semibold mb-4 flex items-center mt-16">
-                                    <span className="mr-2 text-blue-600">
+                            <section className="bg-gray-50 p-6 rounded-xl">
+                                <h3 className="text-xl text-blue-600 font-semibold mb-6 flex items-center">
+                                    <span className="mr-3 text-blue-600 text-2xl">
                                         ■
                                     </span>
                                     TẢI LÊN GIẤY TỜ XÁC THỰC HỒ SƠ ĐĂNG KÝ HỌC
                                 </h3>
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                    <div className="flex flex-col">
-                                        <label
-                                            htmlFor="idFrontImage"
-                                            className="block mb-1 font-bold text-sm text-black flex items-center"
-                                        >
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                    <div className="space-y-4">
+                                        <label className="block font-semibold text-sm text-gray-700">
                                             Ảnh CMND/CCCD mặt trước
-                                            <span className="text-gray-400 opacity-70 ml-1">
+                                            <span className="text-red-500 ml-1">
                                                 (bắt buộc)
                                             </span>
                                         </label>
@@ -607,23 +563,19 @@ function BannerSection() {
                                         <img
                                             src={CccdFront}
                                             alt="ID Front"
-                                            className="w-full h-50 mb-2 object-cover rounded-md border opacity-50"
+                                            className="w-full aspect-video object-cover rounded-lg border-2 border-dashed border-gray-300"
                                         />
                                         <input
                                             type="file"
-                                            id="idFrontImage"
-                                            name="idFrontImage"
                                             onChange={handleChange}
-                                            className="mb-2"
+                                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                                         />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <label
-                                            htmlFor="idFrontImage"
-                                            className="block mb-1 font-bold text-sm text-black"
-                                        >
+
+                                    <div className="space-y-4">
+                                        <label className="block font-semibold text-sm text-gray-700">
                                             Ảnh CMND/CCCD mặt sau
-                                            <span className="text-gray-400 opacity-70 ml-1">
+                                            <span className="text-red-500 ml-1">
                                                 (bắt buộc)
                                             </span>
                                         </label>
@@ -631,24 +583,19 @@ function BannerSection() {
                                         <img
                                             src={CccdBack}
                                             alt="ID Back"
-                                            className="w-full h-50 mb-2 object-cover rounded-md border opacity-50"
+                                            className="w-full aspect-video object-cover rounded-lg border-2 border-dashed border-gray-300"
                                         />
                                         <input
                                             type="file"
-                                            id="idBackImage"
-                                            name="idBackImage"
                                             onChange={handleChange}
-                                            className="mb-2"
+                                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                                         />
                                     </div>
-                                    <div className="flex flex-col">
-                                        <label
-                                            htmlFor="idFrontImage"
-                                            className="block mb-1 font-bold text-sm text-black"
-                                        >
-                                            Bản sao Bằng tốt nghiệp THPT công
-                                            chứng
-                                            <span className="text-gray-400 opacity-70 ml-1">
+
+                                    <div className="space-y-4">
+                                        <label className="block font-semibold text-sm text-gray-700">
+                                            Bản sao Bằng TN THPT 
+                                            <span className="text-red-500 ml-1">
                                                 (bắt buộc)
                                             </span>
                                         </label>
@@ -656,53 +603,45 @@ function BannerSection() {
                                         <img
                                             src={DiplomaTHPT}
                                             alt="Diploma"
-                                            className="w-full h-50 mb-2 object-cover rounded-md border opacity-50"
+                                            className="w-full aspect-video object-cover rounded-lg border-2 border-dashed border-gray-300"
                                         />
                                         <input
                                             type="file"
-                                            id="diplomaImage"
-                                            name="diplomaImage"
                                             onChange={handleChange}
-                                            className="mb-2"
+                                            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                                         />
                                     </div>
                                 </div>
-                                <div className="mt-6">
-                                    <div className="flex items-start mb-4">
+
+                                <div className="mt-8 space-y-4">
+                                    <label className="flex items-center space-x-3 cursor-pointer">
                                         <input
-                                            id="confirmCheck1"
                                             type="checkbox"
-                                            className="w-3 h-3 mt-1 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                         />
-                                        <label
-                                            htmlFor="confirmCheck1"
-                                            className="ml-2 text-sm text-gray-700"
-                                        >
+                                        <span className="text-gray-700">
                                             Tôi xin cam đoan những lời khai của
                                             tôi trên phiếu đăng ký này là đúng
                                             sự thật.
-                                        </label>
-                                    </div>
-                                    <div className="flex items-start mb-4">
+                                        </span>
+                                    </label>
+                                    <label className="flex items-center space-x-3 cursor-pointer">
                                         <input
-                                            id="confirmCheck2"
                                             type="checkbox"
-                                            className="w-3 h-3 mt-1 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+                                            className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
                                         />
-                                        <label
-                                            htmlFor="confirmCheck2"
-                                            className="ml-2 text-sm text-gray-700"
-                                        >
+                                        <span className="text-gray-700">
                                             Tôi đã đọc kỹ và cam kết tuân thủ
                                             Quy định tài chính của nhà trường.
-                                        </label>
-                                    </div>
+                                        </span>
+                                    </label>
                                 </div>
                             </section>
-                            {/* Gửi đi */}
+
                             <button
                                 type="submit"
-                                className="w-full bg-blue-500 text-white py-2 rounded-md"
+                                className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold text-lg
+                                transform transition duration-300 hover:bg-blue-700 hover:shadow-lg"
                             >
                                 Gửi hồ sơ đăng ký
                             </button>

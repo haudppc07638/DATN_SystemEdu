@@ -24,7 +24,12 @@ function ChatBox() {
         "Địa chỉ liên hệ của trường?",
         "Trường còn nhận hồ sơ không?",
         "Tôi muốn ứng tuyển nhân viên tại trường!",
-
+        "Học phí của trường như thế nào?",
+        "Các ngành đào tạo của trường?",
+        "Thời gian học tại trường?",
+        "Chính sách học bổng của trường?",
+        "Cơ sở vật chất của trường?",
+        "Chương trình thực tập tại trường?",
     ];
 
     const handleBotReply = (userMessage) => {
@@ -37,7 +42,18 @@ function ChatBox() {
                 "Chúng tôi đang mở tuyển sinh! Vui lòng kiểm tra thêm thông tin trên website của chúng tôi để biết chi tiết.",
             "tôi muốn ứng tuyển nhân viên tại trường!":
                 "Hiện tại trường không còn nhận tuyển dụng nữa. Xin lỗi và cảm ơn bạn đã quan tâm!",
-            
+            "học phí của trường như thế nào?":
+                "Học phí của trường dao động từ 25-30 triệu/năm tùy theo ngành học. Trường có nhiều chính sách hỗ trợ học phí và học bổng cho sinh viên.",
+            "các ngành đào tạo của trường?":
+                "Hiện tại trường đang đào tạo các ngành: Công nghệ thông tin, Thiết kế đồ họa, Quản trị kinh doanh, Marketing, Kế toán, và nhiều ngành hot khác.",
+            "thời gian học tại trường?":
+                "Thời gian đào tạo từ 2-3 năm tùy theo ngành học. Lịch học linh hoạt với cả ca sáng và ca chiều.",
+            "chính sách học bổng của trường?":
+                "Trường có nhiều chương trình học bổng hấp dẫn như: Học bổng đầu vào, học bổng khuyến khích học tập, học bổng tài năng với mức hỗ trợ lên đến 100% học phí.",
+            "cơ sở vật chất của trường?":
+                "Trường có cơ sở vật chất hiện đại với phòng học máy lạnh, thư viện, phòng thực hành, căng tin, khu thể thao và nhiều tiện ích khác.",
+            "chương trình thực tập tại trường?":
+                "Sinh viên được tham gia thực tập tại các doanh nghiệp đối tác của trường từ năm 2. Trường có mạng lưới hơn 100 doanh nghiệp liên kết.",
         };
 
         const normalizedMessage = userMessage.toLowerCase().trim();
@@ -79,7 +95,11 @@ function ChatBox() {
         <div className="fixed bottom-10 right-10 z-50">
             {!isOpen && (
                 <div onClick={() => setIsOpen(true)}>
-                    <img src={botchat} alt="botchat" className="w-25 animate-bounce"/>
+                    <img
+                        src={botchat}
+                        alt="botchat"
+                        className="w-25 animate-bounce"
+                    />
                 </div>
             )}
 
@@ -122,18 +142,22 @@ function ChatBox() {
                         })}
                         <div ref={messagesEndRef} />
                     </div>
-
+                    {/* gợi ý */}
                     {waitingForAnswer && (
-                        <div className="mt-4 px-4 py-2 bg-gray-200 rounded-md text-left">
-                            <div className="flex space-x-4 overflow-x-auto pb-2">
+                        <div className="px-4 py-2 bg-gray-100 rounded-lg shadow">
+                            <p className="text-gray-600 text-sm mb-2 font-medium">
+                                Gợi ý câu hỏi:
+                            </p>
+                            <div className="flex flex-wrap gap-2 pb-1 max-h-[80px] overflow-y-auto">
                                 {options.map((option, index) => (
                                     <div
                                         key={index}
-                                        className="p-2 bg-blue-600 text-white rounded-lg cursor-pointer whitespace-nowrap"
+                                        className="px-3 py-1.5 bg-white border border-blue-200 text-blue-600 rounded-full cursor-pointer hover:bg-blue-50 transition-colors duration-200 text-sm font-medium shadow-sm flex items-center gap-1.5 whitespace-nowrap"
                                         onClick={() =>
                                             handleSendMessage(option)
                                         }
                                     >
+                                        <i className="fas fa-lightbulb text-yellow-400 text-xs"></i>
                                         {option}
                                     </div>
                                 ))}

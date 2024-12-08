@@ -4,7 +4,7 @@ import BreadcrumbStudent from "../../Breadcrumbs/BreadcrumbStudent";
 const classSchedulesData = [
     {
         id: 1,
-        schoolday: "Chủ Nhật 12/10/2024",
+        schoolday: "Thứ Ba 12/10/2024", 
         classroom: "K302",
         lecturehall: "Sys Ninh Kiều",
         code: "CS101",
@@ -16,8 +16,8 @@ const classSchedulesData = [
     },
     {
         id: 2,
-        schoolday: "Thứ Hai 13/10/2024",
-        classroom: "K305",
+        schoolday: "Thứ Năm 13/10/2024",
+        classroom: "K305", 
         lecturehall: "Sys Ninh Kiều",
         code: "CS102",
         name: "Lập trình Java",
@@ -28,7 +28,7 @@ const classSchedulesData = [
     },
     {
         id: 3,
-        schoolday: "Thứ Ba 14/10/2024",
+        schoolday: "Thứ Bảy 14/10/2024",
         classroom: "K303",
         lecturehall: "Sys Ninh Kiều",
         code: "CS103",
@@ -40,10 +40,10 @@ const classSchedulesData = [
     },
     {
         id: 4,
-        schoolday: "Thứ Tư 15/10/2024",
+        schoolday: "Thứ Ba 15/10/2024",
         classroom: "K304",
         lecturehall: "Sys Ninh Kiều",
-        code: "CS104",
+        code: "CS104", 
         name: "Lập trình Web",
         class: "IT30412",
         teacher: "dungmv",
@@ -64,7 +64,7 @@ const classSchedulesData = [
     },
     {
         id: 6,
-        schoolday: "Thứ Sáu 17/10/2024",
+        schoolday: "Thứ Bảy 17/10/2024",
         classroom: "K301",
         lecturehall: "Sys Ninh Kiều",
         code: "CS106",
@@ -76,7 +76,7 @@ const classSchedulesData = [
     },
     {
         id: 7,
-        schoolday: "Thứ Bảy 18/10/2024",
+        schoolday: "Thứ Ba 18/10/2024",
         classroom: "K305",
         lecturehall: "Sys Ninh Kiều",
         code: "CS107",
@@ -88,7 +88,7 @@ const classSchedulesData = [
     },
     {
         id: 8,
-        schoolday: "Chủ Nhật 19/10/2024",
+        schoolday: "Thứ Năm 19/10/2024",
         classroom: "K302",
         lecturehall: "Sys Ninh Kiều",
         code: "CS108",
@@ -100,7 +100,7 @@ const classSchedulesData = [
     },
     {
         id: 9,
-        schoolday: "Thứ Hai 20/10/2024",
+        schoolday: "Thứ Bảy 20/10/2024",
         classroom: "K301",
         lecturehall: "Sys Ninh Kiều",
         code: "CS109",
@@ -152,6 +152,7 @@ function ClassSchedule() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+            <h2 className="text-2xl font-bold">Lịch học</h2>
             <BreadcrumbStudent items={[{ label: "Lịch học" }]} />
             <div className="flex flex-col mb-6 mt-4">
                 <div className="mb-4">
@@ -159,14 +160,22 @@ function ClassSchedule() {
                         htmlFor="select"
                         className="block mb-2 font-medium text-gray-700 text-sm"
                     >
-                        Học kỳ
+                        Thời gian
                     </label>
                     <select
                         className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 w-full text-sm"
                         id="select"
                     >
-                        <option>Summer 2024</option>
-                        <option>Fall 2025</option>
+                        <option>7 ngày tới</option>
+                        <option>14 ngày tới</option>
+                        <option>30 ngày tới</option>
+                        <option>60 ngày tới</option>
+                        <option>90 ngày tới</option>
+                        <option>7 ngày trước</option>
+                        <option>14 ngày trước</option>
+                        <option>30 ngày trước</option>
+                        <option>60 ngày trước</option>
+                        <option>90 ngày trước</option>
                     </select>
                 </div>
             </div>
@@ -189,8 +198,8 @@ function ClassSchedule() {
                             "Phòng",
                             "Giảng đường",
                             "Mã môn",
-                            "Môn",
-                            "Lớp",
+                            "Môn học",
+                            "Lớp môn",
                             "Giảng viên",
                             "Ca học",
                             "Giờ học",

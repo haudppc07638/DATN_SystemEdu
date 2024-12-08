@@ -104,61 +104,32 @@ const Show = ({ credits, limit }) => {
 
     return (
         <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            <Breadcrumb
-                items={[
-                    { label: "Quản lý tín chỉ", link: "/admin/tin-chi" },
-                    { label: "Danh sách tín chỉ" },
-                ]}
-            />
-
-            <div className="flex flex-col justify-between md:flex-row gap-5 mb-4">
-                <LimitSelector
-                    limit={data.limit}
-                    onLimitChange={handleLimitChange}
+            <h2 className="text-2xl font-bold">Tín chỉ</h2>
+            <div className="flex flex-col items-start mb-2">
+                <Breadcrumb
+                    items={[
+                        { label: "Danh sách tín chỉ" },
+                    ]}
                 />
-
-                <form
-                    onSubmit={handleSearchSubmit}
-                    className="flex items-center gap-5"
-                >
-                    <div className="flex px-4 py-1 rounded-md border-2 border-gray-700 overflow-hidden max-w-md mx-auto font-[sans-serif]">
-                        <input
-                            type="text"
-                            placeholder="Tìm kiếm..."
-                            value={data.search}
-                            onChange={handleSearchChange}
-                            onKeyPress={handleKeyPress}
-                            className="w-full outline-none bg-transparent text-gray-600 text-sm"
-                        />
-                        <button type="submit" className="p-2">
-                            <i className="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                    </div>
-
-                    <Link
-                        href="/admin/tin-chi/them"
-                        className="bg-graydark hover:opacity-80 text-white font-bold py-2 px-4 rounded text-center"
-                    >
-                        Thêm
-                    </Link>
-                </form>
             </div>
-
             <div className="max-w-full overflow-x-auto">
                 <table className="w-full table-auto">
                     <thead>
                         <tr className="bg-gray-2 text-left dark:bg-meta-4">
                             <th className="min-w-[10px] py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                                #
+                                STT
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Giá
+                                Giá tiền (1TC)
+                            </th>
+                            <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
+                                Tăng học phí (%/năm)
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
                                 Ngày tạo
                             </th>
                             <th className="min-w-[150px] py-4 px-4 font-medium text-black dark:text-white">
-                                Ngày hết hạn
+                                Ngày cập nhật
                             </th>
                             <th className="py-4 px-4 font-medium text-black dark:text-white">
                                 Tác vụ
@@ -176,21 +147,33 @@ const Show = ({ credits, limit }) => {
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(credit.price)}
+                                            {new Intl.NumberFormat("vi-VN", {
+                                                style: "currency",
+                                                currency: "VND",
+                                            }).format(credit.price)}
+                                        </p>
+                                    </td>
+                                    <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                        <p className="text-black text-center dark:text-white">
+                                            5%
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {new Date(credit.created_at).toLocaleDateString('vi-VN')}
+                                            {new Date(
+                                                credit.created_at,
+                                            ).toLocaleDateString("vi-VN")}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
                                         <p className="text-black dark:text-white">
-                                            {credit.deleted_at ? new Date(credit.deleted_at).toLocaleDateString('vi-VN') : 'Chưa hết hạn'}
+                                            {new Date(
+                                                credit.updated_at,
+                                            ).toLocaleDateString("vi-VN")}
                                         </p>
                                     </td>
                                     <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
-                                        <div className="flex items-center space-x-3.5">
+                                        <div className="flex justify-center items-center">
                                             <Link
                                                 href={`/admin/tin-chi/${credit.id}/sua`}
                                                 className="hover:text-primary"
@@ -200,17 +183,6 @@ const Show = ({ credits, limit }) => {
                                                     title="Chỉnh sửa"
                                                 ></i>
                                             </Link>
-                                            <button
-                                                className="hover:text-primary"
-                                                onClick={() =>
-                                                    handleDeleteClick(credit.id)
-                                                }
-                                            >
-                                                <i
-                                                    className="fa-regular fa-trash-can text-xl"
-                                                    title="Xóa"
-                                                ></i>
-                                            </button>
                                         </div>
                                     </td>
                                 </tr>

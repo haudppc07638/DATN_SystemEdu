@@ -1,64 +1,16 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
+import { router } from "@inertiajs/react";
 
-const studentsList = [
-    {
-        id: 1,
-        name: "Trần Nhân Nghĩa",
-        studentId: "SV001",
-        gender: "Nam",
-        major: "Công nghệ thông tin",
-        birthDay: "20/07/2002",
-    },
-    {
-        id: 2,
-        name: "Thái Văn Lộc",
-        gender: "Nam",
-        studentId: "SV002",
-        major: "Kinh tế",
-        birthDay: "12/05/2001",
-    },
-    {
-        id: 3,
-        name: "Danh Phúc Hậu",
-        gender: "Nam",
-        studentId: "SV003",
-        major: "Quản trị kinh doanh",
-        birthDay: "20/09/2000",
-    },
-    {
-        id: 4,
-        name: "Võ Minh Khánh",
-        gender: "Nam",
-        studentId: "KT004",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
-    },
-    {
-        id: 5,
-        name: "Ngô Thừa Ân",
-        gender: "Nam",
-        studentId: "KT008",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
-    },
-    {
-        id: 6,
-        name: "Gia Cát Lượng",
-        gender: "Nam",
-        studentId: "KT009",
-        major: "Kỹ thuật phần mềm",
-        birthDay: "14/02/2000",
-    },
-];
-
-function StudentSearch() {
+function StudentSearch({ students: initialStudents }) {
     const [loading, setLoading] = useState(true);
-    const [students] = useState(studentsList);
+    const [students, setStudents] = useState(initialStudents || []);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredStudents, setFilteredStudents] = useState(studentsList);
+    const [filteredStudents, setFilteredStudents] = useState(
+        initialStudents || [],
+    );
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -70,18 +22,27 @@ function StudentSearch() {
     useEffect(() => {
         if (searchTerm.trim() === "") {
             setFilteredStudents(students);
+            console.log(students);
         } else {
-            setFilteredStudents(
-                students.filter(
-                    (student) =>
-                        student.name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        student.studentId
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
-                ),
+            const searchResults = students.filter(
+                (student) =>
+                    student.full_name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                    student.code
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                    student.email
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                    (student.major?.name || "")
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                    (student.majorClass?.name || "")
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
             );
+            setFilteredStudents(searchResults);
         }
         setCurrentPage(1);
     }, [searchTerm, students]);
@@ -92,11 +53,14 @@ function StudentSearch() {
         indexOfFirstItem,
         indexOfLastItem,
     );
-
     const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
+    };
+
+    const handleViewDetail = (studentId) => {
+        router.get(`/student-seach/${studentId}`);
     };
 
     if (loading) {
@@ -108,70 +72,94 @@ function StudentSearch() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbTeacher items={[{ label: "Tìm kiếm sinh viên" }]} />
-            <div className="mt-4">
-                <input
-                    type="text"
-                    placeholder="Nhập tên hoặc mã sinh viên..."
-                    className="w-full p-2 pl-5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                    Tìm kiếm sinh viên
+                </h2>
+                <div className="flex flex-col items-start">
+                    <BreadcrumbTeacher
+                        items={[{ label: "Tìm kiếm sinh viên" }]}
+                    />
+                </div>
             </div>
-            <div className="max-w-full overflow-x-auto">
-                <table className="w-full table-auto mt-8">
+
+            <div className="mb-6">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm sinh viên..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="absolute right-3 top-2">
+                        <i className="fas fa-search text-gray-400 text-lg"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow">
+                <table className="min-w-full divide-y divide-gray-200">
                     <thead>
-                        <tr className="text-left dark:bg-meta-4">
-                            <th className="border py-4 px-4 text-center">
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Tên SV
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Tên sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Mã SV
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Mã sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Giới tính
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Email
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Ngày sinh
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Số điện thoại
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Chuyên ngành
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tác vụ
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="divide-y divide-gray-200">
                         {currentStudents.length > 0 ? (
                             currentStudents.map((student, index) => (
-                                <tr key={student.id}>
-                                    <td className="border py-4 px-4 text-center">
+                                <tr
+                                    key={student.id}
+                                    className="hover:bg-gray-50 transition-colors duration-200"
+                                >
+                                    <td className="py-4 px-6 text-center">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="border py-2 px-4">
-                                        {student.name}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.full_name}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        {student.studentId}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.code}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        {student.gender}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.email}
                                     </td>
-                                    <td className="border py-2 px-4">
-                                        {student.birthDay}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.phone}
                                     </td>
-                                    <td className="border py-2 px-4">
-                                        {student.major}
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.major?.name}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        <button className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-400">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                        <button
+                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+                                            onClick={() =>
+                                                handleViewDetail(student.id)
+                                            }
+                                        >
                                             Xem chi tiết
                                         </button>
                                     </td>
@@ -179,7 +167,10 @@ function StudentSearch() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="12" className="py-4 text-center">
+                                <td
+                                    colSpan="7"
+                                    className="py-8 text-center text-gray-500 text-sm"
+                                >
                                     Không tìm thấy sinh viên nào.
                                 </td>
                             </tr>
@@ -188,22 +179,28 @@ function StudentSearch() {
                 </table>
             </div>
 
-            <div className="flex justify-center mt-4">
-                {totalPages > 1 &&
-                    Array.from({ length: totalPages }, (_, i) => (
-                        <button
-                            key={i + 1}
-                            onClick={() => handlePageChange(i + 1)}
-                            className={`px-4 py-2 mx-1 ${
-                                currentPage === i + 1
-                                    ? "bg-blue-600 text-white"
-                                    : "bg-gray-300"
-                            } rounded`}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-            </div>
+            {totalPages > 1 && (
+                <div className="mt-6 flex justify-center">
+                    <div className="flex space-x-2">
+                        {Array.from(
+                            { length: totalPages },
+                            (_, i) => i + 1,
+                        ).map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => handlePageChange(page)}
+                                className={`px-4 py-2 rounded-lg ${
+                                    currentPage === page
+                                        ? "bg-blue-600 text-white"
+                                        : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                                } transition-colors duration-200`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

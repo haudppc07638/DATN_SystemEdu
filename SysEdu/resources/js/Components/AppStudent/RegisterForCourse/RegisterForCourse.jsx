@@ -84,7 +84,10 @@ function RegisterForCourse() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbStudent items={[{ label: "Đăng kí môn học" }]} />
+            <h2 className="text-2xl font-bold">Danh sách môn học</h2>
+            <div className="flex flex-col items-start mb-2">
+                <BreadcrumbStudent items={[{ label: "Danh sách môn học" }]} />
+            </div>
             <div className="py-4">
                 <div className="flex justify-end mb-3 mt-5">
                     {["Print", "Copy", "Excel", "CSV", "PDF"].map((header) => (
@@ -99,7 +102,7 @@ function RegisterForCourse() {
                 <table className="table-auto w-full border border-gray-300 rounded-md">
                     <thead className="bg-gray-200">
                         <tr>
-                            {["STT", "Mã môn", "Tên môn", "Thao tác"].map(
+                            {["STT", "Mã môn học", "Tên môn", "Thao tác"].map(
                                 (header) => (
                                     <th
                                         key={header}

@@ -6,33 +6,33 @@ const classList = [
     {
         id: 1,
         className: "Lập trình Website",
-        classCode: "WD18306",
-        department: "Công nghệ thông tin",
-        specialized: "Lập trình Website",
+        classCode: "Lập trình Web-WD18306",
+        department: "Hệ thống thông tin", 
+        specialized: "Hệ thống thông tin",
         quantityStudent: 20,
     },
     {
         id: 2,
         className: "Lập trình Website",
-        classCode: "WD18307",
-        department: "Công nghệ thông tin",
-        specialized: "Lập trình Website",
+        classCode: "Lập trình Web-WD18307",
+        department: "Hệ thống thông tin",
+        specialized: "Hệ thống thông tin", 
         quantityStudent: 25,
     },
     {
         id: 3,
         className: "Lập trình Website",
-        classCode: "WD18308",
-        department: "Công nghệ thông tin",
-        specialized: "Lập trình Website",
+        classCode: "Lập trình Web-WD18308",
+        department: "Hệ thống thông tin",
+        specialized: "Hệ thống thông tin",
         quantityStudent: 30,
     },
     {
         id: 4,
         className: "Lập trình Website",
-        classCode: "WD18306",
-        department: "Công nghệ thông tin",
-        specialized: "Lập trình Website",
+        classCode: "Lập trình Web-WD18306",
+        department: "Hệ thống thông tin",
+        specialized: "Hệ thống thông tin",
         quantityStudent: 24,
     },
 ];
@@ -43,6 +43,7 @@ function Myclass() {
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredClasses, setFilteredClasses] = useState(classList);
     const [currentPage, setCurrentPage] = useState(1);
+    const [openMenu, setOpenMenu] = useState(null);
     const itemsPerPage = 5;
 
     useEffect(() => {
@@ -71,6 +72,19 @@ function Myclass() {
         setCurrentPage(1);
     }, [searchTerm, classes]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (openMenu && !event.target.closest(".relative")) {
+                setOpenMenu(null);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [openMenu]);
+
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentClasses = filteredClasses.slice(
@@ -93,87 +107,124 @@ function Myclass() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbTeacher items={[{ label: "Danh sách lớp tôi" }]} />
-            <div className="flex justify-start mb-4">
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm lớp tôi"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-800">
+                    Danh sách lớp của tôi
+                </h2>
+                <BreadcrumbTeacher
+                    items={[{ label: "Danh sách lớp của tôi" }]}
                 />
             </div>
-            <div className="max-w-full overflow-x-auto">
-                <table className="w-full table-auto mt-8">
-                    <thead>
-                        <tr className="text-left dark:bg-meta-4">
-                            <th className="border py-4 px-4 text-center">
+
+            <div className="mb-6">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm lớp học..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="absolute right-3 top-2">
+                        <i className="fas fa-search text-gray-400 text-lg"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Môn
+                            </th>
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tên lớp
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Mã lớp
-                            </th>
-                            <th className="border py-4 px-4 text-center">
-                                Khoa
-                            </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Chuyên ngành
                             </th>
-                            <th className="border py-4 px-4 text-center">
-                                Số lượng
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Số lượng sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tác vụ
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ghi chú
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white divide-y divide-gray-200">
                         {currentClasses.length > 0 ? (
                             currentClasses.map((classItem, index) => (
-                                <tr key={classItem.id}>
-                                    <td className="border py-4 px-4 text-center">
+                                <tr
+                                    key={classItem.id}
+                                    className="hover:bg-gray-50"
+                                >
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="border py-2 px-4">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.className}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="border py-2 px-4">
-                                        {classItem.department}
-                                    </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.specialized}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.quantityStudent}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        <Link
-                                            href="/teacher/student-myclass-detail"
-                                            className="bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-400"
-                                        >
-                                            Xem chi tiết
-                                        </Link>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-medium">
+                                        <div className="relative inline-block text-left">
+                                            <button
+                                                className="text-gray-600 hover:text-gray-800 focus:outline-none"
+                                                onClick={() =>
+                                                    setOpenMenu(classItem.id)
+                                                }
+                                            >
+                                                <i className="fas fa-ellipsis-v"></i>
+                                            </button>
+
+                                            {openMenu === classItem.id && (
+                                                <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
+                                                    <div className="py-1">
+                                                        <Link
+                                                            href="/teacher/student-myclass-detail"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        >
+                                                            Xem chi tiết
+                                                        </Link>
+                                                        <Link
+                                                            href="/teacher/student-attendance-detail"
+                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                        >
+                                                            Điểm danh
+                                                        </Link>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.note}
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="12" className="py-4 text-center">
+                                <td
+                                    colSpan="6"
+                                    className="px-6 py-4 text-center text-sm text-gray-500"
+                                >
                                     Không tìm thấy lớp nào.
                                 </td>
                             </tr>

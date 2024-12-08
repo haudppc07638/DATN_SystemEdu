@@ -68,13 +68,14 @@ function Sidebar() {
                             isDropdown: true,
                             subItems: [
                                 {
-                                    link: "/student/bang-diem",
-                                    label: "Bảng điểm",
-                                },
-                                {
                                     link: "",
                                     label: "Bảng điểm theo kỳ",
                                 },
+                                {
+                                    link: "/student/bang-diem",
+                                    label: "Lịch sử bảng điểm",
+                                },
+                                
                             ],
                         },
                         {

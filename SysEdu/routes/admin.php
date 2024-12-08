@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\SemesterController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\SubjectClassController;
 use App\Http\Controllers\Admin\TimeSlotController;
 use Illuminate\Support\Facades\Route;
 
@@ -121,13 +122,13 @@ use Illuminate\Support\Facades\Route;
     });
 
     //Subject Class
-    Route::name('admin.subjectCLasses.')->group(function () {
-        Route::get('lop-mon', [TimeSlotController::class, 'index'])->name('show');
-        Route::get('lop-mon/them', [TimeSlotController::class, 'create'])->name('create');
-        Route::post('lop-mon/them', [TimeSlotController::class, 'store'])->name('store');
-        Route::get('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'edit'])->name('edit');
-        Route::patch('lop-mon/{subjectClass}/sua', [TimeSlotController::class,'update'])->name('update');
-        Route::delete('lop-mon/{subjectClass}', [TimeSlotController::class, 'destroy'])->name('destroy');
+    Route::name('admin.subjectClasses.')->group(function () {
+        Route::get('lop-mon', [SubjectClassController::class, 'index'])->name('show');
+        Route::get('lop-mon/them', [SubjectClassController::class, 'create'])->name('create');
+        Route::post('lop-mon/them', [SubjectClassController::class, 'store'])->name('store');
+        Route::get('lop-mon/{subjectClass}/sua', [SubjectClassController::class,'edit'])->name('edit');
+        Route::patch('lop-mon/{subjectClass}/sua', [SubjectClassController::class,'update'])->name('update');
+        Route::delete('lop-mon/{subjectClass}', [SubjectClassController::class, 'destroy'])->name('destroy');
     });
 
     Route::name('admin.credits.')->group(function () {

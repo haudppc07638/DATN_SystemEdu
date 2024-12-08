@@ -24,10 +24,12 @@ function RegisterInfo() {
             <div className="md:w-1/2 p-4">
                 <iframe
                     className="w-full h-full"
-                    src="https://www.youtube.com/embed/z5ywlBpVusw?si=_ecwL6EsYLpDaMMj"
-                    title="YouTube Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
+                    src="https://www.youtube.com/embed/cRxry0Uo_7s?si=yw0Ljuwp_NTPfDaM"
+                    title="YouTube Sysedu"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
                 ></iframe>
             </div>
 

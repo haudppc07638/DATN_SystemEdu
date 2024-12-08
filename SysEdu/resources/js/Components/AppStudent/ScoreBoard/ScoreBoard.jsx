@@ -6,26 +6,26 @@ const scoreBoardData = {
         {
             id: 1,
             secondperiod: 1,
-            code: "IT101",
-            name: "Lập trình Web",
-            numbercredits: 3,
-            score: 7,
+            code: "MOB101", 
+            name: "Lập trình di động cơ bản",
+            numbercredits: 4,
+            score: 8.5,
             status: "Passed",
         },
         {
             id: 2,
             secondperiod: 1,
-            code: "CS102",
-            name: "Cơ sở dữ liệu",
-            numbercredits: 3,
-            score: 8,
+            code: "PRJ101",
+            name: "Dự án lập trình Java",
+            numbercredits: 5,
+            score: 7.8,
             status: "Passed",
         },
         {
             id: 3,
             secondperiod: 2,
-            code: "CS103",
-            name: "Cấu trúc dữ liệu",
+            code: "DBI101",
+            name: "Quản trị cơ sở dữ liệu",
             numbercredits: 4,
             score: 6.5,
             status: "Passed",
@@ -33,64 +33,118 @@ const scoreBoardData = {
         {
             id: 4,
             secondperiod: 2,
-            code: "CS104",
-            name: "Hệ điều hành",
-            numbercredits: 3,
-            score: 5,
+            code: "NET101",
+            name: "Lập trình .NET",
+            numbercredits: 5,
+            score: 4.5,
             status: "Failed",
         },
         {
             id: 5,
             secondperiod: 2,
-            code: "CS105",
-            name: "Mạng máy tính",
-            numbercredits: 3,
-            score: 7.5,
+            code: "PYT101",
+            name: "Lập trình Python",
+            numbercredits: 4,
+            score: 8.2,
             status: "Passed",
         },
         {
             id: 6,
             secondperiod: 3,
-            code: "IT102",
-            name: "Lập trình di động",
-            numbercredits: 3,
-            score: 9,
+            code: "IOT101",
+            name: "Internet vạn vật",
+            numbercredits: 4,
+            score: 7.5,
             status: "Passed",
         },
         {
             id: 7,
             secondperiod: 3,
-            code: "CS106",
-            name: "Phân tích hệ thống",
-            numbercredits: 3,
-            score: 6,
+            code: "AIS101",
+            name: "Trí tuệ nhân tạo cơ bản",
+            numbercredits: 5,
+            score: 8.0,
             status: "Passed",
         },
         {
             id: 8,
             secondperiod: 3,
-            code: "IT103",
-            name: "Trí tuệ nhân tạo",
+            code: "CSD101",
+            name: "Cấu trúc dữ liệu nâng cao",
             numbercredits: 4,
-            score: 8.5,
+            score: 7.2,
             status: "Passed",
         },
         {
             id: 9,
-            secondperiod: 3,
-            code: "CS107",
-            name: "Lập trình Java",
-            numbercredits: 3,
-            score: 7.2,
+            secondperiod: 4,
+            code: "SWD101",
+            name: "Phát triển phần mềm",
+            numbercredits: 5,
+            score: 8.5,
             status: "Passed",
         },
         {
             id: 10,
             secondperiod: 4,
-            code: "CS108",
-            name: "Kỹ thuật phần mềm",
-            numbercredits: 3,
-            score: 6.8,
+            code: "NWC101",
+            name: "Mạng máy tính nâng cao",
+            numbercredits: 4,
+            score: 7.8,
+            status: "Passed",
+        },
+        {
+            id: 11,
+            secondperiod: 5,
+            code: "SES101",
+            name: "Bảo mật phần mềm",
+            numbercredits: 4,
+            score: 8.2,
+            status: "Passed",
+        },
+        {
+            id: 12,
+            secondperiod: 5,
+            code: "PRO101",
+            name: "Quy trình phát triển phần mềm",
+            numbercredits: 5,
+            score: 7.5,
+            status: "Passed",
+        },
+        {
+            id: 13,
+            secondperiod: 6,
+            code: "DPS101",
+            name: "Xử lý dữ liệu phân tán",
+            numbercredits: 4,
+            score: 8.0,
+            status: "Passed",
+        },
+        {
+            id: 14,
+            secondperiod: 6,
+            code: "MLN101",
+            name: "Học máy và mạng neural",
+            numbercredits: 4,
+            score: 7.8,
+            status: "Passed",
+        },
+        {
+            id: 15,
+            secondperiod: 7,
+            code: "WEB101",
+            name: "Lập trình Web",
+            numbercredits: 5,
+            score: 8.5,
+            status: "Passed",
+        },
+        {
+            id: 16, 
+            secondperiod: 7,
+            code: "RJS101",
+            name: "Lập trình ReactJS",
+            numbercredits: 4,
+            score: 7.9,
             status: "Passed",
         },
     ],
@@ -101,7 +155,7 @@ function ScoreBoard() {
     const [data, setData] = useState(scoreBoardData);
     const { courses } = data;
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 100;
     const totalPages = Math.ceil(courses.length / itemsPerPage);
     const [currentPage, setCurrentPage] = useState(1);
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -129,8 +183,11 @@ function ScoreBoard() {
 
     return (
         <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <BreadcrumbStudent items={[{ label: "Bảng điểm" }]} />
-            <div className="flex flex-col mb-6 mt-4">
+            <h2 className="text-2xl font-bold">Lịch sử bảng điểm</h2>
+            <div className="flex flex-col items-start mb-2">
+                <BreadcrumbStudent items={[{ label: "Lịch sử bảng điểm" }]} />
+            </div>
+            <div className="flex flex-col mb-6 mt-2">
                 <h3 className="text-lg font-bold pt-2">
                     Chuyên ngành: <span>Lập trình Web</span>
                 </h3>
@@ -207,8 +264,63 @@ function ScoreBoard() {
                     ))}
                 </tbody>
             </table>
+            <div className="bg-gray-100 p-4 mt-6 rounded-lg">
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="bg-white p-4 rounded-lg shadow">
+                        <h3 className="font-semibold text-lg mb-2">Điểm trung bình</h3>
+                        <p className="text-2xl font-bold text-blue-600">
+                            {(scoreBoardData.courses.reduce((sum, course) => sum + course.score, 0) / scoreBoardData.courses.length).toFixed(1)}
+                        </p>
+                    </div>
+                    <div className="bg-white p-4 rounded-lg shadow">
+                        <h3 className="font-semibold text-lg mb-2">Tín chỉ</h3>
+                        <p className="text-lg">
+                            <span className="font-bold text-green-600">
+                                {scoreBoardData.courses.filter(course => course.status === "Passed").reduce((sum, course) => sum + course.numbercredits, 0)}
+                            </span>
+                            <span className="text-gray-500">/</span>
+                            <span className="font-bold">
+                                {scoreBoardData.courses.reduce((sum, course) => 110, 0)}
+                            </span>
+                            <span className="text-sm text-gray-500 ml-2">(Đạt / Tổng)</span>
+                        </p>
+                        <p className="text-sm text-gray-500">0 miễn giảm</p>
+                    </div>
+                </div>
 
-            <div className="flex justify-center space-x-2 mt-4 text-sm">
+                <div className="bg-white p-4 rounded-lg shadow">
+                    <h3 className="font-semibold text-lg mb-4">Thống kê</h3>
+                    <table className="w-full border-collapse">
+                        <thead>
+                            <tr>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn đạt</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn học lại</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn đang học</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr className="text-center">
+                                <td className="border border-gray-300 px-4 py-3">
+                                    <span className="text-xl font-bold text-green-600">
+                                        {scoreBoardData.courses.filter(course => course.status === "Passed").length}
+                                    </span>
+                                </td>
+                                <td className="border border-gray-300 px-4 py-3">
+                                    <span className="text-xl font-bold text-red-600">
+                                        {scoreBoardData.courses.filter(course => course.status === "Failed").length}
+                                    </span>
+                                </td>
+                                <td className="border border-gray-300 px-4 py-3">
+                                    <span className="text-xl font-bold text-blue-600">
+                                        {scoreBoardData.courses.filter(course => course.status === "In Progress").length}
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {/* <div className="flex justify-center space-x-2 mt-4 text-sm">
                 {totalPages > 1 &&
                     [...Array(totalPages)].map((_, i) => (
                         <button
@@ -223,7 +335,7 @@ function ScoreBoard() {
                             {i + 1}
                         </button>
                     ))}
-            </div>
+            </div> */}
         </div>
     );
 }
