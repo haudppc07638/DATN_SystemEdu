@@ -4,7 +4,7 @@ const classList = [
     {
         id: 1,
         className: "Lập trình Website",
-        classCode: "WD18306", 
+        classCode: "WD18306",
         nameStudents: "Trần Nhân Nghĩa",
         idStudent: "SV001",
         date: "01/12/2024",
@@ -14,7 +14,7 @@ const classList = [
     },
     {
         id: 2,
-        className: "Lập trình Website", 
+        className: "Lập trình Website",
         classCode: "WD18306",
         nameStudents: "Danh Phúc Hậu",
         idStudent: "SV002",
@@ -80,7 +80,7 @@ function ExamList() {
                             .includes(searchTerm.toLowerCase()) ||
                         classItem.idStudent
                             .toLowerCase()
-                            .includes(searchTerm.toLowerCase())
+                            .includes(searchTerm.toLowerCase()),
                 ),
             );
         }
@@ -109,29 +109,35 @@ function ExamList() {
     }
 
     return (
-        <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg">
-            <BreadcrumbTeacher
-                items={[
-                    {
-                        label: "Danh sách phòng thi",
-                        link: "/teacher/student-examlist",
-                    },
-                    { label: "Danh sách sinh viên" },
-                ]}
-            />
-
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                <div className="w-full md:w-1/3">
-                    <input
-                        type="text"
-                        placeholder="Tìm kiếm theo tên, mã sinh viên..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold">Chi tiết danh sách thi</h2>
+                <div className="flex flex-col items-start mb-2">
+                    <BreadcrumbTeacher
+                        items={[
+                            {
+                                label: "Danh sách lịch thi",
+                                link: "/teacher/student-examlist",
+                            },
+                            { label: "Chi tiết danh sách thi" },
+                        ]}
                     />
                 </div>
             </div>
-
+            <div className="mb-6">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm sinh viên..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="absolute right-3 top-2">
+                        <i className="fas fa-search text-gray-400 text-lg"></i>
+                    </div>
+                </div>
+            </div>
             <div className="bg-white rounded-lg shadow">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead>
@@ -168,9 +174,14 @@ function ExamList() {
                     <tbody className="bg-white divide-y divide-gray-200">
                         {currentClasses.length > 0 ? (
                             currentClasses.map((classItem, index) => (
-                                <tr key={classItem.id} className="hover:bg-gray-50">
+                                <tr
+                                    key={classItem.id}
+                                    className="hover:bg-gray-50"
+                                >
                                     <td className="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-500">
-                                        {(currentPage - 1) * itemsPerPage + index + 1}
+                                        {(currentPage - 1) * itemsPerPage +
+                                            index +
+                                            1}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {classItem.className}
@@ -200,7 +211,10 @@ function ExamList() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="9" className="px-6 py-4 text-center text-sm text-gray-500">
+                                <td
+                                    colSpan="9"
+                                    className="px-6 py-4 text-center text-sm text-gray-500"
+                                >
                                     Không tìm thấy dữ liệu
                                 </td>
                             </tr>

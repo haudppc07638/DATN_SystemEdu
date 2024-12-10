@@ -15,14 +15,14 @@ const RegisterForCourseData = {
             amount: 16,
             timeStart: "20/11/2024",
             timeEnd: "20/12/2024",
-            classTime: "8:00 - 10:00", 
+            classTime: "8:00 - 10:00",
             notes: "Cần chuẩn bị tài liệu",
             subjectCode: "WEB1022",
-            registerDeadline: "20/12/2024"
+            registerDeadline: "20/12/2024",
         },
         {
             id: 2,
-            code: "WDIT122", 
+            code: "WDIT122",
             teacher: "Minh Khánh",
             name: "Lập trình Web",
             teacherId: 2,
@@ -34,13 +34,13 @@ const RegisterForCourseData = {
             classTime: "10:00 - 12:00",
             notes: "Cần chuẩn bị tài liệu",
             subjectCode: "WEB1022",
-            registerDeadline: "20/12/2024"
+            registerDeadline: "20/12/2024",
         },
         {
             id: 3,
             code: "WDIT122",
             teacher: "Phúc Hậu",
-            name: "Lập trình Web", 
+            name: "Lập trình Web",
             teacherId: 3,
             study: "Ca 4",
             day: "Thứ 2,4,6",
@@ -50,7 +50,7 @@ const RegisterForCourseData = {
             classTime: "13:00 - 15:00",
             notes: "Cần chuẩn bị tài liệu",
             subjectCode: "WEB1022",
-            registerDeadline: "20/12/2024"
+            registerDeadline: "20/12/2024",
         },
         {
             id: 4,
@@ -66,7 +66,7 @@ const RegisterForCourseData = {
             classTime: "13:00 - 15:00",
             notes: "Cần chuẩn bị tài liệu",
             subjectCode: "WEB1022",
-            registerDeadline: "20/12/2024"
+            registerDeadline: "20/12/2024",
         },
         {
             id: 5,
@@ -81,8 +81,8 @@ const RegisterForCourseData = {
             timeEnd: "20/12/2024",
             classTime: "16:00 - 18:00",
             notes: "Cần chuẩn bị tài liệu",
-            subjectCode: "WEB1022", 
-            registerDeadline: "20/12/2024"
+            subjectCode: "WEB1022",
+            registerDeadline: "20/12/2024",
         },
     ],
 };
@@ -117,123 +117,143 @@ function RegisterForCourseDetail() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Đăng kí môn học</h2>
-            <BreadcrumbStudent
-                        items={[
-                            { label: "Danh sách môn học", link: "/student/dang-ki-mon-hoc" },
-                            { label: "Đăng ký môn học" },
-                        ]}
-                    />
-            <div className="py-4">
-                <div className="flex justify-end mb-3 mt-5">
-                    {["Print", "Copy", "Excel", "CSV", "PDF"].map((action) => (
-                        <div
-                            key={action}
-                            className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
-                        >
-                            {action}
-                        </div>
-                    ))}
-                </div>
-                <table className="table-auto w-full border border-gray-300 rounded-md text-sm">
-                    <thead className="bg-gray-200">
-                        <tr>
-                            {[
-                                "STT",
-                                "Mã môn",
-                                "Tên môn",
-                                "Lớp môn",
-                                "Giảng viên",
-                                "Ca học",
-                                "Ngày học",
-                                "Số lượng tham gia",
-                                "Ngày bắt đầu",
-                                "Ngày kết thúc",
-                                "Ngày hết hạn đăng kí",
-                                "Thao tác",
-                            ].map((header) => (
-                                <th
-                                    key={header}
-                                    className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
-                                >
-                                    {header}
+        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-800">
+                    Đăng kí môn học
+                </h2>
+                <BreadcrumbStudent
+                    items={[
+                        {
+                            label: "Danh sách môn học",
+                            link: "/student/dang-ki-mon-hoc",
+                        },
+                        { label: "Đăng ký môn học" },
+                    ]}
+                />
+            </div>
+
+            <div className="flex justify-end mb-3 mt-5">
+                {["Print", "Copy", "Excel", "CSV", "PDF"].map((action) => (
+                    <div
+                        key={action}
+                        className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
+                    >
+                        {action}
+                    </div>
+                ))}
+            </div>
+
+            <div className="bg-white shadow-md overflow-hidden">
+                <div className="overflow-x-auto">
+                    <table className="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                                <th className="py-3 px-4 text-sm text-center font-medium">STT</th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Mã môn
                                 </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {currentCourses.map((course, index) => (
-                            <tr
-                                key={course.id}
-                                className="border-b border-gray-300"
-                            >
-                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                    {startIndex + index + 1}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.code}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.name}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                    {course.subjectCode}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.teacher}
-                                </td>
-                                <td className="min-w-20 border border-gray-300 px-4 py-2 text-sm text-center">
-                                    {course.study}
-                                </td>
-                                <td className="min-w-20 border border-gray-300 px-4 py-2 text-sm text-center">
-                                    {course.day}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                    {course.amount}/20
-                                </td>
-
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.timeStart}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.timeEnd}
-                                </td>
-                                <td className="border border-gray-300 px-4 py-2 text-sm">
-                                    {course.registerDeadline}
-                                </td>
-                                <td className="flex justify-center items-center">
-                                    <Link
-                                        href="/student/chi-tiet-dang-ki-mon-hoc"
-                                        className="w-30 bg-blue-500 text-white flex items-center text-sm py-2 px-4 m-2 rounded transition duration-200 hover:bg-blue-300"
-                                    >
-                                        <i className="fas fa-pencil-alt mr-2"></i>{" "}
-                                        Đăng kí
-                                    </Link>
-                                </td>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Tên môn
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Giảng viên
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Ca học
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Ngày học
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">SL</th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Bắt đầu
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Kết thúc
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Hạn ĐK
+                                </th>
+                                <th className="py-3 px-4 text-sm text-center font-medium">
+                                    Thao tác
+                                </th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {currentCourses.map((course, index) => (
+                                <tr
+                                    key={course.id}
+                                    className="hover:bg-gray-50"
+                                >
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {startIndex + index + 1}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.code}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.name}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.teacher}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.study}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.day}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.amount}/20
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.timeStart}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.timeEnd}
+                                    </td>
+                                    <td className="py-4 px-4 text-center text-sm">
+                                        {course.registerDeadline}
+                                    </td>
+                                    <td className="py-4 px-4 text-center">
+                                        <Link
+                                            href="/student/chi-tiet-dang-ki-mon-hoc"
+                                            className="bg-green-600 text-white py-2 px-3 rounded text-sm hover:bg-green-500"
+                                        >
+                                            <i className="fas fa-pencil-alt mr-1"></i>
+                                            Đăng kí
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-                {totalPages > 1 && (
-                    <div className="flex justify-center space-x-2 mt-4">
-                        {[...Array(totalPages)].map((_, i) => (
+            {totalPages > 1 && (
+                <div className="flex justify-center mt-4">
+                    <div className="flex space-x-1">
+                        {Array.from(
+                            { length: totalPages },
+                            (_, i) => i + 1,
+                        ).map((page) => (
                             <button
-                                key={i + 1}
-                                className={`px-4 py-2 rounded ${
-                                    currentPage === i + 1
-                                        ? "bg-blue-700"
-                                        : "bg-blue-500"
-                                } text-white hover:bg-blue-400 text-sm`}
-                                onClick={() => setCurrentPage(i + 1)}
+                                key={page}
+                                onClick={() => setCurrentPage(page)}
+                                className={`px-3 py-1 rounded ${
+                                    currentPage === page
+                                        ? "bg-blue-700 text-white"
+                                        : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                                }`}
                             >
-                                {i + 1}
+                                {page}
                             </button>
                         ))}
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -115,7 +115,7 @@ function ExamList() {
     }
 
     return (
-        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
             <div className="mb-8">
                 <h2 className="text-2xl font-bold text-gray-800">
                     Danh sách lịch thi
@@ -147,28 +147,28 @@ function ExamList() {
                             <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Tên môn
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Tên lớp
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Số lượng sinh viên
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Môn thi
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Ca thi
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Phòng thi
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Ngày thi
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-4 px-4 text-center font-semibold">
                                 Tác vụ
                             </th>
                         </tr>
@@ -180,33 +180,33 @@ function ExamList() {
                                     key={classItem.id}
                                     className="hover:bg-gray-50"
                                 >
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.className}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.numberOfStudents}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.examSubject}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.study}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.examClass}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.date}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-medium">
+                                    <td className="px-4 py-4 whitespace-nowrap text-sm text-center font-medium">
                                         <div className="relative inline-block text-left">
                                             <button
                                                 className="text-gray-600 hover:text-gray-800 focus:outline-none"

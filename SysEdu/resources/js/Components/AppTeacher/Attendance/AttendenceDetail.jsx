@@ -115,27 +115,34 @@ function AttendanceDetail() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Chi tiết điểm danh</h2>
-            <div className="flex flex-col items-start mb-2">
-                <BreadcrumbTeacher
-                    items={[
-                        {
-                            label: "Danh sách lớp của tôi",
-                            link: "/teacher/student-myclass",
-                        },
-                        { label: "Chi tiết điểm danh" },
-                    ]}
-                />
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold">Chi tiết điểm danh</h2>
+                <div className="flex flex-col items-start mb-2">
+                    <BreadcrumbTeacher
+                        items={[
+                            {
+                                label: "Danh sách lớp của tôi",
+                                link: "/teacher/student-attendance",
+                            },
+                            { label: "Chi tiết điểm danh" },
+                        ]}
+                    />
+                </div>
             </div>
-            <div className="flex justify-start mb-4">
-                <input
-                    type="text"
-                    placeholder="Tìm kiếm sinh viên..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+            <div className="mb-6">
+                <div className="relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm sinh viên..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    />
+                    <div className="absolute right-3 top-2">
+                        <i className="fas fa-search text-gray-400 text-lg"></i>
+                    </div>
+                </div>
             </div>
             <div className="bg-white rounded-lg shadow">
                 <table className="min-w-full divide-y divide-gray-200">
@@ -185,7 +192,7 @@ function AttendanceDetail() {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {classItem.nameStudents}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">

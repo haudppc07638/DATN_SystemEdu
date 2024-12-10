@@ -19,7 +19,7 @@ function ExamSchedule() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
             <BreadcrumbStudent items={[{ label: "Đăng ký lịch học" }]} />
             <div className="flex mt-4 text-sm">
                 <div className="w-full max-w-3xl">

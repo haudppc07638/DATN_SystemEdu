@@ -4,7 +4,7 @@ import BreadcrumbStudent from "../../Breadcrumbs/BreadcrumbStudent";
 const classSchedulesData = [
     {
         id: 1,
-        schoolday: "Thứ Ba 12/10/2024", 
+        schoolday: "Thứ Ba 12/10/2024",
         classroom: "K302",
         lecturehall: "Sys Ninh Kiều",
         code: "CS101",
@@ -17,7 +17,7 @@ const classSchedulesData = [
     {
         id: 2,
         schoolday: "Thứ Năm 13/10/2024",
-        classroom: "K305", 
+        classroom: "K305",
         lecturehall: "Sys Ninh Kiều",
         code: "CS102",
         name: "Lập trình Java",
@@ -43,7 +43,7 @@ const classSchedulesData = [
         schoolday: "Thứ Ba 15/10/2024",
         classroom: "K304",
         lecturehall: "Sys Ninh Kiều",
-        code: "CS104", 
+        code: "CS104",
         name: "Lập trình Web",
         class: "IT30412",
         teacher: "dungmv",
@@ -151,126 +151,139 @@ function ClassSchedule() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Lịch học</h2>
-            <BreadcrumbStudent items={[{ label: "Lịch học" }]} />
-            <div className="flex flex-col mb-6 mt-4">
-                <div className="mb-4">
-                    <label
-                        htmlFor="select"
-                        className="block mb-2 font-medium text-gray-700 text-sm"
-                    >
-                        Thời gian
-                    </label>
-                    <select
-                        className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 w-full text-sm"
-                        id="select"
-                    >
-                        <option>7 ngày tới</option>
-                        <option>14 ngày tới</option>
-                        <option>30 ngày tới</option>
-                        <option>60 ngày tới</option>
-                        <option>90 ngày tới</option>
-                        <option>7 ngày trước</option>
-                        <option>14 ngày trước</option>
-                        <option>30 ngày trước</option>
-                        <option>60 ngày trước</option>
-                        <option>90 ngày trước</option>
-                    </select>
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold">Lịch học</h2>
+                <div className="flex flex-col items-start">
+                    <BreadcrumbStudent items={[{ label: "Lịch học" }]} />
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="w-1/4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Thời gian
+                        </label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>7 ngày tới</option>
+                            <option>14 ngày tới</option>
+                            <option>30 ngày tới</option>
+                            <option>60 ngày tới</option>
+                            <option>90 ngày tới</option>
+                            <option>7 ngày trước</option>
+                            <option>14 ngày trước</option>
+                            <option>30 ngày trước</option>
+                            <option>60 ngày trước</option>
+                            <option>90 ngày trước</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div className="flex justify-end mb-3 mt-4">
-                {["Print", "Copy", "Excel", "CSV", "PDF"].map((header) => (
+            <div className="flex justify-end mb-3 mt-5">
+                {["Print", "Copy", "Excel", "CSV", "PDF"].map((action) => (
                     <div
-                        key={header}
+                        key={action}
                         className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
                     >
-                        {header}
+                        {action}
                     </div>
                 ))}
             </div>
-            <table className="table-auto w-full border border-gray-300 rounded-md text-sm">
-                <thead className="bg-gray-200">
-                    <tr>
-                        {[
-                            "STT",
-                            "Ngày",
-                            "Phòng",
-                            "Giảng đường",
-                            "Mã môn",
-                            "Môn học",
-                            "Lớp môn",
-                            "Giảng viên",
-                            "Ca học",
-                            "Giờ học",
-                            "Ghi chú",
-                        ].map((header) => (
-                            <th
-                                key={header}
-                                className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
-                            >
-                                {header}
+            <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead>
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                STT
                             </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentCourses.map((courses, index) => (
-                        <tr
-                            key={courses.id}
-                            className="border-b border-gray-300"
-                        >
-                            <td className="border border-gray-300 px-4 py-2 text-center">
-                                {startIndex + index + 1}
-                            </td>
-                            <td className="w-20 border border-gray-300 px-2 py-2 text-sm">
-                                {courses.schoolday}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
-                                {courses.classroom}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
-                                {courses.lecturehall}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
-                                {courses.code}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
-                                {courses.name}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
-                                {courses.class}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm">
-                                {courses.teacher}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 text-sm text-center">
-                                {courses.study}
-                            </td>
-                            <td className="border border-gray-300 px-2 py-2 w-25 text-sm">
-                                {courses.timestudy}
-                            </td>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Ngày
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Phòng
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Giảng đường
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Mã môn
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Môn học
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Lớp môn
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Giảng viên
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Ca học
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Giờ học
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div className="flex justify-center space-x-2 mt-4">
-                {totalPages > 1 &&
-                    [...Array(totalPages)].map((_, i) => (
-                        <button
-                            key={i + 1}
-                            className={`px-4 py-2 rounded ${
-                                currentPage === i + 1
-                                    ? "bg-blue-700"
-                                    : "bg-blue-500"
-                            } text-white hover:bg-blue-400 text-sm`}
-                            onClick={() => setCurrentPage(i + 1)}
-                            disabled={currentPage === i + 1}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                        {currentCourses.map((course, index) => (
+                            <tr key={course.id} className="hover:bg-gray-50">
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {startIndex + index + 1}
+                                </td>
+                                <td className="py-2 px-4 text-sm">
+                                    {course.schoolday}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.classroom}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.lecturehall}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.code}
+                                </td>
+                                <td className="py-2 px-4 text-sm">
+                                    {course.name}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.class}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.teacher}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.study}
+                                </td>
+                                <td className="py-2 px-4 text-center text-sm">
+                                    {course.timestudy}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </div>
+
+            {totalPages > 1 && (
+                <div className="mt-4 flex justify-center">
+                    <div className="flex space-x-1">
+                        {Array.from(
+                            { length: totalPages },
+                            (_, i) => i + 1,
+                        ).map((page) => (
+                            <button
+                                key={page}
+                                onClick={() => setCurrentPage(page)}
+                                className={`px-3 py-1 text-xs rounded ${
+                                    currentPage === page
+                                        ? "bg-blue-700 text-white"
+                                        : "bg-blue-100 text-blue-600 hover:bg-blue-200"
+                                }`}
+                            >
+                                {page}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

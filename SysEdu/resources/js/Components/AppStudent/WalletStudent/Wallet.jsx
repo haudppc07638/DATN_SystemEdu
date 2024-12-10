@@ -98,80 +98,78 @@ function Wallet() {
     };
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Thanh toán học phí</h2>
-            <div className="flex flex-col items-start mb-2">
-                <BreadcrumbStudent items={[{ label: "Thanh toán học phí" }]} />
+        <div className="container mx-auto p-8 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-800 mb-4">Thanh toán học phí</h2>
+                <div className="flex flex-col items-start">
+                    <BreadcrumbStudent items={[{ label: "Thanh toán học phí" }]} />
+                </div>
             </div>
-            <table className="table-auto w-full border border-gray-300 rounded-md text-sm mt-4">
-                <thead className="bg-gray-200">
-                    <tr>
-                        {[
-                            "STT",
-                            "Tên môn học",
-                            "Mã môn học",
-                            "Học kỳ",
-                            "Số tín chỉ",
-                            "Đơn giá/tín chỉ",
-                            "Thành tiền",
-                        ].map((header) => (
-                            <th
-                                key={header}
-                                className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
-                            >
-                                {header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentWallets.map((wallet, index) => (
-                        <tr
-                            key={wallet.id}
-                            className="border-b border-gray-300"
-                        >
-                            <td className="border border-gray-300 px-4 py-2 text-center">
-                                {startIndex + index + 1}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.name}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.idName}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {wallet.semester}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {wallet.credits}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {formatCurrency(wallet.creditPrice)}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {formatCurrency(wallet.amount)}
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-                <tfoot className="bg-gray-100">
-                    <tr>
-                        <td
-                            colSpan="4"
-                            className="border border-gray-300 px-4 py-3 font-semibold text-center"
-                        >
-                            Tổng cộng:
-                        </td>
-                        <td className="border border-gray-300 px-4 py-3 font-semibold text-center">
-                            {totalCredits}
-                        </td>
-                        <td className="border border-gray-300 px-4 py-3"></td>
-                        <td className="border border-gray-300 px-4 py-3 font-semibold text-center">
-                            {formatCurrency(totalAmount)}
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
+
+            <div className="bg-white shadow-md overflow-hidden mb-8">
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-gradient-to-r from-blue-500 to-blue-600">
+                                <td className="py-3 px-4 text-white font-semibold text-sm text-center">STT</td>
+                                <td className="py-3 px-4 text-white font-semibold text-sm text-center">Tên môn học</td>
+                                <td className="py-3 px-4 text-white font-semibold text-sm text-center">Mã môn học</td>
+                                <td className="px-3 py-4 text-white font-semibold text-sm text-center">Học kỳ</td>
+                                <td className="px-3 py-4 text-white font-semibold text-sm text-center">Số tín chỉ</td>
+                                <td className="px-3 py-4 text-white font-semibold text-sm text-center">Đơn giá/tín chỉ</td>
+                                <td className="px-3 py-4 text-white font-semibold text-sm text-center">Thành tiền</td>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {currentWallets.map((wallet, index) => (
+                                <tr
+                                    key={wallet.id}
+                                    className="hover:bg-gray-50 transition-colors duration-200"
+                                >
+                                    <td className="px-6 py-4 text-center text-sm text-gray-600">
+                                        {startIndex + index + 1}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-800 font-medium">
+                                        {wallet.name}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 text-center">
+                                        {wallet.idName}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 text-center">
+                                        {wallet.semester}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 text-center">
+                                        {wallet.credits}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 text-center">
+                                        {formatCurrency(wallet.creditPrice)}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm font-semibold text-gray-800 text-center">
+                                        {formatCurrency(wallet.amount)}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                        <tfoot>
+                            <tr className="bg-gray-50 font-semibold">
+                                <td
+                                    colSpan="4"
+                                    className="px-6 py-4 text-right text-gray-700"
+                                >
+                                    TỔNG CỘNG:
+                                </td>
+                                <td className="px-6 py-4 text-center text-gray-700">
+                                    {totalCredits}
+                                </td>
+                                <td className="px-6 py-4"></td>
+                                <td className="px-6 py-4 text-center text-red-400 font-bold">
+                                    {formatCurrency(totalAmount)}
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
 
             <div className="flex justify-end mt-6">
                 <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition duration-200">

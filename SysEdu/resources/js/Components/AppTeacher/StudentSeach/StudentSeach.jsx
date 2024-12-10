@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 import { router } from "@inertiajs/react";
+import axios from "axios";
 
-function StudentSearch({ students: initialStudents }) {
+function StudentSearch() {
     const [loading, setLoading] = useState(true);
-    const [students, setStudents] = useState(initialStudents || []);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredStudents, setFilteredStudents] = useState(
-        initialStudents || [],
-    );
+    const [students, setStudents] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
 
+    // Hiệu ứng loading khi tải trang
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -19,50 +18,49 @@ function StudentSearch({ students: initialStudents }) {
         return () => clearTimeout(timer);
     }, []);
 
+    // Lấy dữ liệu sinh viên từ controller
     useEffect(() => {
-        if (searchTerm.trim() === "") {
-            setFilteredStudents(students);
-            console.log(students);
-        } else {
-            const searchResults = students.filter(
-                (student) =>
-                    student.full_name
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                    student.code
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                    student.email
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                    (student.major?.name || "")
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()) ||
-                    (student.majorClass?.name || "")
-                        .toLowerCase()
-                        .includes(searchTerm.toLowerCase()),
-            );
-            setFilteredStudents(searchResults);
-        }
-        setCurrentPage(1);
-    }, [searchTerm, students]);
+        const fetchStudents = async () => {
+            try {
+                const response = await axios.get("/api/students", {
+                    params: {
+                        search_term: searchTerm,
+                    },
+                });
+                console.log(response.data);
 
+                if (response.data.status === "success") {
+                    setStudents(response.data.data);
+                }
+            } catch (error) {
+                console.error("Lỗi khi lấy danh sách sinh viên:", error);
+            }
+        };
+
+        // Gọi API khi searchTerm thay đổi
+        const delaySearch = setTimeout(() => {
+            fetchStudents();
+        }, 500);
+
+        return () => clearTimeout(delaySearch);
+    }, [searchTerm]);
+
+    // Xử lý phân trang
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentStudents = filteredStudents.slice(
-        indexOfFirstItem,
-        indexOfLastItem,
-    );
-    const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+    const currentStudents = students.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(students.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
 
+    // Xử lý xem chi tiết sinh viên
     const handleViewDetail = (studentId) => {
         router.get(`/student-seach/${studentId}`);
     };
 
+    // Hiển thị loading
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -74,7 +72,7 @@ function StudentSearch({ students: initialStudents }) {
     return (
         <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
             <div className="mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                <h2 className="text-2xl font-bold text-gray-800">
                     Tìm kiếm sinh viên
                 </h2>
                 <div className="flex flex-col items-start">
@@ -88,7 +86,7 @@ function StudentSearch({ students: initialStudents }) {
                 <div className="relative">
                     <input
                         type="text"
-                        placeholder="Tìm kiếm sinh viên..."
+                        placeholder="Nhập tên, mã, email hoặc số điện thoại sinh viên..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -99,7 +97,8 @@ function StudentSearch({ students: initialStudents }) {
                 </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow">
+            {/* Bảng danh sách sinh viên */}
+            <div className="bg-white shadow overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
@@ -120,6 +119,9 @@ function StudentSearch({ students: initialStudents }) {
                             </th>
                             <th className="py-4 px-6 text-center font-semibold">
                                 Chuyên ngành
+                            </th>
+                            <th className="py-4 px-6 text-center font-semibold">
+                                Lớp chuyên ngành
                             </th>
                             <th className="py-4 px-6 text-center font-semibold">
                                 Tác vụ
@@ -153,6 +155,9 @@ function StudentSearch({ students: initialStudents }) {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {student.major?.name}
                                     </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        {student.stuClass?.name}
+                                    </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                                         <button
                                             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
@@ -168,7 +173,7 @@ function StudentSearch({ students: initialStudents }) {
                         ) : (
                             <tr>
                                 <td
-                                    colSpan="7"
+                                    colSpan="8"
                                     className="py-8 text-center text-gray-500 text-sm"
                                 >
                                     Không tìm thấy sinh viên nào.
@@ -179,6 +184,7 @@ function StudentSearch({ students: initialStudents }) {
                 </table>
             </div>
 
+            {/* Phân trang */}
             {totalPages > 1 && (
                 <div className="mt-6 flex justify-center">
                     <div className="flex space-x-2">

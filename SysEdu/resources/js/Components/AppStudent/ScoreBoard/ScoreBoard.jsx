@@ -6,7 +6,7 @@ const scoreBoardData = {
         {
             id: 1,
             secondperiod: 1,
-            code: "MOB101", 
+            code: "MOB101",
             name: "Lập trình di động cơ bản",
             numbercredits: 4,
             score: 8.5,
@@ -139,7 +139,7 @@ const scoreBoardData = {
             status: "Passed",
         },
         {
-            id: 16, 
+            id: 16,
             secondperiod: 7,
             code: "RJS101",
             name: "Lập trình ReactJS",
@@ -182,107 +182,143 @@ function ScoreBoard() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Lịch sử bảng điểm</h2>
-            <div className="flex flex-col items-start mb-2">
-                <BreadcrumbStudent items={[{ label: "Lịch sử bảng điểm" }]} />
-            </div>
-            <div className="flex flex-col mb-6 mt-2">
-                <h3 className="text-lg font-bold pt-2">
-                    Chuyên ngành: <span>Lập trình Web</span>
-                </h3>
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold">Lịch sử bảng điểm</h2>
+                <div className="flex flex-col items-start">
+                    <BreadcrumbStudent
+                        items={[{ label: "Lịch sử bảng điểm" }]}
+                    />
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="w-1/4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Thời gian
+                        </label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Spring 2024</option>
+                            <option>Summer 2024</option>
+                            <option>Fall 2024</option>
+                            <option>Winter 2024</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div className="flex justify-end mb-3 mt-5">
-                {["Print", "Copy", "Excel", "CSV", "PDF"].map((header) => (
+                {["Print", "Copy", "Excel", "CSV", "PDF"].map((action) => (
                     <div
-                        key={header}
+                        key={action}
                         className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
                     >
-                        {header}
+                        {action}
                     </div>
                 ))}
             </div>
-            <table className="table-auto w-full border border-gray-300 rounded-md">
-                <thead className="bg-gray-200">
-                    <tr>
-                        {[
-                            "STT",
-                            "Kỳ thứ",
-                            "Mã môn",
-                            "Tên môn",
-                            "Số tín chỉ",
-                            "Điểm",
-                            "Trạng thái",
-                        ].map((header) => (
-                            <th
-                                key={header}
-                                className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
-                            >
-                                {header}
+            <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead>
+                        <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                STT
                             </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {currentCourses.map((course, index) => (
-                        <tr
-                            key={course.id}
-                            className="border-b border-gray-300"
-                        >
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {startIndex + index + 1}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {course.secondperiod}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {course.code}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm">
-                                {course.name}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {course.numbercredits}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                {course.score}
-                            </td>
-                            <td className="border border-gray-300 px-4 py-2 text-sm text-center">
-                                <span
-                                    className={`${
-                                        course.status === "Passed"
-                                            ? "text-green-600 font-semibold"
-                                            : course.status === "Failed"
-                                              ? "text-red-600 font-semibold"
-                                              : ""
-                                    }`}
-                                >
-                                    {course.status}
-                                </span>
-                            </td>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Kỳ thứ
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Mã môn
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Tên môn
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Số tín chỉ
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Điểm
+                            </th>
+                            <th className="py-3 px-4 text-center text-sm font-medium">
+                                Trạng thái
+                            </th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200">
+                        {currentCourses.map((course, index) => (
+                            <tr key={course.id} className="hover:bg-gray-50">
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                    {startIndex + index + 1}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                    {course.secondperiod}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                    {course.code}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    {course.name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                    {course.numbercredits}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                                    {course.score}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm text-center">
+                                    <span
+                                        className={`${
+                                            course.status === "Passed"
+                                                ? "text-green-600 font-semibold"
+                                                : course.status === "Failed"
+                                                  ? "text-red-600 font-semibold"
+                                                  : ""
+                                        }`}
+                                    >
+                                        {course.status}
+                                    </span>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
             <div className="bg-gray-100 p-4 mt-6 rounded-lg">
                 <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="bg-white p-4 rounded-lg shadow">
-                        <h3 className="font-semibold text-lg mb-2">Điểm trung bình</h3>
+                        <h3 className="font-semibold text-lg mb-2">
+                            Điểm trung bình
+                        </h3>
                         <p className="text-2xl font-bold text-blue-600">
-                            {(scoreBoardData.courses.reduce((sum, course) => sum + course.score, 0) / scoreBoardData.courses.length).toFixed(1)}
+                            {(
+                                scoreBoardData.courses.reduce(
+                                    (sum, course) => sum + course.score,
+                                    0,
+                                ) / scoreBoardData.courses.length
+                            ).toFixed(1)}
                         </p>
                     </div>
                     <div className="bg-white p-4 rounded-lg shadow">
                         <h3 className="font-semibold text-lg mb-2">Tín chỉ</h3>
                         <p className="text-lg">
                             <span className="font-bold text-green-600">
-                                {scoreBoardData.courses.filter(course => course.status === "Passed").reduce((sum, course) => sum + course.numbercredits, 0)}
+                                {scoreBoardData.courses
+                                    .filter(
+                                        (course) => course.status === "Passed",
+                                    )
+                                    .reduce(
+                                        (sum, course) =>
+                                            sum + course.numbercredits,
+                                        0,
+                                    )}
                             </span>
                             <span className="text-gray-500">/</span>
                             <span className="font-bold">
-                                {scoreBoardData.courses.reduce((sum, course) => 110, 0)}
+                                {scoreBoardData.courses.reduce(
+                                    (sum, course) => 110,
+                                    0,
+                                )}
                             </span>
-                            <span className="text-sm text-gray-500 ml-2">(Đạt / Tổng)</span>
+                            <span className="text-sm text-gray-500 ml-2">
+                                (Đạt / Tổng)
+                            </span>
                         </p>
                         <p className="text-sm text-gray-500">0 miễn giảm</p>
                     </div>
@@ -293,26 +329,48 @@ function ScoreBoard() {
                     <table className="w-full border-collapse">
                         <thead>
                             <tr>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn đạt</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn học lại</th>
-                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">Tổng môn đang học</th>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                                    Tổng môn đạt
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                                    Tổng môn học lại
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 bg-gray-100">
+                                    Tổng môn đang học
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr className="text-center">
                                 <td className="border border-gray-300 px-4 py-3">
                                     <span className="text-xl font-bold text-green-600">
-                                        {scoreBoardData.courses.filter(course => course.status === "Passed").length}
+                                        {
+                                            scoreBoardData.courses.filter(
+                                                (course) =>
+                                                    course.status === "Passed",
+                                            ).length
+                                        }
                                     </span>
                                 </td>
                                 <td className="border border-gray-300 px-4 py-3">
                                     <span className="text-xl font-bold text-red-600">
-                                        {scoreBoardData.courses.filter(course => course.status === "Failed").length}
+                                        {
+                                            scoreBoardData.courses.filter(
+                                                (course) =>
+                                                    course.status === "Failed",
+                                            ).length
+                                        }
                                     </span>
                                 </td>
                                 <td className="border border-gray-300 px-4 py-3">
                                     <span className="text-xl font-bold text-blue-600">
-                                        {scoreBoardData.courses.filter(course => course.status === "In Progress").length}
+                                        {
+                                            scoreBoardData.courses.filter(
+                                                (course) =>
+                                                    course.status ===
+                                                    "In Progress",
+                                            ).length
+                                        }
                                     </span>
                                 </td>
                             </tr>
@@ -320,22 +378,6 @@ function ScoreBoard() {
                     </table>
                 </div>
             </div>
-            {/* <div className="flex justify-center space-x-2 mt-4 text-sm">
-                {totalPages > 1 &&
-                    [...Array(totalPages)].map((_, i) => (
-                        <button
-                            key={i + 1}
-                            className={`px-4 py-2 rounded ${
-                                currentPage === i + 1
-                                    ? "bg-blue-700"
-                                    : "bg-blue-500"
-                            } text-white`}
-                            onClick={() => setPage(i + 1)}
-                        >
-                            {i + 1}
-                        </button>
-                    ))}
-            </div> */}
         </div>
     );
 }

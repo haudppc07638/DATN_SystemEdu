@@ -145,7 +145,7 @@ const reportData = {
                     id: 1,
                     date: "Thứ Ba 26/08/2024",
                     shift: "Ca 1",
-                    name: "Trần Nhân Nghĩa", 
+                    name: "Trần Nhân Nghĩa",
                     code: "PC07",
                     session: "Lý thuyết",
                     status: "Đi học",
@@ -184,7 +184,7 @@ const reportData = {
                 {
                     id: 5,
                     date: "Thứ Năm 03/08/2024",
-                    shift: "Ca 1", 
+                    shift: "Ca 1",
                     name: "Trần Nhân Nghĩa",
                     code: "PC11",
                     session: "Lý thuyết",
@@ -307,217 +307,204 @@ function ReportNameClient() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Điểm danh</h2>
-            <div className="flex flex-col items-start mb-2">
-                <BreadcrumbStudent items={[{ label: "Điểm danh" }]} />
-            </div>
-            <div className="flex flex-col mb-2 mt-4">
-                <div className="mb-4">
-                    <label
-                        htmlFor="select"
-                        className="block mb-2 font-medium text-gray-700 text-sm"
-                    >
-                        Thời gian
-                    </label>
-                    <select
-                        className="form-select border border-gray-200 rounded-md p-2 focus:ring focus:ring-blue-300 transition duration-150 w-full text-sm"
-                        id="select"
-                    >
-                        <option>Spring 2024</option>
-                        <option>Summer 2024</option>
-                        <option>Fall 2024</option>
-                        <option>Winter 2024</option>
-                    </select>
+        <div className="container mx-auto p-8 bg-white rounded-xl shadow-lg">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold text-gray-800">
+                    Điểm danh
+                </h2>
+                <div className="flex flex-col items-start">
+                    <BreadcrumbStudent items={[{ label: "Điểm danh" }]} />
+                </div>
+                <div className="flex items-center gap-4">
+                    <div className="w-1/4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Thời gian
+                        </label>
+                        <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Spring 2024</option>
+                            <option>Summer 2024</option>
+                            <option>Fall 2024</option>
+                            <option>Winter 2024</option>
+                        </select>
+                    </div>
                 </div>
             </div>
+
             {reportData.reportSubject.map((subject) => (
-                <div key={subject.cateSubject} className="mb-8 py-6 text-sm">
-                    <h4 className="text-xl font-semibold mb-2">
-                        {subject.cateSubject}
-                    </h4>
-                    <div className="flex justify-end mb-3 mt-4">
-                        {["Print", "Copy", "Excel", "CSV", "PDF"].map(
-                            (header) => (
-                                <div
-                                    key={header}
-                                    className="px-3 py-2 bg-graydark text-white cursor-pointer text-sm"
-                                >
-                                    {header}
-                                </div>
-                            ),
-                        )}
+                <div key={subject.cateSubject} className="mb-8">
+                    <div className="bg-gradient-to-r from-blue-500 to-blue-600 border-b-2 border-white text-white p-4 rounded-t-lg">
+                        <h4 className="text-lg font-semibold">
+                            {subject.cateSubject}
+                        </h4>
                     </div>
-                    <table className="table-auto w-full border border-gray-300 rounded-md text-sm">
-                        <thead className="bg-gray-200">
-                            <tr>
-                                {[
-                                    "STT",
-                                    "Ngày",
-                                    "Ca",
-                                    "Giảng viên",
-                                    "Buổi học",
-                                    "Trạng thái điểm danh",
-                                    "Ghi chú buổi học",
-                                ].map((header) => (
-                                    <th
-                                        key={header}
-                                        className="border border-gray-300 px-4 py-4 font-semibold text-center text-sm"
-                                    >
-                                        {header}
+
+                    <div className="bg-white shadow overflow-x-auto rounded-b-lg">
+                        <table className="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        STT
                                     </th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {getPaginatedItems(subject.items).map((item) => (
-                                <tr key={item.id}>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        {item.id}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2">
-                                        {item.date}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        {item.shift}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2">
-                                        {item.name}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2">
-                                        {item.session}
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2 text-center">
-                                        <span
-                                            className={`${item.status === "Đi học" ? "text-green-500" : "text-red-500"}`}
-                                        >
-                                            {item.status}
-                                        </span>
-                                    </td>
-                                    <td className="border border-gray-300 px-4 py-2">
-                                        {item.notes}
-                                    </td>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Ngày
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Ca
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Giảng viên
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Buổi học
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Trạng thái điểm danh
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-sm font-medium">
+                                        Ghi chú buổi học
+                                    </th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                    <div className="flex justify-between my-4 text-sm text-gray-600 mt-5">
-                        <p className="mb-0">
-                            Số ngày vắng:{" "}
-                            <span className="text-red-500 font-bold">
-                                {subject.cateSubject.includes("WEB1022")
-                                    ? 1
-                                    : 2}
-                                /
-                                {
-                                    new Set(
-                                        subject.items.map((item) => item.date),
-                                    ).size
-                                }
-                            </span>{" "}
-                            (
-                            {(
-                                ((subject.cateSubject.includes("WEB1022")
-                                    ? 1
-                                    : 2) /
-                                    new Set(
-                                        subject.items.map((item) => item.date),
-                                    ).size) *
-                                100
-                            ).toFixed(1)}
-                            % trên tổng số ngày học)
-                        </p>
-                        <p className="mb-0">
-                            Số ngày vắng không phép:{" "}
-                            <span className="text-red-500 font-bold">
-                                {subject.cateSubject.includes("WEB1022")
-                                    ? 1
-                                    : 2}
-                                /
-                                {
-                                    new Set(
-                                        subject.items.map((item) => item.date),
-                                    ).size
-                                }
-                            </span>{" "}
-                            (
-                            {(
-                                ((subject.cateSubject.includes("WEB1022")
-                                    ? 1
-                                    : 2) /
-                                    new Set(
-                                        subject.items.map((item) => item.date),
-                                    ).size) *
-                                100
-                            ).toFixed(1)}
-                            % tổng số ngày học để hạ tín chỉ)
-                        </p>
-                    </div>
-                    <div className="flex justify-between items-center mt-5 text-sm">
-                        <p className="mb-0 text-gray-700">
-                            Đang xem đến mục{" "}
-                            <span className="font-semibold">
-                                {(currentPage - 1) * itemsPerPage + 1}
-                            </span>{" "}
-                            đến{" "}
-                            <span className="font-semibold">
-                                {Math.min(
-                                    currentPage * itemsPerPage,
-                                    totalItems,
-                                )}
-                            </span>{" "}
-                            trong tổng số{" "}
-                            <span className="font-semibold">{totalItems}</span>{" "}
-                            mục
-                        </p>
-                        <nav aria-label="Page navigation example">
-                            <ul className="flex items-center space-x-2">
-                                <li
-                                    className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-                                >
-                                    <button
-                                        className={`page-link w-10 ${currentPage === 1 ? "text-gray-500 cursor-not-allowed" : "text-blue-600"}`}
-                                        onClick={() =>
-                                            setCurrentPage(currentPage - 1)
-                                        }
-                                        disabled={currentPage === 1}
-                                    >
-                                        Trước
-                                    </button>
-                                </li>
-                                {Array.from(
-                                    { length: totalPages },
-                                    (_, index) => (
-                                        <li
-                                            className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
-                                            key={index}
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                {getPaginatedItems(subject.items).map(
+                                    (item) => (
+                                        <tr
+                                            key={item.id}
+                                            className="hover:bg-gray-50"
                                         >
-                                            <button
-                                                className={`page-link w-10 ${currentPage === index + 1 ? "bg-blue-600 text-white" : "text-blue-600"}`}
-                                                onClick={() =>
-                                                    setCurrentPage(index + 1)
-                                                }
-                                            >
-                                                {index + 1}
-                                            </button>
-                                        </li>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {item.id}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {item.date}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {item.shift}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {item.name}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                                {item.session}
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-center">
+                                                <span
+                                                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                                                        item.status === "Đi học"
+                                                            ? "bg-green-100 text-green-800"
+                                                            : "bg-red-100 text-red-800"
+                                                    }`}
+                                                >
+                                                    {item.status}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                {item.notes}
+                                            </td>
+                                        </tr>
                                     ),
                                 )}
-                                <li
-                                    className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}
-                                >
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="bg-gray-50 px-4 py-3 border-t border-gray-200 sm:px-6">
+                        <div className="flex justify-between items-center">
+                            <div className="text-sm text-gray-700">
+                                <span>Số ngày vắng: </span>
+                                <span className="font-medium text-red-600">
+                                    {subject.cateSubject.includes("WEB1022")
+                                        ? 1
+                                        : 2}
+                                    /
+                                    {
+                                        new Set(
+                                            subject.items.map(
+                                                (item) => item.date,
+                                            ),
+                                        ).size
+                                    }
+                                </span>
+                                <span className="ml-2">
+                                    (
+                                    {(
+                                        ((subject.cateSubject.includes(
+                                            "WEB1022",
+                                        )
+                                            ? 1
+                                            : 2) /
+                                            new Set(
+                                                subject.items.map(
+                                                    (item) => item.date,
+                                                ),
+                                            ).size) *
+                                        100
+                                    ).toFixed(1)}
+                                    % trên tổng số ngày học)
+                                </span>
+                            </div>
+                            <div className="text-sm text-gray-700">
+                                <span>Số ngày vắng không phép: </span>
+                                <span className="font-medium text-red-600">
+                                    {subject.cateSubject.includes("WEB1022")
+                                        ? 1
+                                        : 2}
+                                    /
+                                    {
+                                        new Set(
+                                            subject.items.map(
+                                                (item) => item.date,
+                                            ),
+                                        ).size
+                                    }
+                                </span>
+                                <span className="ml-2">
+                                    (
+                                    {(
+                                        ((subject.cateSubject.includes(
+                                            "WEB1022",
+                                        )
+                                            ? 1
+                                            : 2) /
+                                            new Set(
+                                                subject.items.map(
+                                                    (item) => item.date,
+                                                ),
+                                            ).size) *
+                                        100
+                                    ).toFixed(1)}
+                                    % tổng số ngày học để hạ tín chỉ)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                        <div className="text-sm text-gray-700">
+                            Đang xem {(currentPage - 1) * itemsPerPage + 1} đến{" "}
+                            {Math.min(currentPage * itemsPerPage, totalItems)}{" "}
+                            trong tổng số {totalItems} mục
+                        </div>
+                        <div className="flex justify-center">
+                            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px">
+                                {Array.from(
+                                    { length: totalPages },
+                                    (_, i) => i + 1,
+                                ).map((page) => (
                                     <button
-                                        className={`page-link w-10 ${currentPage === totalPages ? "text-gray-500 cursor-not-allowed" : "text-blue-600"}`}
-                                        onClick={() =>
-                                            setCurrentPage(currentPage + 1)
-                                        }
-                                        disabled={currentPage === totalPages}
+                                        key={page}
+                                        onClick={() => setCurrentPage(page)}
+                                        className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
+                                            currentPage === page
+                                                ? "z-10 bg-blue-50 border-blue-500 text-blue-600"
+                                                : "text-gray-500 hover:bg-gray-50"
+                                        }`}
                                     >
-                                        Sau
+                                        {page}
                                     </button>
-                                </li>
-                            </ul>
-                        </nav>
+                                ))}
+                            </nav>
+                        </div>
                     </div>
                 </div>
             ))}

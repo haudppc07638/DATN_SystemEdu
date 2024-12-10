@@ -36,7 +36,7 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15 -09:15",
+        timeRange: "07:15 - 09:15",
     },
     {
         id: 4,
@@ -48,7 +48,7 @@ const scheduleList = [
         department: "Công nghệ thông tin",
         className: "WD18306",
         timeSlot: "Ca 1",
-        timeRange: "07:15 -09:15",
+        timeRange: "07:15 - 09:15",
     },
 ];
 

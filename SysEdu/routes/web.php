@@ -7,6 +7,7 @@ use App\Http\Controllers\Blog\RecruitmentController;
 use App\Http\Controllers\Blog\TrainingProgramController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', [HomeController::class, 'index'])->name("home");
 Route::get('/home', [HomeController::class, 'index'])->name("home");
 Route::get("/admissions", [AdmissionsController::class, 'index'])->name("admissions");
 Route::get("/recruitment", [RecruitmentController::class, 'index'])->name("recruitment");

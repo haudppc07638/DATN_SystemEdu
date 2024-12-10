@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 // Middleware xác thực và phân quyền student
 // Route::middleware(['auth', 'role:student'])->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('student.home');
+    Route::get('/', [HomeController::class, 'index'])->name('student.home');
     Route::get('/diem-danh', [ReportNameClientController:: class, 'index']) -> name('student.report-name');
     Route::get('/dang-ki-lich-hoc', [ExamScheduleController:: class, 'index']) -> name('student.exam-schedule');
     Route::get('/dang-ki-mon-hoc', [RegisterForCourseController::class,'index']) -> name('student.register-for-course');

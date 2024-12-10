@@ -43,7 +43,7 @@ function Sidebar() {
                 >
                     {[
                         {
-                            link: "/student/dashboard",
+                            link: "/student",
                             label: "Thông báo và tin tức",
                             icon: "bell",
                         },

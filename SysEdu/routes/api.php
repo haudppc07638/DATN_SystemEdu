@@ -5,10 +5,10 @@ use App\Http\Controllers\Admin\MajorController as AdminMajorController;
 use App\Http\Controllers\Teacher\StudentSeachController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/students', [StudentSeachController::class, 'searchStudents']);
+
 Route::get('/majors', [AdminMajorController::class, 'getMajorsByFaculty']);
 
 Route::get('/majorClasses', [AdminMajorClassController::class, 'getMajorClassesByMajor']);
 
 Route::patch('/majorClasses/{majorClass}/end', [AdminMajorClassController::class, 'endMajorClass']);
-
-Route::get('/students', [StudentSeachController::class, 'searchStudents']);

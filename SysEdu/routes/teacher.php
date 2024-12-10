@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('teacher.home');
 
-// Tìm kiếm sinh viên
-Route::get('/student-seach', [StudentSeachController::class, 'index'])->name('teacher.seach');
+// Hiển thị danh sách sinh viên
+Route::get('/student-seach', [StudentSeachController::class, 'index'])->name('teacher.students');
 Route::get('/student-seach/{id}', [StudentSeachController::class, 'show'])->name('student.show');
 
 Route::get('/student-attendance', [AttendanceController::class, 'index'])->name('teacher.attendance');

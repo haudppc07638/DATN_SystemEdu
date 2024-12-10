@@ -4,43 +4,43 @@ import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 const classList = [
     {
         id: 1,
-        className: "Lập trình Website", 
+        className: "Lập trình Website",
         classCode: "WD18306",
         department: "Công nghệ thông tin",
         nameStudent: "Trần Nhân Nghĩa",
         idStudent: "SV001",
         attendance: "Có mặt",
-        note: "Đi học đầy đủ"
+        note: "Đi học đầy đủ",
     },
     {
         id: 2,
         className: "Lập trình Website",
-        classCode: "WD18307", 
+        classCode: "WD18307",
         department: "Công nghệ thông tin",
         nameStudent: "Võ Minh Khánh",
         idStudent: "SV002",
         attendance: "Vắng",
-        note: "Không có lý do"
+        note: "Không có lý do",
     },
     {
         id: 3,
         className: "Lập trình Website",
         classCode: "WD18308",
-        department: "Công nghệ thông tin", 
+        department: "Công nghệ thông tin",
         nameStudent: "Thái Văn Lộc",
         idStudent: "SV003",
         attendance: "Có mặt",
-        note: "Đi học đầy đủ"
+        note: "Đi học đầy đủ",
     },
     {
         id: 4,
         className: "Lập trình Website",
         classCode: "WD18306",
         department: "Công nghệ thông tin",
-        nameStudent: "Danh Phúc Hậu", 
+        nameStudent: "Danh Phúc Hậu",
         idStudent: "SV004",
         attendance: "Có mặt",
-        note: "Đi học đầy đủ"
+        note: "Đi học đầy đủ",
     },
 ];
 
@@ -100,17 +100,19 @@ function MyClassDetail() {
     }
 
     return (
-        <div className="container mx-auto p-16 bg-white rounded-lg shadow-default">
-            <h2 className="text-2xl font-bold">Chi tiết điểm danh</h2>
-            <BreadcrumbTeacher
-                items={[
-                    {
-                        label: "Danh sách lớp của tôi",
-                        link: "/teacher/student-myclass",
-                    },
-                    { label: "Chi tiết điểm danh" },
-                ]}
-            />
+        <div className="container mx-auto p-8 bg-white rounded-lg shadow-default">
+            <div className="mb-8">
+                <h2 className="text-2xl font-bold">Chi tiết điểm danh</h2>
+                <BreadcrumbTeacher
+                    items={[
+                        {
+                            label: "Danh sách lớp của tôi",
+                            link: "/teacher/student-myclass",
+                        },
+                        { label: "Chi tiết điểm danh" },
+                    ]}
+                />
+            </div>
             <div className="flex justify-between items-center mb-4">
                 <input
                     type="text"
@@ -124,71 +126,75 @@ function MyClassDetail() {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tên lớp
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Mã lớp
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Tên sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Mã số sinh viên
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Chuyên ngành
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Trạng thái
                             </th>
-                            <th className="border py-4 px-4 text-center">
+                            <th className="py-4 px-6 text-center font-semibold">
                                 Ghi chú
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="bg-white divide-y divide-gray-200">
                         {currentClasses.length > 0 ? (
                             currentClasses.map((classItem, index) => (
                                 <tr
                                     key={classItem.id}
                                     className="hover:bg-gray-50"
                                 >
-                                    <td className="border py-4 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.className}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.nameStudent}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.idStudent}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.department}
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
-                                        <span className={`px-2 py-1 rounded ${
-                                            classItem.attendance === "Có mặt" 
-                                                ? "bg-green-100 text-green-800"
-                                                : classItem.attendance === "Vắng"
-                                                ? "bg-red-100 text-red-800"
-                                                : "bg-yellow-100 text-yellow-800"
-                                        }`}>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
+                                        <span
+                                            className={`px-2 py-1 rounded ${
+                                                classItem.attendance ===
+                                                "Có mặt"
+                                                    ? "bg-green-100 text-green-800"
+                                                    : classItem.attendance ===
+                                                        "Vắng"
+                                                      ? "bg-red-100 text-red-800"
+                                                      : "bg-yellow-100 text-yellow-800"
+                                            }`}
+                                        >
                                             {classItem.attendance}
                                         </span>
                                     </td>
-                                    <td className="border py-2 px-4 text-center">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {classItem.note}
                                     </td>
                                 </tr>
