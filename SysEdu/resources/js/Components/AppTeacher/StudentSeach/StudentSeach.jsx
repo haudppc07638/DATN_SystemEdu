@@ -3,14 +3,14 @@ import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 import { router } from "@inertiajs/react";
 import axios from "axios";
 
-function StudentSearch() {
+function StudentSearch({ students: initialStudents }) {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState(initialStudents || []);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showDropdown, setShowDropdown] = useState(null);
     const itemsPerPage = 10;
 
-    // Hiệu ứng loading khi tải trang
     useEffect(() => {
         const timer = setTimeout(() => {
             setLoading(false);
@@ -18,34 +18,46 @@ function StudentSearch() {
         return () => clearTimeout(timer);
     }, []);
 
-    // Lấy dữ liệu sinh viên từ controller
     useEffect(() => {
-        const fetchStudents = async () => {
+        const getAllStudents = async () => {
             try {
-                const response = await axios.get("/api/students", {
-                    params: {
-                        search_term: searchTerm,
-                    },
-                });
-                console.log(response.data);
-
+                const response = await axios.get("/api/all-students");
                 if (response.data.status === "success") {
                     setStudents(response.data.data);
                 }
             } catch (error) {
                 console.error("Lỗi khi lấy danh sách sinh viên:", error);
+                setStudents(initialStudents || []);
             }
         };
+        getAllStudents();
+    }, [initialStudents]);
 
-        // Gọi API khi searchTerm thay đổi
-        const delaySearch = setTimeout(() => {
-            fetchStudents();
-        }, 500);
+    useEffect(() => {
+        if (searchTerm.trim() !== "") {
+            const searchStudents = async () => {
+                try {
+                    const response = await axios.get("/api/students", {
+                        params: {
+                            search_term: searchTerm,
+                        },
+                    });
+                    if (response.data.status === "success") {
+                        setStudents(response.data.data);
+                    }
+                } catch (error) {
+                    console.error("Lỗi khi tìm kiếm sinh viên:", error);
+                }
+            };
 
-        return () => clearTimeout(delaySearch);
+            const delaySearch = setTimeout(() => {
+                searchStudents();
+            }, 500);
+
+            return () => clearTimeout(delaySearch);
+        }
     }, [searchTerm]);
 
-    // Xử lý phân trang
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentStudents = students.slice(indexOfFirstItem, indexOfLastItem);
@@ -55,12 +67,14 @@ function StudentSearch() {
         setCurrentPage(pageNumber);
     };
 
-    // Xử lý xem chi tiết sinh viên
     const handleViewDetail = (studentId) => {
         router.get(`/student-seach/${studentId}`);
     };
 
-    // Hiển thị loading
+    const toggleDropdown = (studentId) => {
+        setShowDropdown(showDropdown === studentId ? null : studentId);
+    };
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -81,7 +95,6 @@ function StudentSearch() {
                     />
                 </div>
             </div>
-
             <div className="mb-6">
                 <div className="relative">
                     <input
@@ -96,36 +109,26 @@ function StudentSearch() {
                     </div>
                 </div>
             </div>
-
-            {/* Bảng danh sách sinh viên */}
             <div className="bg-white shadow overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="py-4 px-6 text-center font-semibold">
-                                STT
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 font-semibold">STT</th>
+                            <th className="py-2 px-3 font-semibold">
                                 Tên sinh viên
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 font-semibold">
                                 Mã sinh viên
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Email
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 font-semibold">Email</th>
+                            <th className="py-2 px-3 font-semibold">
                                 Số điện thoại
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 font-semibold">
                                 Chuyên ngành
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Lớp chuyên ngành
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Tác vụ
-                            </th>
+                            <th className="py-2 px-3 font-semibold">Lớp</th>
+                            <th className="py-2 px-3 font-semibold">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -135,38 +138,67 @@ function StudentSearch() {
                                     key={student.id}
                                     className="hover:bg-gray-50 transition-colors duration-200"
                                 >
-                                    <td className="py-4 px-6 text-center">
+                                    <td className="py-2 px-3 whitespace-nowrap text-sm text-center text-gray-900">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.full_name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.code}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.email}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.phone}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.major?.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.stuClass?.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                                        <button
-                                            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
-                                            onClick={() =>
-                                                handleViewDetail(student.id)
-                                            }
-                                        >
-                                            Xem chi tiết
-                                        </button>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
+                                        <div className="relative">
+                                            <button
+                                                onClick={() =>
+                                                    toggleDropdown(student.id)
+                                                }
+                                                className="px-2 py-1 text-gray-600 hover:text-gray-800 focus:outline-none"
+                                            >
+                                                <i className="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            {showDropdown === student.id && (
+                                                <>
+                                                    <div
+                                                        className="fixed inset-0"
+                                                        onClick={() =>
+                                                            setShowDropdown(
+                                                                null,
+                                                            )
+                                                        }
+                                                    ></div>
+                                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                                                        <div className="py-1">
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleViewDetail(
+                                                                        student.id,
+                                                                    )
+                                                                }
+                                                                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
+                                                            >
+                                                                <i className="fas fa-eye mr-2"></i>
+                                                                Xem chi tiết
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </div>
                                     </td>
                                 </tr>
                             ))
@@ -174,7 +206,7 @@ function StudentSearch() {
                             <tr>
                                 <td
                                     colSpan="8"
-                                    className="py-8 text-center text-gray-500 text-sm"
+                                    className="py-4 text-center text-gray-500 text-sm"
                                 >
                                     Không tìm thấy sinh viên nào.
                                 </td>
@@ -183,8 +215,6 @@ function StudentSearch() {
                     </tbody>
                 </table>
             </div>
-
-            {/* Phân trang */}
             {totalPages > 1 && (
                 <div className="mt-6 flex justify-center">
                     <div className="flex space-x-2">
@@ -195,7 +225,7 @@ function StudentSearch() {
                             <button
                                 key={page}
                                 onClick={() => handlePageChange(page)}
-                                className={`px-4 py-2 rounded-lg ${
+                                className={`px-4 py-2 text-sm rounded-lg ${
                                     currentPage === page
                                         ? "bg-blue-600 text-white"
                                         : "bg-gray-200 text-gray-700 hover:bg-gray-300"

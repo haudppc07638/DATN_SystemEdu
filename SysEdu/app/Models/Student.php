@@ -11,12 +11,6 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Carbon\Carbon;
-use App\Models\Major;
-use App\Models\SubjectClass;
-use App\Models\StudentSubjectClass;
-use App\Models\TotalTuition;
-use App\Models\Tuition;
-use App\Models\Feedback;
 
 class Student extends Authenticatable
 {
@@ -25,25 +19,25 @@ class Student extends Authenticatable
     protected $table = 'students';
 
     protected $fillable = [
-        'full_name',
-        'date_of_birth',
-        'gender',
-        'nation',
-        'email',
-        'code',
-        'phone',
-        'image',
-        'identity_card',
-        'card_issuance_date',
-        'card_location',
-        'provice_city',
-        'district',
-        'commune_level',
-        'house_number',
-        'sponsor_name',
-        'sponsor_phone',
-        'major_id',
-        'major_class_id',
+        'full_name',           // Tên đầy đủ
+        'date_of_birth',       // Ngày sinh
+        'gender',              // Giới tính (0 - nữ, 1 - nam)
+        'nation',              // Quốc tịch
+        'email',               // Email
+        'code',                // Mã sinh viên
+        'phone',               // Số điện thoại
+        'image',               // Ảnh đại diện
+        'identity_card',       // CMND/CCCD
+        'card_issuance_date',  // Ngày cấp CMND/CCCD
+        'card_location',       // Nơi cấp CMND/CCCD
+        'provice_city',        // Tỉnh/Thành phố
+        'district',            // Quận/Huyện
+        'commune_level',       // Xã/Phường
+        'house_number',        // Số nhà
+        'sponsor_name',        // Tên người bảo hộ
+        'sponsor_phone',       // Số điện thoại người bảo hộ
+        'major_id',            // ID chuyên ngành
+        'major_class_id',      // ID lớp chuyên ngành
     ];
     public function isStudent()
     {
@@ -57,7 +51,7 @@ class Student extends Authenticatable
 
     public function stuClass(): BelongsTo
     {
-        return $this->belongsTo(StudentSubjectClass::class, 'major_class_id');
+        return $this->belongsTo(StuClass::class, 'major_class_id');
     }
 
     public function subjectClass(): BelongsTo
@@ -104,7 +98,7 @@ class Student extends Authenticatable
     {
         return [
             'majors' => Major::select('id', 'name')->get(),
-            'classes' => StudentSubjectClass::select('id', 'name')->get(),
+            'classes' => StuClass::select('id', 'name')->get(),
         ];
     }
 
@@ -112,7 +106,7 @@ class Student extends Authenticatable
     {
         return [
             'majors' => Major::select('id', 'name')->get(),
-            'classes' => StudentSubjectClass::select('id', 'name')->get(),
+            'classes' => StuClass::select('id', 'name')->get(),
         ];
     }
     public static function getCurrentSemesterRegisteredClasses($studentId)
@@ -191,12 +185,15 @@ class Student extends Authenticatable
             ->where('student_id', 'credit', 'subject_class_id')
             ->get();
     }
-
+    // public static function getTuiTionStudent(){
+    //     return static::
+    // }
     public function getDateOfBirthAttribute($value)
     {
         return Carbon::parse($value);
     }
 
+    // Chuyển đổi card_issuance_date thành Carbon
     public function getCardIssuanceDateAttribute($value)
     {
         return Carbon::parse($value);

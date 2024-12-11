@@ -16,40 +16,58 @@ class StudentSeachController extends Controller
         ]);
     }
 
-    // public function search(Request $request)
-    // {
-    //     try {
-    //         $searchTerm = $request->search_term;
+    public function getAllStudents()
+    {
+        try {
+            $students = Student::with(['major', 'stuClass'])->get();
+            return response()->json([
+                'status' => 'success', 
+                'data' => $students
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
-    //         if (empty($searchTerm)) {
-    //             return response()->json([
-    //                 'status' => 'error',
-    //                 'message' => 'Vui lòng nhập từ khóa tìm kiếm'
-    //             ]);
-    //         }
 
-    //         $students = Student::searchStudents($searchTerm);
-    //         $view = view('teacher.student-lookup.searchResults', compact('students'))->render();
+    public function searchStudents(Request $request)
+    {
+        try {
+            $searchTerm = $request->search_term;
 
-    //         return response()->json([
-    //             'status' => 'success',
-    //             'data' => $view
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response()->json([
-    //             'status' => 'error',
-    //             'message' => 'Có lỗi xảy ra vui lòng thử lại sau !'
-    //         ]);
-    //     }
-    // }
+            if (empty($searchTerm)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Vui lòng nhập từ khóa tìm kiếm'
+                ]);
+            }
 
-    // public function show($id)
-    // {
-    //     try {
-    //         $student = Student::getDetailedStudent($id);
-    //         return view('teacher.student-lookup.show', compact('student'));
-    //     } catch (\Exception $e) {
-    //         return redirect()->back()->with('error', 'Không tìm thấy sinh viên');
-    //     }
-    // }
+            $students = Student::searchStudents($searchTerm);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $students
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Có lỗi xảy ra vui lòng thử lại sau !'
+            ]);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $student = Student::getStudentDetailById($id);
+            return inertia('Teacher/StudentSeach/Show', [
+                'student' => $student
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Không tìm thấy sinh viên');
+        }
+    }
 }
