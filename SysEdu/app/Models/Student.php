@@ -185,9 +185,7 @@ class Student extends Authenticatable
             ->where('student_id', 'credit', 'subject_class_id')
             ->get();
     }
-    // public static function getTuiTionStudent(){
-    //     return static::
-    // }
+    
     public function getDateOfBirthAttribute($value)
     {
         return Carbon::parse($value);

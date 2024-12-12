@@ -202,19 +202,21 @@ function Attendance() {
                                                     <div className="py-1">
                                                         <Link
                                                             href="/teacher/"
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         >
+                                                            <i className="fas fa-eye mr-2"></i>
                                                             Xem chi tiết
                                                         </Link>
                                                         <Link
                                                             href="/teacher/"
-                                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                            className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         >
+                                                            <i className="fas fa-edit mr-2"></i>
                                                             Chỉnh sửa
                                                         </Link>
                                                         <Link
                                                             href="/teacher/student-attendance-detail"
-                                                            className={`block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${
+                                                            className={`flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${
                                                                 new Date(
                                                                     classItem.date,
                                                                 ) > new Date()
@@ -222,6 +224,7 @@ function Attendance() {
                                                                     : ""
                                                             }`}
                                                         >
+                                                            <i className="fas fa-user-check mr-2"></i>
                                                             Điểm danh
                                                         </Link>
                                                     </div>

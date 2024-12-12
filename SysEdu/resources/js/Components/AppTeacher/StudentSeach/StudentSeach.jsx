@@ -19,24 +19,14 @@ function StudentSearch({ students: initialStudents }) {
     }, []);
 
     useEffect(() => {
-        const getAllStudents = async () => {
+        const searchStudents = async () => {
             try {
-                const response = await axios.get("/api/all-students");
-                if (response.data.status === "success") {
-                    setStudents(response.data.data);
-                }
-            } catch (error) {
-                console.error("Lỗi khi lấy danh sách sinh viên:", error);
-                setStudents(initialStudents || []);
-            }
-        };
-        getAllStudents();
-    }, [initialStudents]);
-
-    useEffect(() => {
-        if (searchTerm.trim() !== "") {
-            const searchStudents = async () => {
-                try {
+                if (searchTerm.trim() === "") {
+                    const response = await axios.get("/api/all-students");
+                    if (response.data.status === "success") {
+                        setStudents(response.data.data);
+                    }
+                } else {
                     const response = await axios.get("/api/students", {
                         params: {
                             search_term: searchTerm,
@@ -45,17 +35,17 @@ function StudentSearch({ students: initialStudents }) {
                     if (response.data.status === "success") {
                         setStudents(response.data.data);
                     }
-                } catch (error) {
-                    console.error("Lỗi khi tìm kiếm sinh viên:", error);
                 }
-            };
+            } catch (error) {
+                console.error("Lỗi khi tìm kiếm sinh viên:", error);
+            }
+        };
 
-            const delaySearch = setTimeout(() => {
-                searchStudents();
-            }, 500);
+        const delaySearch = setTimeout(() => {
+            searchStudents();
+        }, 500);
 
-            return () => clearTimeout(delaySearch);
-        }
+        return () => clearTimeout(delaySearch);
     }, [searchTerm]);
 
     const indexOfLastItem = currentPage * itemsPerPage;
