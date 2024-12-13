@@ -1,98 +1,52 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
-
-const classList = [
-    {
-        id: 1,
-        className: "Lập trình Website",
-        classCode: "WD18306",
-        nameStudents: "Trần Nhân Nghĩa",
-        idStudent: "SV001",
-        date: "01/12/2024",
-        study: "Ca 3",
-    },
-    {
-        id: 2,
-        className: "Lập trình Website",
-        classCode: "WD18306",
-        nameStudents: "Danh Phúc Hậu",
-        idStudent: "SV002",
-        date: "01/12/2024",
-        study: "Ca 3",
-    },
-    {
-        id: 3,
-        className: "Lập trình Website",
-        classCode: "WD18306",
-        nameStudents: "Võ Minh Khánh",
-        idStudent: "SV003",
-        date: "01/12/2024",
-        study: "Ca 3",
-    },
-    {
-        id: 4,
-        className: "Lập trình Website",
-        classCode: "WD18306",
-        nameStudents: "Thái Văn Lộc",
-        idStudent: "SV004",
-        date: "01/12/2024",
-        study: "Ca 3",
-    },
-];
+import axios from "axios";
 
 function AttendanceDetail() {
     const [loading, setLoading] = useState(true);
-    const [classes, setClasses] = useState(classList);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredClasses, setFilteredClasses] = useState(classList);
+    const [filteredClasses, setFilteredClasses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 20;
-
-    const [classStates, setClassStates] = useState(
-        classList.reduce((account, classItem) => {
-            account[classItem.id] = true;
-            return account;
-        }, {}),
-    );
+    const [classStates, setClassStates] = useState({});
+    const itemsPerPage = 10;
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoading(false);
-        }, 1000);
-        return () => clearTimeout(timer);
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/attendance/class-detail/{classId}");
+                const { currentClasses, pastClasses } = response.data;
+                const allClasses = [...currentClasses, ...pastClasses.data];
+                setFilteredClasses(allClasses);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
 
+    // Filtering classes based on the search term
     useEffect(() => {
         if (searchTerm.trim() === "") {
-            setFilteredClasses(classes);
-        } else {
-            setFilteredClasses(
-                classes.filter(
-                    (classItem) =>
-                        classItem.className
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        classItem.classCode
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        classItem.nameStudents
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        classItem.idStudent
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
-                ),
-            );
+            return; // No filter needed
         }
-        setCurrentPage(1);
-    }, [searchTerm, classes]);
 
+        const filtered = filteredClasses.filter((classItem) =>
+            classItem.className.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            classItem.classCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (classItem.nameStudents && classItem.nameStudents.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (classItem.idStudent && classItem.idStudent.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+        setFilteredClasses(filtered);
+        setCurrentPage(1); // Reset to page 1 when search term changes
+    }, [searchTerm, filteredClasses]);
+
+    // Pagination
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentClasses = filteredClasses.slice(
-        indexOfFirstItem,
-        indexOfLastItem,
-    );
+    const currentClasses = filteredClasses.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(filteredClasses.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -148,43 +102,22 @@ function AttendanceDetail() {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="py-4 px-6 text-center font-semibold">
-                                STT
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Tên lớp
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Mã lớp
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Tên sinh viên
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Mã số sinh viên
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Ca học
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Trạng thái
-                            </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Ghi chú
-                            </th>
+                            <th className="py-4 px-6 text-center font-semibold">STT</th>
+                            <th className="py-4 px-6 text-center font-semibold">Tên lớp</th>
+                            <th className="py-4 px-6 text-center font-semibold">Mã lớp</th>
+                            <th className="py-4 px-6 text-center font-semibold">Tên sinh viên</th>
+                            <th className="py-4 px-6 text-center font-semibold">Mã số sinh viên</th>
+                            <th className="py-4 px-6 text-center font-semibold">Ca học</th>
+                            <th className="py-4 px-6 text-center font-semibold">Trạng thái</th>
+                            <th className="py-4 px-6 text-center font-semibold">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentClasses.length > 0 ? (
                             currentClasses.map((classItem, index) => (
-                                <tr
-                                    key={classItem.id}
-                                    className="hover:bg-gray-50"
-                                >
+                                <tr key={classItem.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
-                                        {(currentPage - 1) * itemsPerPage +
-                                            index +
-                                            1}
+                                        {(currentPage - 1) * itemsPerPage + index + 1}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {classItem.className}
@@ -192,7 +125,7 @@ function AttendanceDetail() {
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {classItem.classCode}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
                                         {classItem.nameStudents}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
@@ -202,13 +135,13 @@ function AttendanceDetail() {
                                         {classItem.study}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">
-                                        <button
-                                            onClick={() =>
-                                                toggleButtonState(classItem.id)
-                                            }
-                                        >
+                                        <button onClick={() => toggleButtonState(classItem.id)}>
                                             <i
-                                                className={`fa ${classStates[classItem.id] ? "fa-toggle-on text-green-400" : "fa-toggle-off text-gray-200"} text-[40px]`}
+                                                className={`fa ${
+                                                    classStates[classItem.id]
+                                                        ? "fa-toggle-on text-green-400"
+                                                        : "fa-toggle-off text-gray-200"
+                                                } text-[40px]`}
                                                 aria-hidden="true"
                                             ></i>
                                         </button>

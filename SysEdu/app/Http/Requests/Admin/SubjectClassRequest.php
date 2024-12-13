@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Admin;
 
-use App\Models\MajorClass;
+use App\Models\StuClass;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +24,7 @@ class SubjectClassRequest extends FormRequest
     {
         $subjectclassId = $this->route('id');
         $majorClassId = $this->input('major_class_id');
-        $studentCount = MajorClass::studentCount($majorClassId);
+        $studentCount = StuClass::studentCount($majorClassId);
         return [
             'quantity' => 'required|integer|min:' . $studentCount,
             'name' => ['required', Rule::unique('subject_classes')->ignore($subjectclassId)],

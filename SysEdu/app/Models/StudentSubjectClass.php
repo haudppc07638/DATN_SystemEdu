@@ -21,4 +21,14 @@ class StudentSubjectClass extends Model
         'student_id',
         'subject_class_id',
     ];
+
+    public function subjectClass()
+    {
+        return $this->belongsTo(SubjectClass::class);
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }

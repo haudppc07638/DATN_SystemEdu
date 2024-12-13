@@ -35,6 +35,11 @@ class Subject extends Model
         return $this->hasMany(SubjectClass::class);
     }
 
+    public function studentSubjectClasses()
+    {
+        return $this->hasMany(StudentSubjectClass::class);
+    }
+
     public function hasRelations()
     {
         $relations = ['major', 'subjectClasses'];

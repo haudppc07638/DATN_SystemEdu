@@ -6,7 +6,7 @@ const classList = [
     {
         id: 1,
         className: "Lập trình Website",
-        classCode: "Lập Trình Web-WD18306", 
+        classCode: "Lập Trình Web-WD18306",
         numberOfStudents: 30,
         date: "01/12/2024",
         study: "Ca 3",
@@ -18,7 +18,7 @@ const classList = [
         className: "Lập trình Website",
         classCode: "Lập Trình Web-WD18307",
         numberOfStudents: 25,
-        date: "01/12/2024", 
+        date: "01/12/2024",
         study: "Ca 4",
         examClass: "P303",
         examSubject: "ReactJS",
@@ -29,7 +29,7 @@ const classList = [
         classCode: "Lập Trình Web-WD18308",
         numberOfStudents: 28,
         date: "01/12/2024",
-        study: "Ca 5", 
+        study: "Ca 5",
         examClass: "P303",
         examSubject: "ReactJS",
     },
@@ -52,7 +52,7 @@ function ExamList() {
     const [filteredClasses, setFilteredClasses] = useState(classList);
     const [currentPage, setCurrentPage] = useState(1);
     const [openMenu, setOpenMenu] = useState(null);
-    const itemsPerPage = 5;
+    const itemsPerPage = 10;
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -120,9 +120,7 @@ function ExamList() {
                 <h2 className="text-2xl font-bold text-gray-800">
                     Danh sách lịch thi
                 </h2>
-                <BreadcrumbTeacher
-                    items={[{ label: "Danh sách lịch thi" }]}
-                />
+                <BreadcrumbTeacher items={[{ label: "Danh sách lịch thi" }]} />
             </div>
 
             <div className="mb-6">
@@ -144,31 +142,31 @@ function ExamList() {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Tên môn
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Tên lớp
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Số lượng sinh viên
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Môn thi
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Ca thi
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Phòng thi
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Ngày thi
                             </th>
-                            <th className="py-4 px-4 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 Tác vụ
                             </th>
                         </tr>
@@ -224,6 +222,7 @@ function ExamList() {
                                                             href="/teacher/student-examdetail"
                                                             className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         >
+                                                            <i className="fas fa-eye mr-2"></i>
                                                             Xem chi tiết
                                                         </Link>
                                                     </div>

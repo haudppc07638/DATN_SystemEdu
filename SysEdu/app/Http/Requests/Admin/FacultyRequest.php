@@ -22,30 +22,30 @@ class FacultyRequest extends FormRequest
      */
     public function rules(): array
     {
-        $faculty = $this->route('faculty');
-        $facultyId = $faculty ? $faculty->id : null;
-
-        return [
-            'name' => ['required', 'string', 'max:100', Rule::unique('faculties')->ignore($facultyId)],
-            'code' => ['required', 'string', 'max:20', Rule::unique('faculties')->ignore($facultyId)],
-            'description' => 'required|string|max:500'
+        $facultyId = $this->route('id');
+        return[
+            'name' => 'required|string|max:50|',Rule::unique('faculty')->ignore($facultyId),
+            'code' => 'required|string|max:10|',Rule::unique('faculty')->ignore($facultyId),
+            'dean' => 'nullable',
+            'assistant_dean' => 'nullable',
+            'description' => 'required|string|max:255|'
         ];
     }
-
-    public function messages(): array
-    {
+    public function messages(){
         return [
-            'name.required' => 'Tên khoa không được để trống !',
-            'name.string' => 'Tên khoa phải là chuỗi !',
-            'name.max' => 'Tên khoa không được quá 100 ký tự !',
-            'name.unique'=> 'Khoa này đã tồn tại !',
-            'code.required' => 'Mã khoa không được để trống !',
-            'code.string' => 'Mã khoa phải là chuỗi !',
-            'code.max' => 'Mã khoa không được quá 20 ký tự !',
-            'code.unique' => 'Mã khoa này đã tồn tại !',
-            'description.required' => 'Mô tả không được để trống !',
-            'description.string' => 'Mô tả phải là chuỗi !',
-            'description.max' => 'Mô tả không được quá 500 ký tự !',
+        'name.required' => 'Tên khoa không được để trống',
+        'name.string' => 'Tên khoa phải là 1 chuỗi ký tự',
+        'name.unique' => 'Tên khoa đã tồn tại!',
+        'name.max' => 'Tên khoa không được nhập quá 50 ký tự',
+        'code.required' => 'Mã khoa không được để trống',
+        'code.string' => 'Mã khoa phải là 1 chuỗi ký tự',
+        'code.unique' => 'Mã khoa đã tồn tại!',
+        'code.max' => 'Mã khoa không được nhập quá 10 ký tự',
+        'description.required' => 'Mô tả không được để trống',
+        'description.string' => 'Mô tả phải là 1 chuỗi ký tự',
+        'description.max' => 'Không được nhập quá 255 ký tự'
         ];
     }
+    
+    
 }

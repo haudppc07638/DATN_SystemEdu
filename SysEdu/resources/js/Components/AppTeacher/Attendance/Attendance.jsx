@@ -1,47 +1,14 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
 import { Link } from "@inertiajs/react";
-
-const classList = [
-    {
-        id: 1,
-        className: "Lập trình Website",
-        classCode: "Lập Trình Web-WD18302",
-        numberOfStudents: 30,
-        date: "01/12/2024",
-        study: "Ca 3",
-    },
-    {
-        id: 2,
-        className: "Lập trình Website",
-        classCode: "Lập Trình Web-WD18303",
-        numberOfStudents: 25,
-        date: "01/12/2024",
-        study: "Ca 4",
-    },
-    {
-        id: 3,
-        className: "Lập trình Website",
-        classCode: "Lập Trình Web-WD18304",
-        numberOfStudents: 28,
-        date: "01/12/2024",
-        study: "Ca 5",
-    },
-    {
-        id: 4,
-        className: "Lập trình Website",
-        classCode: "Lập Trình Web-WD18305",
-        numberOfStudents: 32,
-        date: "02/12/2024",
-        study: "Ca 1",
-    },
-];
+import axios from "axios";
 
 function Attendance() {
     const [loading, setLoading] = useState(true);
-    const [classes] = useState(classList);
+    const [currentClasses, setCurrentClasses] = useState([]);
+    const [pastClasses, setPastClasses] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredClasses, setFilteredClasses] = useState(classList);
+    const [filteredClasses, setFilteredClasses] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [openMenu, setOpenMenu] = useState(null);
     const itemsPerPage = 10;
@@ -54,23 +21,41 @@ function Attendance() {
     }, []);
 
     useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("/api/attendance/class-list");
+                setCurrentClasses(response.data.currentClasses);
+                setPastClasses(response.data.pastClasses.data);
+                setFilteredClasses([
+                    ...response.data.currentClasses,
+                    ...response.data.pastClasses.data,
+                ]);
+                setLoading(false);
+            } catch (error) {
+                console.error("Lỗi khi tải dữ liệu:", error);
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
         if (searchTerm.trim() === "") {
-            setFilteredClasses(classes);
+            setFilteredClasses([...currentClasses, ...pastClasses]);
         } else {
-            setFilteredClasses(
-                classes.filter(
-                    (classItem) =>
-                        classItem.className
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()) ||
-                        classItem.classCode
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase()),
-                ),
+            const filtered = [...currentClasses, ...pastClasses].filter(
+                (classItem) =>
+                    classItem.subject.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()) ||
+                    classItem.name
+                        .toLowerCase()
+                        .includes(searchTerm.toLowerCase()),
             );
+            setFilteredClasses(filtered);
         }
         setCurrentPage(1);
-    }, [searchTerm, classes]);
+    }, [searchTerm, currentClasses, pastClasses]);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -87,11 +72,10 @@ function Attendance() {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentClasses = filteredClasses.slice(
+    const paginatedClasses = filteredClasses.slice(
         indexOfFirstItem,
         indexOfLastItem,
     );
-
     const totalPages = Math.ceil(filteredClasses.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
@@ -136,32 +120,35 @@ function Attendance() {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-3 text-center font-semibold">
                                 STT
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Môn
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Lớp môn
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Tên lớp
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Tên môn
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Mã môn
+                            </th>
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Số lượng sinh viên
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Ngày học
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Ngày bắt đầu
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
-                                Ca học
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Ngày kết thúc
                             </th>
-                            <th className="py-4 px-6 text-center font-semibold">
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Tác vụ
                             </th>
                         </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                        {currentClasses.length > 0 ? (
-                            currentClasses.map((classItem, index) => (
+                        {paginatedClasses.length > 0 ? (
+                            paginatedClasses.map((classItem, index) => (
                                 <tr
                                     key={classItem.id}
                                     className="hover:bg-gray-50"
@@ -171,20 +158,23 @@ function Attendance() {
                                             index +
                                             1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        {classItem.className}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        {classItem.classCode}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.subject.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        {classItem.numberOfStudents}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.subject.code}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        {classItem.date}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.quantity} sinh viên
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        {classItem.study}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.start_date}
+                                    </td>
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {classItem.end_date}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-center font-medium">
                                         <div className="relative inline-block text-left">
@@ -201,28 +191,15 @@ function Attendance() {
                                                 <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-50">
                                                     <div className="py-1">
                                                         <Link
-                                                            href="/teacher/"
+                                                            href={`/attendance/class-detail/${classItem.id}`}
                                                             className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                                         >
                                                             <i className="fas fa-eye mr-2"></i>
                                                             Xem chi tiết
                                                         </Link>
                                                         <Link
-                                                            href="/teacher/"
+                                                            href={`/attendance/class-detail/${classItem.id}`}
                                                             className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                                        >
-                                                            <i className="fas fa-edit mr-2"></i>
-                                                            Chỉnh sửa
-                                                        </Link>
-                                                        <Link
-                                                            href="/teacher/student-attendance-detail"
-                                                            className={`flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ${
-                                                                new Date(
-                                                                    classItem.date,
-                                                                ) > new Date()
-                                                                    ? "pointer-events-none opacity-50"
-                                                                    : ""
-                                                            }`}
                                                         >
                                                             <i className="fas fa-user-check mr-2"></i>
                                                             Điểm danh

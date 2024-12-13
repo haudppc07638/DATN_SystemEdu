@@ -22,25 +22,39 @@ class MajorRequest extends FormRequest
      */
     public function rules(): array
     {
-        $major = $this->route('major');
-        $majorId = $major ? $major->id : null;
+        $majorId = $this->route('id');
 
         return [
-            'name' => ['required', 'string', 'max:100',Rule::unique('majors')->ignore($majorId)],
-            'faculty_id' => 'required'
+            'name' => 'required|string|max:100',
+            'faculty_id' => 'required|exists:faculties,id',
+            'code' => ['required', 'string', 'max:15', Rule::unique('majors')->ignore($majorId)],
+            'total_credits' => 'required|integer|min:1',
         ];
     }
 
-    public function messages(): array
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function messages()
     {
         return [
-            'name.required' => 'Tên chuyên ngành không được để trống !',
-            'name.string' => 'Tên chuyên ngành phải là 1 chuỗi !',
-            'name.max' => 'Tên chuyên ngành không được quá 100 ký tự !',
-            'name.unique' => 'Tên chuyên ngành đã tồn tại !',
+            'name.required' => 'Tên chuyên ngành không được để trống',
+            'name.string' => 'Tên chuyên ngành phải là 1 chuỗi ký tự',
+            'name.max' => 'Tên chuyên ngành không được nhập quá 100 ký tự',
 
-            'faculty_id.required' => 'Vui lòng chọn khoa !',
-            'faculty_id.exists' => 'Khoa không hợp lệ !',
+            'faculty_id.required' => 'Khoa không được để trống',
+            'faculty_id.exists' => 'Khoa không hợp lệ',
+
+            'code.required' => 'Mã chuyên ngành không được để trống',
+            'code.string' => 'Mã chuyên ngành phải là 1 chuỗi ký tự',
+            'code.unique' => 'Mã chuyên ngành đã tồn tại',
+            'code.max' => 'Mã chuyên ngành không được quá 15 ký tự',
+
+            'total_credits.required' => 'Tổng tín chỉ không được để trống', 
+            'total_credits.integer' => 'Tổng tín chỉ phải là một số nguyên',
+            'total_credits.min' => 'Tổng tín chỉ phải lớn hơn hoặc bằng 1', 
         ];
     }
 }

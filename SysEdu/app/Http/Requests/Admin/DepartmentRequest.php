@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -21,22 +22,23 @@ class DepartmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|max:100',
-            'location' => 'required|string|max:255',
+        $departmentId = $this->route('id');
+
+        return[
+            'name' => ['required', 'string', 'max:100', Rule::unique('departments')->ignore($departmentId)],
+            'location' => 'required|string|max:100',
         ];
     }
 
-    public function messages(): array
-    {
+    public function messages(){
         return [
-            'name.required' => 'Tên phòng ban không được để trống !',
-            'name.string' => 'Tên phòng ban phải là chuỗi !',
-            'name.max' => 'Tên phòng ban không được quá 100 ký tự !',
-            
-            'location.required' => 'Địa điểm không được để trống !',
-            'location.string' => 'Địa điểm phải là chuỗi !',
-            'location.max' => 'Địa điểm không được quá 255 ký tự !',
+        'name.required' => 'Tên phòng ban không được để trống',
+        'name.string' => 'Tên phòng ban phải là 1 chuỗi ký tự',
+        'name.unique' => 'Tên phòng ban đã tồn tại!',
+        'name.max' => 'Tên phòng ban không được nhập quá 100 ký tự',
+        'location.required' => 'Vị trí không được để trống',
+        'location.string' => 'Vị trí phải là 1 chuỗi ký tự',
+        'location.max' => 'Vị trí không được nhập quá 100 ký tự',
         ];
     }
 }

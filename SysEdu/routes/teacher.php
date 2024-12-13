@@ -20,7 +20,7 @@ Route::get('/', [HomeController::class, 'index'])->name('teacher.home');
 // Hiển thị danh sách sinh viên
 Route::get('/student-seach', [StudentSeachController::class, 'index'])->name('teacher.students');
 Route::get('/student-attendance', [AttendanceController::class, 'index'])->name('teacher.attendance');
-Route::get('/student-attendance-detail', [AttendanceDetailController::class, 'index'])->name('teacher.attendance-detail');
+// Route::get('/student-attendance-detail', [AttendanceDetailController::class, 'index'])->name('teacher.attendance-detail');
 Route::get('/student-examlist', [ExamListController::class, 'index'])->name('teacher.examlist');
 Route::get('/student-examdetail', [ExamDetailController::class, 'index'])->name('teacher.examdetail');
 Route::get('/student-myclass', [MyClassController::class, 'index'])->name('teacher.myclass');

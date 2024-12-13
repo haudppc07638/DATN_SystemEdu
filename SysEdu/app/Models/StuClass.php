@@ -23,6 +23,7 @@ class StuClass extends Model
         'start_date',
         'end_date',
         'employee_id',
+        'major_class_id'
     ];
 
     public function major(): BelongsTo
@@ -46,7 +47,7 @@ class StuClass extends Model
     {
         return self::with(['major'])
             ->where('major_id', $id)
-            ->select('id', 'training_system', 'name', 'quantity', 'status', 'major_id','start_date', 'employee_id')
+            ->select('id', 'training_system', 'name', 'quantity', 'status', 'major_id','start_date', 'employee_id','major_class_id')
             ->latest()
             ->get();
     }

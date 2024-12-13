@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Exports\StudentSubjectClassExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teacher\AttendanceRequest;
 use App\Imports\StudentSubjectClassImport;
 use App\Models\Attendance;
 use App\Models\Schedule;
@@ -11,35 +12,43 @@ use App\Models\Score;
 use App\Models\StudentSubjectClass;
 use App\Models\SubjectClass;
 use Carbon\Carbon;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Vtiful\Kernel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Teacher/Attendance/Page');
+        $classListData = $this->classList();
+        if (empty($classListData['currentClasses']) && $classListData['pastClasses']->isEmpty()) {
+            return Inertia::render('Teacher/Attendance/Page', [
+                'message' => 'Hiện tại bạn không có lớp học nào được phân công.',
+            ]);
+        }
+    
+        return Inertia::render('Teacher/Attendance/Page', [
+            'currentClasses' => $classListData['currentClasses'],
+            'pastClasses' => $classListData['pastClasses']
+        ]);
     }
-
+    
     public function classList()
     {
-        $teacher = Auth::guard('employee')->user();
         $today = Carbon::today();
-
-        $currentClasses = SubjectClass::where('employee_id', $teacher->id)
-            ->with(['subject', 'schedules', 'studentSubjectClasses'])
-            ->where('start_date', '<=', $today)
+        $currentClasses = SubjectClass::where('start_date', '<=', $today)
             ->where('end_date', '>=', $today)
+            ->with(['subject', 'studentSubjectClasses'])
             ->get();
-
-        $pastClasses = SubjectClass::where('employee_id', $teacher->id)
-            ->with(['subject', 'schedules', 'studentSubjectClasses'])
-            ->where('end_date', '<', $today)
+        $pastClasses = SubjectClass::where('end_date', '<', $today)
+            ->with(['subject', 'studentSubjectClasses'])
             ->paginate(10);
 
-        return view('teacher.attendance.classList', compact('currentClasses', 'pastClasses'));
+        return [
+            'currentClasses' => $currentClasses,
+            'pastClasses' => $pastClasses
+        ];
     }
 
     public function classDetail(SubjectClass $subjectClass)
@@ -59,6 +68,7 @@ class AttendanceController extends Controller
         $grades = Score::whereHas('studentSubjectClass', function ($query) use ($subjectClass) {
             $query->where('subject_class_id', $subjectClass->id);
         })->with('studentSubjectClass.student')->get();
+
         return view('teacher.attendance.classDetail', compact('subjectClass', 'attendanceStats', 'attendanceHistory', 'students', 'grades', 'date'));
     }
 
@@ -193,13 +203,13 @@ class AttendanceController extends Controller
 
                 $errors = $import->getErrors();
                 if (!empty($errors)) {
-                    return back();
+                    return back()->with('error', 'Có lỗi xảy ra khi nhập điểm');
                 }
-                return back();
+                return back()->with('success', 'Nhập điểm thành công');
             } catch (\Throwable $e) {
-                return back();
+                return back()->with('error', 'Có lỗi xảy ra khi nhập điểm');
             }
         }
-        return back();
+        return back()->with('error', 'Vui lòng chọn file để nhập điểm');
     }
 }

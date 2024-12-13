@@ -90,12 +90,12 @@ function Sidebar() {
             icon: "user-graduate",
         },
         {
-            link: "/",
+            link: "",
             label: "Gửi thông báo",
             icon: "paper-plane",
         },
         {
-            link: "/",
+            link: "",
             label: "Feedback",
             icon: "comment-dots",
         },

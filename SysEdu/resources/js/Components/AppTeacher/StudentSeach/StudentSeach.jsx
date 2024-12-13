@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import BreadcrumbTeacher from "../../Breadcrumbs/BreadcrumbTeacher";
-import { router } from "@inertiajs/react";
 import axios from "axios";
 
 function StudentSearch({ students: initialStudents }) {
@@ -8,7 +7,6 @@ function StudentSearch({ students: initialStudents }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [students, setStudents] = useState(initialStudents || []);
     const [currentPage, setCurrentPage] = useState(1);
-    const [showDropdown, setShowDropdown] = useState(null);
     const itemsPerPage = 10;
 
     useEffect(() => {
@@ -57,14 +55,6 @@ function StudentSearch({ students: initialStudents }) {
         setCurrentPage(pageNumber);
     };
 
-    const handleViewDetail = (studentId) => {
-        router.get(`/student-seach/${studentId}`);
-    };
-
-    const toggleDropdown = (studentId) => {
-        setShowDropdown(showDropdown === studentId ? null : studentId);
-    };
-
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -103,22 +93,33 @@ function StudentSearch({ students: initialStudents }) {
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                            <th className="py-2 px-3 font-semibold">STT</th>
-                            <th className="py-2 px-3 font-semibold">
+                            <th className="py-2 px-2 font-semibold text-center">
+                                STT
+                            </th>
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Tên sinh viên
                             </th>
-                            <th className="py-2 px-3 font-semibold">
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Mã sinh viên
                             </th>
-                            <th className="py-2 px-3 font-semibold">Email</th>
-                            <th className="py-2 px-3 font-semibold">
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Email
+                            </th>
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Số điện thoại
                             </th>
-                            <th className="py-2 px-3 font-semibold">
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Quê quán
+                            </th>
+                            <th className="py-2 px-2 font-semibold text-left">
                                 Chuyên ngành
                             </th>
-                            <th className="py-2 px-3 font-semibold">Lớp</th>
-                            <th className="py-2 px-3 font-semibold">Tác vụ</th>
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Lớp
+                            </th>
+                            <th className="py-2 px-2 font-semibold text-left">
+                                Trạng thái
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -128,67 +129,62 @@ function StudentSearch({ students: initialStudents }) {
                                     key={student.id}
                                     className="hover:bg-gray-50 transition-colors duration-200"
                                 >
-                                    <td className="py-2 px-3 whitespace-nowrap text-sm text-center text-gray-900">
+                                    <td className="py-2 px-4 whitespace-nowrap text-sm text-center text-gray-900">
                                         {(currentPage - 1) * itemsPerPage +
                                             index +
                                             1}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.full_name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.code}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.email}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.phone}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {student.provice_city}
+                                    </td>
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
                                         {student.major?.name}
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                        {student.stuClass?.name}
+                                    <td className="px-2 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {student.stuClass?.name}.....................
                                     </td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-900">
-                                        <div className="relative">
-                                            <button
-                                                onClick={() =>
-                                                    toggleDropdown(student.id)
-                                                }
-                                                className="px-2 py-1 text-gray-600 hover:text-gray-800 focus:outline-none"
-                                            >
-                                                <i className="fas fa-ellipsis-v"></i>
-                                            </button>
-                                            {showDropdown === student.id && (
-                                                <>
-                                                    <div
-                                                        className="fixed inset-0"
-                                                        onClick={() =>
-                                                            setShowDropdown(
-                                                                null,
-                                                            )
-                                                        }
-                                                    ></div>
-                                                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-                                                        <div className="py-1">
-                                                            <button
-                                                                onClick={() =>
-                                                                    handleViewDetail(
-                                                                        student.id,
-                                                                    )
-                                                                }
-                                                                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center"
-                                                            >
-                                                                <i className="fas fa-eye mr-2"></i>
-                                                                Xem chi tiết
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </>
-                                            )}
-                                        </div>
+                                    <td
+                                        className={`px-2 py-4 whitespace-nowrap text-sm rounded-md ${
+                                            student.status === "active"
+                                                ? "text-green-600"
+                                                : student.status === "inactive"
+                                                  ? "text-red-600"
+                                                  : student.status ===
+                                                      "graduated"
+                                                    ? "text-blue-600"
+                                                    : student.status ===
+                                                        "suspended"
+                                                      ? "text-orange-600"
+                                                      : student.status ===
+                                                          "deferred"
+                                                        ? "text-yellow-600"
+                                                        : "text-gray-600"
+                                        }`}
+                                    >
+                                        {student.status === "active"
+                                            ? "Đang học"
+                                            : student.status === "inactive"
+                                              ? "Không hoạt động"
+                                              : student.status === "graduated"
+                                                ? "Đã tốt nghiệp"
+                                                : student.status === "suspended"
+                                                  ? "Đình chỉ"
+                                                  : student.status ===
+                                                      "deferred"
+                                                    ? "Hoãn lại"
+                                                    : "Không xác định"}
                                     </td>
                                 </tr>
                             ))
